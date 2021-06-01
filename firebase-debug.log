@@ -1,0 +1,50 @@
+[debug] [2021-05-30T08:38:38.610Z] ----------------------------------------------------------------------
+[debug] [2021-05-30T08:38:38.612Z] Command:       /usr/local/bin/node /usr/local/bin/firebase init
+[debug] [2021-05-30T08:38:38.612Z] CLI Version:   9.12.0
+[debug] [2021-05-30T08:38:38.612Z] Platform:      darwin
+[debug] [2021-05-30T08:38:38.612Z] Node Version:  v14.7.0
+[debug] [2021-05-30T08:38:38.613Z] Time:          Sun May 30 2021 09:38:38 GMT+0100 (West Africa Standard Time)
+[debug] [2021-05-30T08:38:38.613Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-05-30T08:38:38.618Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-05-30T08:38:38.618Z] > authorizing via signed-in user (okekechidera97@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/Chidera/Desktop/react projects/chat-application
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2021-05-30T08:39:18.545Z] > refreshing access token with scopes: []
+[debug] [2021-05-30T08:39:18.545Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-05-30T08:39:18.568Z] Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[debug] [2021-05-30T08:39:18.574Z] FirebaseError: Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+    at invalidCredentialError (/usr/local/lib/node_modules/firebase-tools/lib/auth.js:141:12)
+    at refreshTokens (/usr/local/lib/node_modules/firebase-tools/lib/auth.js:448:15)
+    at processTicksAndRejections (internal/process/task_queues.js:93:5)
+    at async Client.getAccessToken (/usr/local/lib/node_modules/firebase-tools/lib/apiv2.js:144:23)
+    at async Client.addAuthHeader (/usr/local/lib/node_modules/firebase-tools/lib/apiv2.js:135:21)
+    at async Client.request (/usr/local/lib/node_modules/firebase-tools/lib/apiv2.js:93:34)
+    at async getProjectPage (/usr/local/lib/node_modules/firebase-tools/lib/management/projects.js:233:17)
+    at async getFirebaseProjectPage (/usr/local/lib/node_modules/firebase-tools/lib/management/projects.js:250:23)
+    at async selectProjectInteractively (/usr/local/lib/node_modules/firebase-tools/lib/management/projects.js:95:41)
+    at async Object.doSetup [as project] (/usr/local/lib/node_modules/firebase-tools/lib/init/features/project.js:87:27)
+    at async init (/usr/local/lib/node_modules/firebase-tools/lib/init/index.js:19:9)
+[error] 
+[error] Error: Failed to list Firebase projects. See firebase-debug.log for more info.
