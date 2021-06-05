@@ -10,7 +10,7 @@ function Signup() {
 		e.preventDefault();
 		setError("");
 		signUp(user.email, user.password)
-			.then((res) => {
+			.then(() => {
 				setError(null);
 				setUser({ email: "", password: "" });
 			})
