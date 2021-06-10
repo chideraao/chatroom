@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { auth, store } from "../services/firebase";
+import { auth, db } from "../services/firebase";
 
-function Chat() {
+function ChatRoom() {
 	const [chats, setChats] = useState([]);
 	const [user, setUser] = useState(auth().currentUser);
 	const [content, setContent] = useState("");
@@ -14,14 +14,11 @@ function Chat() {
 		setWriteError(null);
 		if (content !== "") {
 			try {
-				await store.collection("chats").doc(`${user.uid}`).set(
-					{
-						content,
-						timestamp: Date.now(),
-						uid: user.uid,
-					},
-					{ mergeFields: "true" }
-				);
+				await db.ref("chats").push({
+					content,
+					timestamp: Date.now(),
+					uid: user.uid,
+				});
 			} catch (err) {
 				setWriteError(err.message);
 			}
@@ -36,19 +33,19 @@ function Chat() {
 		setReadError(null);
 		async function getSnapshot() {
 			try {
-				let chats = [];
-				store
-					.collection("chats")
-					.doc(`${user.uid}`)
-					.onSnapshot((doc) => {
-						chats.push(doc.data());
+				db.ref("chats").on("value", (snapshot) => {
+					let chat = [];
+					snapshot.forEach((snap) => {
+						chat.push(snap.val());
 					});
+					setChats(chat);
+				});
 			} catch (err) {
 				setReadError(err.message);
 			}
 		}
 		getSnapshot();
-	}, [user]);
+	}, []);
 
 	return (
 		<div>
@@ -73,4 +70,4 @@ function Chat() {
 	);
 }
 
-export default Chat;
+export default ChatRoom;

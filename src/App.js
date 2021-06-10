@@ -5,15 +5,16 @@ import {
 	Route,
 	Switch,
 } from "react-router-dom";
+import "./styles/styles.css";
 import Chat from "./pages/Chat.jsx";
 import Home from "./pages/Home.jsx";
 import Login from "./pages/Login.jsx";
 import Signup from "./pages/Signup.jsx";
 import { auth } from "./services/firebase.js";
+import ChatRoom from "./pages/ChatRoom";
 
 /**Higher order component for Private pages */
 function PrivateRoute({ component: Component, authenticated, ...rest }) {
-	console.log();
 	return (
 		<Route
 			{...rest}
@@ -39,7 +40,7 @@ function PublicRoute({ component: Component, authenticated, ...rest }) {
 				authenticated === false ? (
 					<Component {...props} />
 				) : (
-					<Redirect to="/chat" />
+					<Redirect to="/home" />
 				)
 			}
 		/>
@@ -65,7 +66,16 @@ function App() {
 		<div className="App">
 			<Router>
 				<Switch>
-					<Route path="/home" component={Home} exact />
+					<PrivateRoute
+						path="/home"
+						component={Home}
+						authenticated={authenticated}
+					/>
+					<PrivateRoute
+						path="/chatroom"
+						component={ChatRoom}
+						authenticated={authenticated}
+					/>
 					<PrivateRoute
 						path="/chat"
 						component={Chat}
