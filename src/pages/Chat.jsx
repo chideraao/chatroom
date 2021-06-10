@@ -7,6 +7,7 @@ function Chat() {
 	const [content, setContent] = useState("");
 	const [readError, setReadError] = useState(null);
 	const [writeError, setWriteError] = useState(null);
+	// const [other, setother] = useState(null)
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -14,14 +15,18 @@ function Chat() {
 		setWriteError(null);
 		if (content !== "") {
 			try {
-				await store.collection("chats").doc(`${user.uid}`).set(
-					{
-						content,
-						timestamp: Date.now(),
-						uid: user.uid,
-					},
-					{ mergeFields: "true" }
-				);
+				await store
+					.collection(`${user.uid}`)
+					.doc("chats")
+					.collection("user")
+					.add(
+						{
+							content,
+							timestamp: Date.now(),
+							uid: user.uid,
+						},
+						{ merge: "true" }
+					);
 			} catch (err) {
 				setWriteError(err.message);
 			}
@@ -36,12 +41,16 @@ function Chat() {
 		setReadError(null);
 		async function getSnapshot() {
 			try {
-				let chats = [];
+				let chat = [];
 				store
-					.collection("chats")
-					.doc(`${user.uid}`)
-					.onSnapshot((doc) => {
-						chats.push(doc.data());
+					.collection(`${user.uid}`)
+					.doc("chats")
+					.collection("user")
+					.onSnapshot((docs) => {
+						docs.forEach((doc) => {
+							chat.push(doc.data());
+						});
+						setChats(chat);
 					});
 			} catch (err) {
 				setReadError(err.message);
