@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { auth, store } from "../services/firebase";
 
 function Chat() {
@@ -9,10 +9,16 @@ function Chat() {
 	const [writeError, setWriteError] = useState(null);
 	// const [other, setother] = useState(null)
 
-	const handleSubmit = async (e) => {
+	// const dummyDiv = useRef();
+
+	/** handler for sending messages, updating db */
+	const sendMessage = async (e) => {
 		e.preventDefault();
 		setContent("");
 		setWriteError(null);
+
+		/**regex to prevent sending whitespace */
+		// let invalid = /\s/;
 		if (content !== "") {
 			try {
 				await store
@@ -30,7 +36,12 @@ function Chat() {
 			} catch (err) {
 				setWriteError(err.message);
 			}
+			// dummyDiv.current.scrollIntoView({ behaviour: "smooth" });
 		}
+	};
+
+	const handleSignOut = () => {
+		auth().signOut();
 	};
 
 	const handleChange = (e) => {
@@ -39,6 +50,8 @@ function Chat() {
 
 	useEffect(() => {
 		setReadError(null);
+
+		/** get existing messages in doc on page load. setting a limit to it */
 		async function getSnapshot() {
 			try {
 				let chat = [];
@@ -65,8 +78,9 @@ function Chat() {
 				{chats.map((chat) => {
 					return <p key={chat.timestamp}>{chat.content}</p>;
 				})}
+				{/* <div ref={dummyDiv}></div> */}
 			</div>
-			<form onSubmit={handleSubmit}>
+			<form onSubmit={sendMessage}>
 				<input
 					onChange={handleChange}
 					value={content}
@@ -77,6 +91,7 @@ function Chat() {
 			</form>
 			<div>
 				Logged in as: <strong>{user.email}</strong>
+				<button onClick={handleSignOut}>Sign out</button>
 			</div>
 		</div>
 	);

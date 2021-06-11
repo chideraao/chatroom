@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { auth, db } from "../services/firebase";
 
 function ChatRoom() {
@@ -8,11 +8,17 @@ function ChatRoom() {
 	const [readError, setReadError] = useState(null);
 	const [writeError, setWriteError] = useState(null);
 
-	const handleSubmit = async (e) => {
+	const dummyDiv = useRef();
+
+	/** handler for sending messages, updating db */
+	const sendMessage = async (e) => {
 		e.preventDefault();
 		setContent("");
 		setWriteError(null);
-		if (content !== "") {
+
+		/**regex to prevent sending whitespace */
+		let invalid = /\s/;
+		if (content !== invalid) {
 			try {
 				await db.ref("chats").push({
 					content,
@@ -23,6 +29,11 @@ function ChatRoom() {
 				setWriteError(err.message);
 			}
 		}
+		dummyDiv.current.scrollIntoView({ behaviour: "smooth" });
+	};
+
+	const handleSignOut = () => {
+		auth().signOut();
 	};
 
 	const handleChange = (e) => {
@@ -31,15 +42,19 @@ function ChatRoom() {
 
 	useEffect(() => {
 		setReadError(null);
+
+		/** get existing messages in doc on page load. setting a limit to it */
 		async function getSnapshot() {
 			try {
-				db.ref("chats").on("value", (snapshot) => {
-					let chat = [];
-					snapshot.forEach((snap) => {
-						chat.push(snap.val());
+				db.ref("chats")
+					.limitToLast(30)
+					.on("value", (snapshot) => {
+						let chat = [];
+						snapshot.forEach((snap) => {
+							chat.push(snap.val());
+						});
+						setChats(chat);
 					});
-					setChats(chat);
-				});
 			} catch (err) {
 				setReadError(err.message);
 			}
@@ -47,14 +62,22 @@ function ChatRoom() {
 		getSnapshot();
 	}, []);
 
+	/** check to see if message was sent or received */
+	const messageClass = chats.uid === user.uid ? "sent" : "received";
+
 	return (
 		<div>
 			<div className="chats">
 				{chats.map((chat) => {
-					return <p key={chat.timestamp}>{chat.content}</p>;
+					return (
+						<p key={chat.timestamp} className={messageClass}>
+							{chat.content}
+						</p>
+					);
 				})}
+				<div ref={dummyDiv}></div>
 			</div>
-			<form onSubmit={handleSubmit}>
+			<form onSubmit={sendMessage}>
 				<input
 					onChange={handleChange}
 					value={content}
@@ -65,6 +88,7 @@ function ChatRoom() {
 			</form>
 			<div>
 				Logged in as: <strong>{user.email}</strong>
+				<button onClick={handleSignOut}>Sign out</button>
 			</div>
 		</div>
 	);
