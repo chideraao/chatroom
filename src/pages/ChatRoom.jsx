@@ -17,17 +17,14 @@ function ChatRoom() {
 		setWriteError(null);
 
 		/**regex to prevent sending whitespace */
-		let invalid = /\s/;
-		if (content !== invalid) {
-			try {
-				await db.ref("chats").push({
-					content,
-					timestamp: Date.now(),
-					uid: user.uid,
-				});
-			} catch (err) {
-				setWriteError(err.message);
-			}
+		try {
+			await db.ref("chats").push({
+				content,
+				timestamp: Date.now(),
+				uid: user.uid,
+			});
+		} catch (err) {
+			setWriteError(err.message);
 		}
 		dummyDiv.current.scrollIntoView({ behaviour: "smooth" });
 	};
@@ -36,8 +33,9 @@ function ChatRoom() {
 		auth().signOut();
 	};
 
+	/** handle form change and trim start to ensure no whitespace can be written to db */
 	const handleChange = (e) => {
-		setContent(e.target.value);
+		setContent(e.target.value.trimStart());
 	};
 
 	useEffect(() => {
@@ -47,7 +45,7 @@ function ChatRoom() {
 		async function getSnapshot() {
 			try {
 				db.ref("chats")
-					.limitToLast(30)
+					.limitToLast(70)
 					.on("value", (snapshot) => {
 						let chat = [];
 						snapshot.forEach((snap) => {
@@ -62,13 +60,12 @@ function ChatRoom() {
 		getSnapshot();
 	}, []);
 
-	/** check to see if message was sent or received */
-	const messageClass = chats.uid === user.uid ? "sent" : "received";
-
 	return (
 		<div>
 			<div className="chats">
 				{chats.map((chat) => {
+					/** check to see if message bubble was sent or received */
+					let messageClass = chat.uid === user.uid ? "sent" : "received";
 					return (
 						<p key={chat.timestamp} className={messageClass}>
 							{chat.content}

@@ -8,10 +8,11 @@
 	height: 90vh;
 }
 
-.received {
+.sent {
 	background-color: #fff3e6;
 }
 
-.sent {
+.received {
 	background-color: #1a508b;
+	color: #fff3e6;
 }

@@ -9,34 +9,27 @@ function Chat() {
 	const [writeError, setWriteError] = useState(null);
 	// const [other, setother] = useState(null)
 
-	// const dummyDiv = useRef();
+	const dummyDiv = useRef();
 
 	/** handler for sending messages, updating db */
 	const sendMessage = async (e) => {
 		e.preventDefault();
 		setContent("");
 		setWriteError(null);
+		try {
+			await store
+				.collection(`${user.uid}`)
+				.doc("chats")
+				.collection("user")
+				.add({
+					content,
+					timestamp: Date.now(),
+					uid: user.uid,
+				});
+		} catch (err) {
+			setWriteError(err.message);
 
-		/**regex to prevent sending whitespace */
-		// let invalid = /\s/;
-		if (content !== "") {
-			try {
-				await store
-					.collection(`${user.uid}`)
-					.doc("chats")
-					.collection("user")
-					.add(
-						{
-							content,
-							timestamp: Date.now(),
-							uid: user.uid,
-						},
-						{ merge: "true" }
-					);
-			} catch (err) {
-				setWriteError(err.message);
-			}
-			// dummyDiv.current.scrollIntoView({ behaviour: "smooth" });
+			dummyDiv.current.scrollIntoView({ behaviour: "smooth" });
 		}
 	};
 
@@ -44,8 +37,9 @@ function Chat() {
 		auth().signOut();
 	};
 
+	/** handle form change and trim start to ensure no whitespace can be written to db */
 	const handleChange = (e) => {
-		setContent(e.target.value);
+		setContent(e.target.value.trimStart());
 	};
 
 	useEffect(() => {
@@ -54,12 +48,14 @@ function Chat() {
 		/** get existing messages in doc on page load. setting a limit to it */
 		async function getSnapshot() {
 			try {
-				let chat = [];
 				store
 					.collection(`${user.uid}`)
 					.doc("chats")
 					.collection("user")
+					.orderBy("timestamp")
+					.limit(60)
 					.onSnapshot((docs) => {
+						let chat = [];
 						docs.forEach((doc) => {
 							chat.push(doc.data());
 						});
@@ -76,9 +72,15 @@ function Chat() {
 		<div>
 			<div className="chats">
 				{chats.map((chat) => {
-					return <p key={chat.timestamp}>{chat.content}</p>;
+					/** check to see if message bubble was sent or received */
+					let messageClass = chats.uid === user.uid ? "sent" : "received";
+					return (
+						<p key={chat.timestamp} className={messageClass}>
+							{chat.content}
+						</p>
+					);
 				})}
-				{/* <div ref={dummyDiv}></div> */}
+				<div ref={dummyDiv}></div>
 			</div>
 			<form onSubmit={sendMessage}>
 				<input
