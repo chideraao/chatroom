@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { signIn } from "../helpers/auth";
+import { signIn, signInWithGithub, signInWithGoogle } from "../helpers/auth";
 
 function Login() {
 	const [user, setUser] = useState({ email: "", password: "" });
@@ -20,6 +20,18 @@ function Login() {
 
 	const handleChange = (e) => {
 		setUser((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
+	};
+
+	const googleSignIn = (e) => {
+		signInWithGoogle().catch((err) => {
+			setError(err.message);
+		});
+	};
+
+	const githubSignIn = (e) => {
+		signInWithGithub().catch((err) => {
+			setError(err.message);
+		});
 	};
 
 	return (
@@ -55,6 +67,12 @@ function Login() {
 				<p>
 					Don't have an account? <Link to="/signup">Sign up</Link>
 				</p>
+				<button onClick={googleSignIn} type="button">
+					Sign up with Google
+				</button>
+				<button onClick={githubSignIn} type="button">
+					Sign up with Github
+				</button>
 			</form>
 		</div>
 	);
