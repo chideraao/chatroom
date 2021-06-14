@@ -17,4 +17,14 @@ firebase.analytics();
 
 export const auth = firebase.auth;
 export const db = firebase.database();
+
 export const store = firebase.firestore();
+// eslint-disable-next-line no-restricted-globals
+if (location.hostname === "localhost") {
+	store.useEmulator("localhost", 8080);
+}
+
+// eslint-disable-next-line no-restricted-globals
+if (location.hostname === "localhost") {
+	db.useEmulator("localhost", 9000);
+}

@@ -92,7 +92,7 @@ function Chat() {
 				<button type="submit">Send</button>
 			</form>
 			<div>
-				Logged in as: <strong>{user.email}</strong>
+				Chat Logged in as: <strong>{user.email}</strong>
 				<button onClick={handleSignOut}>Sign out</button>
 			</div>
 		</div>

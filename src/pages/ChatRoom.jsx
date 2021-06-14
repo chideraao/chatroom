@@ -84,7 +84,7 @@ function ChatRoom() {
 				<button type="submit">Send</button>
 			</form>
 			<div>
-				Logged in as: <strong>{user.email}</strong>
+				ChatRoom Logged in as: <strong>{user.email}</strong>
 				<button onClick={handleSignOut}>Sign out</button>
 			</div>
 		</div>
