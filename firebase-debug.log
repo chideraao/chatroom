@@ -1,0 +1,114 @@
+[debug] [2021-06-14T11:28:41.343Z] ----------------------------------------------------------------------
+[debug] [2021-06-14T11:28:41.345Z] Command:       /usr/local/bin/node /usr/local/bin/firebase emulators:start --only functions,firestore,database,auth,hosting
+[debug] [2021-06-14T11:28:41.345Z] CLI Version:   9.12.1
+[debug] [2021-06-14T11:28:41.345Z] Platform:      darwin
+[debug] [2021-06-14T11:28:41.345Z] Node Version:  v14.7.0
+[debug] [2021-06-14T11:28:41.346Z] Time:          Mon Jun 14 2021 12:28:41 GMT+0100 (West Africa Standard Time)
+[debug] [2021-06-14T11:28:41.346Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-06-14T11:28:41.353Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-06-14T11:28:41.353Z] > authorizing via signed-in user (okekechidera97@gmail.com)
+[info] i  emulators: Starting emulators: auth, functions, firestore, database, hosting {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: auth, functions, firestore, database, hosting"}}
+[debug] [2021-06-14T11:28:41.416Z] [hub] writing locator at /var/folders/g9/jb9fshbx33sbrgxr1wj466hw0000gn/T/hub-dhera-gram.json
+[warn] ⚠  functions: The following emulators are not running, calls to these services from the Functions emulator will affect production: pubsub, storage {"metadata":{"emulator":{"name":"functions"},"message":"The following emulators are not running, calls to these services from the Functions emulator will affect production: \u001b[1mpubsub, storage\u001b[22m"}}
+[info] ✔  functions: Using node@14 from host. {"metadata":{"emulator":{"name":"functions"},"message":"Using node@14 from host."}}
+[debug] [2021-06-14T11:28:41.446Z] defaultcredentials: writing to file /Users/Chidera/.config/firebase/okekechidera97_gmail_com_application_default_credentials.json
+[debug] [2021-06-14T11:28:41.453Z] Setting GAC to /Users/Chidera/.config/firebase/okekechidera97_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to /Users/Chidera/.config/firebase/okekechidera97_gmail_com_application_default_credentials.json"}}
+[debug] [2021-06-14T11:28:41.456Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/dhera-gram/adminSdkConfig [none]
+[debug] [2021-06-14T11:28:42.215Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/dhera-gram/adminSdkConfig 200
+[debug] [2021-06-14T11:28:42.216Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/dhera-gram/adminSdkConfig {"projectId":"dhera-gram","databaseURL":"https://dhera-gram-default-rtdb.firebaseio.com","storageBucket":"dhera-gram.appspot.com","locationId":"us-central"}
+[debug] [2021-06-14T11:28:42.232Z] Ignoring unsupported arg: projectId {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: projectId"}}
+[debug] [2021-06-14T11:28:42.232Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2021-06-14T11:28:42.232Z] Starting Firestore Emulator with command {"binary":"java","args":["-Dgoogle.cloud_firestore.debug_log_level=FINE","-Duser.language=en","-jar","/Users/Chidera/.cache/firebase/emulators/cloud-firestore-emulator-v1.12.0.jar","--host","localhost","--port",8080,"--rules","/Users/Chidera/Desktop/react projects/chat-application/firestore.rules","--functions_emulator","localhost:5001"],"optionalArgs":["port","webchannel_port","host","rules","functions_emulator","seed_from_export"],"joinArgs":false} {"metadata":{"emulator":{"name":"firestore"},"message":"Starting Firestore Emulator with command {\"binary\":\"java\",\"args\":[\"-Dgoogle.cloud_firestore.debug_log_level=FINE\",\"-Duser.language=en\",\"-jar\",\"/Users/Chidera/.cache/firebase/emulators/cloud-firestore-emulator-v1.12.0.jar\",\"--host\",\"localhost\",\"--port\",8080,\"--rules\",\"/Users/Chidera/Desktop/react projects/chat-application/firestore.rules\",\"--functions_emulator\",\"localhost:5001\"],\"optionalArgs\":[\"port\",\"webchannel_port\",\"host\",\"rules\",\"functions_emulator\",\"seed_from_export\"],\"joinArgs\":false}"}}
+[info] i  firestore: Firestore Emulator logging to firestore-debug.log {"metadata":{"emulator":{"name":"firestore"},"message":"Firestore Emulator logging to \u001b[1mfirestore-debug.log\u001b[22m"}}
+[debug] [2021-06-14T11:28:43.285Z] Jun 14, 2021 12:28:43 PM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketServer start
+INFO: Started WebSocket server on ws://localhost:50395
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Jun 14, 2021 12:28:43 PM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketServer start\nINFO: Started WebSocket server on ws://localhost:50395\n"}}
+[debug] [2021-06-14T11:28:43.307Z] API endpoint: http:// {"metadata":{"emulator":{"name":"firestore"},"message":"API endpoint: http://"}}
+[debug] [2021-06-14T11:28:43.307Z] localhost:8080
+If you are using a library that supports the FIRESTORE_EMULATOR_HOST environment variable, run:
+
+   export FIRESTORE_EMULATOR_HOST=localhost:8080
+
+Dev App Server is now running.
+
+ {"metadata":{"emulator":{"name":"firestore"},"message":"localhost:8080\nIf you are using a library that supports the FIRESTORE_EMULATOR_HOST environment variable, run:\n\n   export FIRESTORE_EMULATOR_HOST=localhost:8080\n\nDev App Server is now running.\n\n"}}
+[debug] [2021-06-14T11:28:43.519Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/dhera-gram [none]
+[debug] [2021-06-14T11:28:44.111Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/dhera-gram 200
+[debug] [2021-06-14T11:28:44.111Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/dhera-gram {"projectId":"dhera-gram","projectNumber":"577218277226","displayName":"Dhera-gram","name":"projects/dhera-gram","resources":{"hostingSite":"dhera-gram","realtimeDatabaseInstance":"dhera-gram-default-rtdb","storageBucket":"dhera-gram.appspot.com","locationId":"us-central"},"state":"ACTIVE"}
+[debug] [2021-06-14T11:28:44.112Z] database rules config:  [{"instance":"dhera-gram-default-rtdb","rules":"/Users/Chidera/Desktop/react projects/chat-application/database.rules.json"}]
+[debug] [2021-06-14T11:28:44.114Z] Ignoring unsupported arg: projectId {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: projectId"}}
+[debug] [2021-06-14T11:28:44.114Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2021-06-14T11:28:44.114Z] Ignoring unsupported arg: rules {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: rules"}}
+[debug] [2021-06-14T11:28:44.114Z] Starting Database Emulator with command {"binary":"java","args":["-Duser.language=en","-jar","/Users/Chidera/.cache/firebase/emulators/firebase-database-emulator-v4.7.2.jar","--host","localhost","--port",9000,"--functions_emulator_host","localhost","--functions_emulator_port",5001],"optionalArgs":["port","host","functions_emulator_port","functions_emulator_host"],"joinArgs":false} {"metadata":{"emulator":{"name":"database"},"message":"Starting Database Emulator with command {\"binary\":\"java\",\"args\":[\"-Duser.language=en\",\"-jar\",\"/Users/Chidera/.cache/firebase/emulators/firebase-database-emulator-v4.7.2.jar\",\"--host\",\"localhost\",\"--port\",9000,\"--functions_emulator_host\",\"localhost\",\"--functions_emulator_port\",5001],\"optionalArgs\":[\"port\",\"host\",\"functions_emulator_port\",\"functions_emulator_host\"],\"joinArgs\":false}"}}
+[info] i  database: Database Emulator logging to database-debug.log {"metadata":{"emulator":{"name":"database"},"message":"Database Emulator logging to \u001b[1mdatabase-debug.log\u001b[22m"}}
+[debug] [2021-06-14T11:28:45.348Z] 12:28:45.343 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
+ {"metadata":{"emulator":{"name":"database"},"message":"12:28:45.343 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started\n"}}
+[debug] [2021-06-14T11:28:45.517Z] 12:28:45.517 [main] INFO com.firebase.server.forge.App$ - Listening at localhost:9000
+ {"metadata":{"emulator":{"name":"database"},"message":"12:28:45.517 [main] INFO com.firebase.server.forge.App$ - Listening at localhost:9000\n"}}
+[debug] [2021-06-14T11:28:48.548Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/dhera-gram/sites 
+[debug] [2021-06-14T11:28:49.813Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/dhera-gram/sites 200
+[debug] [2021-06-14T11:28:49.813Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/dhera-gram/sites {"sites":[{"name":"projects/577218277226/sites/dhera-gram","defaultUrl":"https://dhera-gram.web.app","appId":"1:577218277226:web:6055a44e41f9aa7f73bf13","type":"DEFAULT_SITE"}]}
+[debug] [2021-06-14T11:28:49.814Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/dhera-gram/webApps/1:577218277226:web:6055a44e41f9aa7f73bf13/config [none]
+[debug] [2021-06-14T11:28:50.989Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/dhera-gram/webApps/1:577218277226:web:6055a44e41f9aa7f73bf13/config 200
+[debug] [2021-06-14T11:28:50.989Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/dhera-gram/webApps/1:577218277226:web:6055a44e41f9aa7f73bf13/config {"projectId":"dhera-gram","appId":"1:577218277226:web:6055a44e41f9aa7f73bf13","databaseURL":"https://dhera-gram-default-rtdb.firebaseio.com","storageBucket":"dhera-gram.appspot.com","locationId":"us-central","apiKey":"AIzaSyAeoPiWLHXXkUuVYSA5BG2Oh7oF64vQ3H0","authDomain":"dhera-gram.firebaseapp.com","messagingSenderId":"577218277226","measurementId":"G-XLJYK0HW1J"}
+[info] i  hosting: Serving hosting files from: build {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mbuild\u001b[22m"}}
+[info] ✔  hosting: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}
+[debug] [2021-06-14T11:28:51.277Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2021-06-14T11:28:51.277Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2021-06-14T11:28:51.277Z] Starting Emulator UI with command {"binary":"node","args":["/Users/Chidera/.cache/firebase/emulators/ui-v1.5.0/server.bundle.js"],"optionalArgs":[],"joinArgs":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"/Users/Chidera/.cache/firebase/emulators/ui-v1.5.0/server.bundle.js\"],\"optionalArgs\":[],\"joinArgs\":false}"}}
+[info] i  ui: Emulator UI logging to ui-debug.log {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI logging to \u001b[1mui-debug.log\u001b[22m"}}
+[debug] [2021-06-14T11:28:51.380Z] Web / API server started at http://localhost:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at http://localhost:4000\n"}}
+[info] i  functions: Watching "/Users/Chidera/Desktop/react projects/chat-application/functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"/Users/Chidera/Desktop/react projects/chat-application/functions\" for Cloud Functions..."}}
+[debug] [2021-06-14T11:28:51.558Z] [worker-pool] addWorker(~diagnostic~) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] addWorker(~diagnostic~)"}}
+[debug] [2021-06-14T11:28:51.558Z] [worker-pool] Adding worker with key ~diagnostic~, total=1 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Adding worker with key ~diagnostic~, total=1"}}
+[debug] [2021-06-14T11:28:51.559Z] [worker-pool] submitWork(triggerId=) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitWork(triggerId=)"}}
+[debug] [2021-06-14T11:28:51.559Z] [worker-~diagnostic~-ce62e5ce-7d38-450c-a841-bb1cc3427fb8]: Assigning socketPath: /var/folders/g9/jb9fshbx33sbrgxr1wj466hw0000gn/T/fire_emu_2846.sock {"metadata":{"emulator":{"name":"functions"},"message":"[worker-~diagnostic~-ce62e5ce-7d38-450c-a841-bb1cc3427fb8]: Assigning socketPath: /var/folders/g9/jb9fshbx33sbrgxr1wj466hw0000gn/T/fire_emu_2846.sock"}}
+[debug] [2021-06-14T11:28:51.559Z] [worker-~diagnostic~-ce62e5ce-7d38-450c-a841-bb1cc3427fb8]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-~diagnostic~-ce62e5ce-7d38-450c-a841-bb1cc3427fb8]: BUSY"}}
+[debug] [2021-06-14T11:28:51.707Z] [runtime-status] [2846] Functions runtime initialized. {"cwd":"/Users/Chidera/Desktop/react projects/chat-application/functions","node_version":"14.7.0"} {"metadata":{"emulator":{"name":"functions"},"message":"[runtime-status] [2846] Functions runtime initialized. {\"cwd\":\"/Users/Chidera/Desktop/react projects/chat-application/functions\",\"node_version\":\"14.7.0\"}"}}
+[debug] [2021-06-14T11:28:51.709Z] [runtime-status] [2846] Disabled runtime features: undefined {"metadata":{"emulator":{"name":"functions"},"message":"[runtime-status] [2846] Disabled runtime features: undefined"}}
+[debug] [2021-06-14T11:28:51.712Z] [runtime-status] [2846] Resolved module firebase-admin {"declared":true,"installed":true,"version":"9.9.0","resolution":"/Users/Chidera/Desktop/react projects/chat-application/functions/node_modules/firebase-admin/lib/index.js"} {"metadata":{"emulator":{"name":"functions"},"message":"[runtime-status] [2846] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"9.9.0\",\"resolution\":\"/Users/Chidera/Desktop/react projects/chat-application/functions/node_modules/firebase-admin/lib/index.js\"}"}}
+[debug] [2021-06-14T11:28:51.714Z] [runtime-status] [2846] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.14.1","resolution":"/Users/Chidera/Desktop/react projects/chat-application/functions/node_modules/firebase-functions/lib/index.js"} {"metadata":{"emulator":{"name":"functions"},"message":"[runtime-status] [2846] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"3.14.1\",\"resolution\":\"/Users/Chidera/Desktop/react projects/chat-application/functions/node_modules/firebase-functions/lib/index.js\"}"}}
+[debug] [2021-06-14T11:28:51.716Z] [runtime-status] [2846] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.14.1","resolution":"/Users/Chidera/Desktop/react projects/chat-application/functions/node_modules/firebase-functions/lib/index.js"} {"metadata":{"emulator":{"name":"functions"},"message":"[runtime-status] [2846] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"3.14.1\",\"resolution\":\"/Users/Chidera/Desktop/react projects/chat-application/functions/node_modules/firebase-functions/lib/index.js\"}"}}
+[debug] [2021-06-14T11:28:51.718Z] [runtime-status] [2846] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] {"metadata":{"emulator":{"name":"functions"},"message":"[runtime-status] [2846] Outgoing network have been stubbed. [{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"net\",\"status\":\"mocked\"}]"}}
+[debug] [2021-06-14T11:28:51.718Z] [runtime-status] [2846] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.14.1","resolution":"/Users/Chidera/Desktop/react projects/chat-application/functions/node_modules/firebase-functions/lib/index.js"} {"metadata":{"emulator":{"name":"functions"},"message":"[runtime-status] [2846] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"3.14.1\",\"resolution\":\"/Users/Chidera/Desktop/react projects/chat-application/functions/node_modules/firebase-functions/lib/index.js\"}"}}
+[debug] [2021-06-14T11:28:51.774Z] [runtime-status] [2846] Checked functions.config() {"config":{}} {"metadata":{"emulator":{"name":"functions"},"message":"[runtime-status] [2846] Checked functions.config() {\"config\":{}}"}}
+[debug] [2021-06-14T11:28:51.774Z] [runtime-status] [2846] firebase-functions has been stubbed. {"functionsResolution":{"declared":true,"installed":true,"version":"3.14.1","resolution":"/Users/Chidera/Desktop/react projects/chat-application/functions/node_modules/firebase-functions/lib/index.js"}} {"metadata":{"emulator":{"name":"functions"},"message":"[runtime-status] [2846] firebase-functions has been stubbed. {\"functionsResolution\":{\"declared\":true,\"installed\":true,\"version\":\"3.14.1\",\"resolution\":\"/Users/Chidera/Desktop/react projects/chat-application/functions/node_modules/firebase-functions/lib/index.js\"}}"}}
+[debug] [2021-06-14T11:28:51.775Z] [runtime-status] [2846] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.14.1","resolution":"/Users/Chidera/Desktop/react projects/chat-application/functions/node_modules/firebase-functions/lib/index.js"} {"metadata":{"emulator":{"name":"functions"},"message":"[runtime-status] [2846] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"3.14.1\",\"resolution\":\"/Users/Chidera/Desktop/react projects/chat-application/functions/node_modules/firebase-functions/lib/index.js\"}"}}
+[debug] [2021-06-14T11:28:51.775Z] [runtime-status] [2846] Resolved module firebase-admin {"declared":true,"installed":true,"version":"9.9.0","resolution":"/Users/Chidera/Desktop/react projects/chat-application/functions/node_modules/firebase-admin/lib/index.js"} {"metadata":{"emulator":{"name":"functions"},"message":"[runtime-status] [2846] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"9.9.0\",\"resolution\":\"/Users/Chidera/Desktop/react projects/chat-application/functions/node_modules/firebase-admin/lib/index.js\"}"}}
+[debug] [2021-06-14T11:28:51.776Z] [runtime-status] [2846] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.14.1","resolution":"/Users/Chidera/Desktop/react projects/chat-application/functions/node_modules/firebase-functions/lib/index.js"} {"metadata":{"emulator":{"name":"functions"},"message":"[runtime-status] [2846] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"3.14.1\",\"resolution\":\"/Users/Chidera/Desktop/react projects/chat-application/functions/node_modules/firebase-functions/lib/index.js\"}"}}
+[debug] [2021-06-14T11:28:51.776Z] [runtime-status] [2846] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"9.9.0","resolution":"/Users/Chidera/Desktop/react projects/chat-application/functions/node_modules/firebase-admin/lib/index.js"}} {"metadata":{"emulator":{"name":"functions"},"message":"[runtime-status] [2846] firebase-admin has been stubbed. {\"adminResolution\":{\"declared\":true,\"installed\":true,\"version\":\"9.9.0\",\"resolution\":\"/Users/Chidera/Desktop/react projects/chat-application/functions/node_modules/firebase-admin/lib/index.js\"}}"}}
+[debug] [2021-06-14T11:28:51.779Z] >>> HTTP REQUEST PUT http://localhost:9000/.settings/rules.json?ns=dhera-gram-default-rtdb  
+ {
+  "rules": {
+    ".read": "now < 1626044400000",  // 2021-7-12
+    ".write": "now < 1626044400000",  // 2021-7-12
+  }
+}
+[debug] [2021-06-14T11:28:51.781Z] [worker-~diagnostic~-ce62e5ce-7d38-450c-a841-bb1cc3427fb8]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-~diagnostic~-ce62e5ce-7d38-450c-a841-bb1cc3427fb8]: IDLE"}}
+[debug] [2021-06-14T11:28:52.317Z] <<< HTTP RESPONSE 200 {"content-length":"15","content-type":"application/json; charset=utf-8","access-control-allow-origin":"*","cache-control":"no-cache","x-firebase-project-id":"dhera-gram-default-rtdb","x-firebase-project-number":"123456789","x-firebase-uuid":"3e28760b-5350-4adb-9371-69c06cdefd24"}
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://localhost:4000                │
+└─────────────────────────────────────────────────────────────┘
+
+┌────────────────┬────────────────┬─────────────────────────────────┐
+│ Emulator       │ Host:Port      │ View in Emulator UI             │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Authentication │ localhost:9099 │ http://localhost:4000/auth      │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Functions      │ localhost:5001 │ http://localhost:4000/functions │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Firestore      │ localhost:8080 │ http://localhost:4000/firestore │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Database       │ localhost:9000 │ http://localhost:4000/database  │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Hosting        │ localhost:5000 │ n/a                             │
+└────────────────┴────────────────┴─────────────────────────────────┘
+  Emulator Hub running at localhost:4400
+  Other reserved ports: 4500
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
