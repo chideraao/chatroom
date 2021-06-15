@@ -1,21 +1,24 @@
 import React, { useEffect, useRef, useState } from "react";
+import firebase from "firebase";
 import { auth, store } from "../services/firebase";
 
 function Chat() {
 	const [chats, setChats] = useState([]);
 	const [user, setUser] = useState(auth().currentUser);
-	const [content, setContent] = useState("");
+	const [input, setInput] = useState({ content: "", email: "" });
 	const [readError, setReadError] = useState(null);
 	const [writeError, setWriteError] = useState(null);
 	// const [other, setother] = useState(null)
+
+	const { content, email } = input;
 
 	const dummyDiv = useRef();
 
 	/** handler for sending messages, updating db */
 	const sendMessage = async (e) => {
 		e.preventDefault();
-		setContent("");
 		setWriteError(null);
+
 		try {
 			await store
 				.collection(`${user.uid}`)
@@ -26,6 +29,7 @@ function Chat() {
 					timestamp: Date.now(),
 					uid: user.uid,
 				});
+			setInput((prevState) => ({ ...prevState, content: "" }));
 		} catch (err) {
 			setWriteError(err.message);
 
@@ -39,13 +43,32 @@ function Chat() {
 
 	/** handle form change and trim start to ensure no whitespace can be written to db */
 	const handleChange = (e) => {
-		setContent(e.target.value.trimStart());
+		setInput((prevState) => ({
+			...prevState,
+			[e.target.name]: e.target.value,
+		}));
+	};
+
+	const createNewChat = (e) => {
+		console.log("adding", email);
+		e.preventDefault();
+		const newChat = firebase.functions().httpsCallable("newChat");
+
+		newChat({
+			email,
+		})
+			.then(() => {
+				setInput((prevState) => ({ ...prevState, email: "" }));
+			})
+			.catch((err) => {
+				console.log(err.message);
+			});
 	};
 
 	useEffect(() => {
 		setReadError(null);
 
-		/** get existing messages in doc on page load. setting a limit to it */
+		/** load existing messages in doc on page load. setting a limit to it */
 		async function getSnapshot() {
 			try {
 				store
@@ -71,6 +94,19 @@ function Chat() {
 	return (
 		<div>
 			<div className="chats">
+				<form onSubmit={createNewChat}>
+					<input
+						type="text"
+						onChange={handleChange}
+						id="newChat"
+						value={email}
+						name="email"
+						placeholder="Enter user email"
+					/>
+
+					<button type="submit">New Chat</button>
+				</form>
+
 				{chats.map((chat) => {
 					/** check to see if message bubble was sent or received */
 					let messageClass = chat.uid === user.uid ? "sent" : "received";
@@ -84,10 +120,12 @@ function Chat() {
 			</div>
 			<form onSubmit={sendMessage}>
 				<input
+					type="text"
 					onChange={handleChange}
 					value={content}
+					name="content"
 					placeholder="Type a message"
-				></input>
+				/>
 				{writeError ? <p>{writeError}</p> : null}
 				<button type="submit">Send</button>
 			</form>

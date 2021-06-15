@@ -22,7 +22,12 @@ exports.newChat = functions.https.onCall((data, context) => {
 			"Only logged in users can create chats"
 		);
 	}
-	return admin.firestore().collection("users").doc(context.auth.uid).update({
-		chats: [],
-	});
+	console.log("adding", data.email);
+	return admin
+		.firestore()
+		.collection("users")
+		.doc(context.auth.uid)
+		.update({
+			chats: [data.email],
+		});
 });

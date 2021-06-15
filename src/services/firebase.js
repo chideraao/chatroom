@@ -32,3 +32,7 @@ if (location.hostname === "localhost") {
 if (location.hostname === "localhost") {
 	auth().useEmulator("http://localhost:9099");
 }
+
+if (window.location.hostname === "localhost") {
+	firebase.functions().useEmulator("localhost", 5001);
+}
