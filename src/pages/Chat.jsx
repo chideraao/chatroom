@@ -73,7 +73,7 @@ function Chat() {
 			<div className="chats">
 				{chats.map((chat) => {
 					/** check to see if message bubble was sent or received */
-					let messageClass = chats.uid === user.uid ? "sent" : "received";
+					let messageClass = chat.uid === user.uid ? "sent" : "received";
 					return (
 						<p key={chat.timestamp} className={messageClass}>
 							{chat.content}

@@ -1,27 +1,28 @@
 const functions = require("firebase-functions");
+const admin = require("firebase-admin");
+admin.initializeApp();
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-exports.helloWorld = functions.https.onRequest((request, response) => {
-	functions.logger.info("Hello logs!", { structuredData: true });
-	response.send("Hello from Firebase!");
-});
-
-exports.deraBoy = functions.auth.user().onCreate((user) => {
-	console.log("user created", user.email, user.uid);
-});
-
-exports.deraTheBoy = functions.auth.user().onDelete((user) => {
-	console.log("user deleted", user.email, user.uid);
-});
-
-exports.makeUppercase = functions.firestore
-	.document("/messages/{documentId}")
-	.onCreate((snap, context) => {
-		// console.log(snap.data().key);
-		const key = snap.data().key;
-		console.log("Uppercasing", context.params.documentId, key);
-		const uppercase = key.toUpperCase();
-		return snap.ref.set({ uppercase }, { merge: true });
+exports.userSignUp = functions.auth.user().onCreate((user) => {
+	console.log("user created,", user.email, user.uid);
+	return admin.firestore().collection("users").doc(user.uid).set({
+		email: user.email,
+		chats: [],
 	});
+});
+
+exports.userDelete = functions.auth.user().onDelete((user) => {
+	const doc = admin.firestore().collection("users").doc(user.uid);
+	return doc.delete();
+});
+
+exports.newChat = functions.https.onCall((data, context) => {
+	if (!context.auth) {
+		throw new functions.https.HttpsError(
+			"unauthenticated",
+			"Only logged in users can create chats"
+		);
+	}
+	return admin.firestore().collection("users").doc(context.auth.uid).update({
+		chats: [],
+	});
+});

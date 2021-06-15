@@ -28,3 +28,7 @@ if (location.hostname === "localhost") {
 if (location.hostname === "localhost") {
 	db.useEmulator("localhost", 9000);
 }
+// eslint-disable-next-line no-restricted-globals
+if (location.hostname === "localhost") {
+	auth().useEmulator("http://localhost:9099");
+}
