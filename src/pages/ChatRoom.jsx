@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { auth, db } from "../services/firebase";
 
 function ChatRoom() {
-	const [chats, setChats] = useState([]);
+	const [messages, setMessages] = useState([]);
 	const [user, setUser] = useState(auth().currentUser);
 	const [content, setContent] = useState("");
 	const [readError, setReadError] = useState(null);
@@ -47,11 +47,11 @@ function ChatRoom() {
 				db.ref("chats")
 					.limitToLast(70)
 					.on("value", (snapshot) => {
-						let chat = [];
+						let message = [];
 						snapshot.forEach((snap) => {
-							chat.push(snap.val());
+							message.push(snap.val());
 						});
-						setChats(chat);
+						setMessages(message);
 					});
 			} catch (err) {
 				setReadError(err.message);
@@ -63,12 +63,12 @@ function ChatRoom() {
 	return (
 		<div>
 			<div className="chats">
-				{chats.map((chat) => {
+				{messages.map((text) => {
 					/** check to see if message bubble was sent or received */
-					let messageClass = chat.uid === user.uid ? "sent" : "received";
+					let messageClass = text.uid === user.uid ? "sent" : "received";
 					return (
-						<p key={chat.timestamp} className={messageClass}>
-							{chat.content}
+						<p key={text.timestamp} className={messageClass}>
+							{text.content}
 						</p>
 					);
 				})}

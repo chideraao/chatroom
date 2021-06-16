@@ -3,12 +3,12 @@ import firebase from "firebase";
 import { auth, store } from "../services/firebase";
 
 function Chat() {
-	const [chats, setChats] = useState([]);
+	const [messages, setMessages] = useState([]);
 	const [user, setUser] = useState(auth().currentUser);
 	const [input, setInput] = useState({ content: "", email: "" });
 	const [readError, setReadError] = useState(null);
 	const [writeError, setWriteError] = useState(null);
-	// const [other, setother] = useState(null)
+	const [chats, setChats] = useState(null);
 
 	const { content, email } = input;
 
@@ -20,20 +20,24 @@ function Chat() {
 		setWriteError(null);
 
 		try {
-			await store
-				.collection(`${user.uid}`)
-				.doc("chats")
-				.collection("user")
-				.add({
-					content,
-					timestamp: Date.now(),
-					uid: user.uid,
-				});
+			await store.collection(`${user.uid}`).doc("chats").collection(chats).add({
+				content: content.trim(),
+				timestamp: Date.now(),
+				uid: user.uid,
+			});
 			setInput((prevState) => ({ ...prevState, content: "" }));
 		} catch (err) {
 			setWriteError(err.message);
-
 			dummyDiv.current.scrollIntoView({ behaviour: "smooth" });
+		}
+		try {
+			await store.collection(chats).doc("chats").collection(`${user.uid}`).add({
+				content: content.trim(),
+				timestamp: Date.now(),
+				uid: user.uid,
+			});
+		} catch (err) {
+			setWriteError(err.message);
 		}
 	};
 
@@ -45,20 +49,29 @@ function Chat() {
 	const handleChange = (e) => {
 		setInput((prevState) => ({
 			...prevState,
-			[e.target.name]: e.target.value,
+			[e.target.name]: e.target.value.trimStart(),
 		}));
 	};
 
 	const createNewChat = (e) => {
+		let trimmedEmail = email.trim();
+
 		console.log("adding", email);
 		e.preventDefault();
-		const newChat = firebase.functions().httpsCallable("newChat");
 
-		newChat({
-			email,
-		})
-			.then(() => {
-				setInput((prevState) => ({ ...prevState, email: "" }));
+		store
+			.collection("users")
+			.where("email", "==", trimmedEmail)
+			.get()
+			.then((docs) => {
+				if (docs.size > 0) {
+					docs.forEach((doc) => {
+						console.log(doc.data());
+						setChats(doc.data().uid);
+					});
+				} else {
+					console.log("it doesnt exist");
+				}
 			})
 			.catch((err) => {
 				console.log(err.message);
@@ -74,22 +87,22 @@ function Chat() {
 				store
 					.collection(`${user.uid}`)
 					.doc("chats")
-					.collection("user")
+					.collection(chats)
 					.orderBy("timestamp")
 					.limit(60)
 					.onSnapshot((docs) => {
-						let chat = [];
+						let message = [];
 						docs.forEach((doc) => {
-							chat.push(doc.data());
+							message.push(doc.data());
 						});
-						setChats(chat);
+						setMessages(message);
 					});
 			} catch (err) {
 				setReadError(err.message);
 			}
 		}
 		getSnapshot();
-	}, [user]);
+	}, [user, chats]);
 
 	return (
 		<div>
@@ -107,12 +120,12 @@ function Chat() {
 					<button type="submit">New Chat</button>
 				</form>
 
-				{chats.map((chat) => {
+				{messages.map((text) => {
 					/** check to see if message bubble was sent or received */
-					let messageClass = chat.uid === user.uid ? "sent" : "received";
+					let messageClass = text.uid === user.uid ? "sent" : "received";
 					return (
-						<p key={chat.timestamp} className={messageClass}>
-							{chat.content}
+						<p key={text.timestamp} className={messageClass}>
+							{text.content}
 						</p>
 					);
 				})}
