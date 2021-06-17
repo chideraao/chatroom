@@ -8,6 +8,7 @@ function Chat() {
 	const [input, setInput] = useState({ content: "", email: "" });
 	const [readError, setReadError] = useState(null);
 	const [writeError, setWriteError] = useState(null);
+	const [searchError, setSearchError] = useState(null);
 	const [chats, setChats] = useState(null);
 
 	const { content, email } = input;
@@ -30,6 +31,7 @@ function Chat() {
 			setWriteError(err.message);
 			dummyDiv.current.scrollIntoView({ behaviour: "smooth" });
 		}
+
 		try {
 			await store.collection(chats).doc("chats").collection(`${user.uid}`).add({
 				content: content.trim(),
@@ -55,8 +57,6 @@ function Chat() {
 
 	const createNewChat = (e) => {
 		let trimmedEmail = email.trim();
-
-		console.log("adding", email);
 		e.preventDefault();
 
 		store
@@ -66,16 +66,24 @@ function Chat() {
 			.then((docs) => {
 				if (docs.size > 0) {
 					docs.forEach((doc) => {
-						console.log(doc.data());
 						setChats(doc.data().uid);
 					});
+					setInput((prevState) => ({ ...prevState, content: "" }));
 				} else {
-					console.log("it doesnt exist");
+					setSearchError(`User ${trimmedEmail} does not yet exist.? `);
 				}
 			})
 			.catch((err) => {
 				console.log(err.message);
 			});
+	};
+
+	const emailInvite = () => {
+		const inviteUser = firebase.functions().httpsCallable("inviteUser");
+		inviteUser({
+			email: email,
+		});
+		setInput((prevState) => ({ ...prevState, content: "" }));
 	};
 
 	useEffect(() => {
@@ -98,7 +106,7 @@ function Chat() {
 						setMessages(message);
 					});
 			} catch (err) {
-				setReadError(err.message);
+				console.log(err.message);
 			}
 		}
 		getSnapshot();
@@ -116,8 +124,19 @@ function Chat() {
 						name="email"
 						placeholder="Enter user email"
 					/>
-
 					<button type="submit">New Chat</button>
+					{searchError ? (
+						<div>
+							<p className="search-error">
+								{searchError}{" "}
+								<button onClick={emailInvite}>Invite via email</button>
+							</p>
+							<div className="email-invite flex">
+								<button onClick={emailInvite}>Yes</button>
+								<button>No</button>
+							</div>
+						</div>
+					) : null}
 				</form>
 
 				{messages.map((text) => {
@@ -133,7 +152,6 @@ function Chat() {
 			</div>
 			<form onSubmit={sendMessage}>
 				<input
-					type="text"
 					onChange={handleChange}
 					value={content}
 					name="content"
