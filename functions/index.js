@@ -16,36 +16,15 @@ exports.userDelete = functions.auth.user().onDelete((user) => {
 	return doc.delete();
 });
 
-exports.newChat = functions.https.onCall((data, context) => {
+exports.inviteUser = functions.https.onRequest((data, context) => {
 	if (!context.auth) {
 		throw new functions.https.HttpsError(
 			"unauthenticated",
 			"Only logged in users can create chats"
 		);
 	}
-
-	//first check to see if the document exists in the general users array.
-	// if it doesn't refer to pubsub. if it does, check if it exists in the particular user's array.
-	// if yes, return error. if no, create new doc
 	if (admin.firestore().collection("users")) {
-		return (
-			admin
-				.firestore()
-				.collection("users")
-				// .where()
-				// .get()
-				// .then((doc) => {
-				// 	if (doc.exists) {
-				// 		create new chat
-				// 	}
-				// })
-				.doc(context.auth.uid)
-				.set(data.email, { merge: true })
-				// .update({
-				// 	chats: [data.email],
-				// })
-				.then(() => {})
-		);
+		return "na me";
 	} else {
 		console.log(`User ${data.email} doesn't exist. Invite via email?`);
 	}
