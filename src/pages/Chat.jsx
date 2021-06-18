@@ -55,35 +55,58 @@ function Chat() {
 		}));
 	};
 
+	/** https callable function to send emails  */
+	const emailInvite = () => {
+		const inviteUser = firebase.functions().httpsCallable("inviteUser");
+
+		inviteUser({
+			email: email.trim(),
+		})
+			.then((res) => {
+				console.log(res.data);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+
+		setInput((prevState) => ({ ...prevState, content: "" }));
+	};
+
 	const createNewChat = (e) => {
 		let trimmedEmail = email.trim();
 		e.preventDefault();
+		setSearchError(null);
 
-		store
-			.collection("users")
-			.where("email", "==", trimmedEmail)
-			.get()
-			.then((docs) => {
-				if (docs.size > 0) {
-					docs.forEach((doc) => {
-						setChats(doc.data().uid);
-					});
-					setInput((prevState) => ({ ...prevState, content: "" }));
-				} else {
-					setSearchError(`User ${trimmedEmail} does not yet exist.? `);
-				}
-			})
-			.catch((err) => {
-				console.log(err.message);
-			});
-	};
+		let errorMessage = (userEmail) => {
+			document.getElementById(
+				"search-error"
+			).innerHTML = `User ${userEmail} does not yet exist. <button id='mail-btn'>Invite via email?</button> `;
+			document
+				.getElementById("mail-btn")
+				.addEventListener("click", emailInvite, true);
+		};
 
-	const emailInvite = () => {
-		const inviteUser = firebase.functions().httpsCallable("inviteUser");
-		inviteUser({
-			email: email,
-		});
-		setInput((prevState) => ({ ...prevState, content: "" }));
+		if (trimmedEmail === "") {
+			setSearchError("User email can not be empty");
+		} else {
+			store
+				.collection("users")
+				.where("email", "==", trimmedEmail)
+				.get()
+				.then((docs) => {
+					if (docs.size > 0) {
+						docs.forEach((doc) => {
+							setChats(doc.data().uid);
+						});
+						setInput((prevState) => ({ ...prevState, content: "" }));
+					} else {
+						setSearchError(errorMessage(trimmedEmail));
+					}
+				})
+				.catch((err) => {
+					console.log(err.message);
+				});
+		}
 	};
 
 	useEffect(() => {
@@ -109,6 +132,7 @@ function Chat() {
 				console.log(err.message);
 			}
 		}
+
 		getSnapshot();
 	}, [user, chats]);
 
@@ -125,18 +149,9 @@ function Chat() {
 						placeholder="Enter user email"
 					/>
 					<button type="submit">New Chat</button>
-					{searchError ? (
-						<div>
-							<p className="search-error">
-								{searchError}{" "}
-								<button onClick={emailInvite}>Invite via email</button>
-							</p>
-							<div className="email-invite flex">
-								<button onClick={emailInvite}>Yes</button>
-								<button>No</button>
-							</div>
-						</div>
-					) : null}
+					<div>
+						<p id="search-error">{searchError ? searchError : ""}</p>
+					</div>
 				</form>
 
 				{messages.map((text) => {
