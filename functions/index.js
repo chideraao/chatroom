@@ -1,15 +1,10 @@
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const nodemailer = require("nodemailer");
-const dotenv = require("dotenv");
 
-dotenv.config();
 admin.initializeApp();
 
-const { USER_EMAIL, CLIENT_ID, CLIENT_SECRET, REFRESH_TOKEN } = process.env;
-
 exports.userSignUp = functions.auth.user().onCreate((user) => {
-	console.log("user created,", user.email, user.uid);
 	return admin.firestore().collection("users").add({
 		email: user.email,
 		uid: user.uid,
@@ -24,10 +19,9 @@ exports.userDelete = functions.auth.user().onDelete((user) => {
 exports.inviteUser = functions.https.onCall((data, context) => {
 	let email = data.email;
 
-	console.log(USER_EMAIL);
-	console.log(CLIENT_ID);
-	console.log(CLIENT_SECRET);
-	console.log(process.env.REFRESH_TOKEN);
+	/** defining and destructuring environments config for firebase functions */
+	let { useremail, refreshtoken, clientid, clientsecret } =
+		functions.config().gmail;
 
 	let transporter = nodemailer.createTransport({
 		host: "smtp.gmail.com",
@@ -35,10 +29,10 @@ exports.inviteUser = functions.https.onCall((data, context) => {
 		secure: true,
 		auth: {
 			type: "OAuth2",
-			user: USER_EMAIL,
-			clientId: CLIENT_ID,
-			clientSecret: CLIENT_SECRET,
-			refreshToken: REFRESH_TOKEN,
+			user: useremail,
+			clientId: clientid,
+			clientSecret: clientsecret,
+			refreshToken: refreshtoken,
 		},
 	});
 
