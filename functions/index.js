@@ -1,8 +1,12 @@
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const nodemailer = require("nodemailer");
+const dotenv = require("dotenv");
 
+dotenv.config();
 admin.initializeApp();
+
+const { USER_EMAIL, CLIENT_ID, CLIENT_SECRET, REFRESH_TOKEN } = process.env;
 
 exports.userSignUp = functions.auth.user().onCreate((user) => {
 	console.log("user created,", user.email, user.uid);
@@ -18,36 +22,33 @@ exports.userDelete = functions.auth.user().onDelete((user) => {
 });
 
 exports.inviteUser = functions.https.onCall((data, context) => {
-	if (!context.auth) {
-		throw new functions.https.HttpsError(
-			"unauthenticated",
-			"Feature only available to users with accounts."
-		);
-	}
+	let email = data.email;
+
+	console.log(USER_EMAIL);
+	console.log(CLIENT_ID);
+	console.log(CLIENT_SECRET);
+	console.log(process.env.REFRESH_TOKEN);
 
 	let transporter = nodemailer.createTransport({
-		host: "smtp.mailtrap.io",
-		port: 2525,
+		host: "smtp.gmail.com",
+		port: 465,
+		secure: true,
 		auth: {
-			user: "1aca49cbea3bcd",
-			pass: "57e30686aa0e28",
+			type: "OAuth2",
+			user: USER_EMAIL,
+			clientId: CLIENT_ID,
+			clientSecret: CLIENT_SECRET,
+			refreshToken: REFRESH_TOKEN,
 		},
 	});
 
 	//Defining mailOptions
 	const mailOptions = {
-		from: "okekechidera64@yahoo.com", //Adding sender's email
-		to: data.email, //Getting recipient's email by query string
-		subject: `Email invitation from ${context.auth.token.email}`, //Email subject
-		html: "<b>common bitch!!</b>", //Email content in HTML
+		from: "okekechidera97@gmail.com",
+		to: email,
+		subject: `Email invitation from ${context.auth.token.email}`,
+		html: "<b>common bitch!!</b>",
 	};
 
 	return transporter.sendMail(mailOptions);
 });
-
-// return transporter.sendMail(mailOptions, (err, info) => {
-// 	if(err){
-// 		return res.send(err.toString());
-// 	}
-// 	return res.send('Email sent succesfully');
-// });

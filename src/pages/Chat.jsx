@@ -64,6 +64,9 @@ function Chat() {
 		})
 			.then((res) => {
 				console.log(res.data);
+				//create popup
+				setInput((prevState) => ({ ...prevState, email: "" }));
+				setSearchError(null);
 			})
 			.catch((err) => {
 				console.log(err);
@@ -77,6 +80,12 @@ function Chat() {
 		e.preventDefault();
 		setSearchError(null);
 
+		//email regex
+		let validateEmail = (email) => {
+			var re = /\S+@\S+\.\S+/;
+			return re.test(email);
+		};
+
 		let errorMessage = (userEmail) => {
 			document.getElementById(
 				"search-error"
@@ -88,6 +97,8 @@ function Chat() {
 
 		if (trimmedEmail === "") {
 			setSearchError("User email can not be empty");
+		} else if (!validateEmail(trimmedEmail)) {
+			setSearchError("Please enter a valid email.");
 		} else {
 			store
 				.collection("users")
@@ -98,7 +109,6 @@ function Chat() {
 						docs.forEach((doc) => {
 							setChats(doc.data().uid);
 						});
-						setInput((prevState) => ({ ...prevState, content: "" }));
 					} else {
 						setSearchError(errorMessage(trimmedEmail));
 					}
