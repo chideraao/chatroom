@@ -175,7 +175,7 @@ function Chat() {
 				})}
 				<div ref={dummyDiv}></div>
 			</div>
-			<form onSubmit={sendMessage}>
+			<form className="message-send" onSubmit={sendMessage}>
 				<input
 					onChange={handleChange}
 					value={content}
