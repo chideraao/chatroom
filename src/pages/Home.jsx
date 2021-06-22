@@ -6,9 +6,9 @@ import Contacts from "./Contacts";
 function Home() {
 	return (
 		<div className="grid">
-			{/* <Contacts /> */}
+			<Contacts />
 			<Chat />
-			<ChatRoom />
+			{/* <ChatRoom /> */}
 		</div>
 	);
 }

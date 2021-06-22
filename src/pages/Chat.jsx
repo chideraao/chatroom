@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import firebase from "firebase";
+import { ChatContext } from "../context/ChatsContext";
 import { auth, store } from "../services/firebase";
 
 function Chat() {
@@ -8,8 +8,7 @@ function Chat() {
 	const [input, setInput] = useState({ content: "", email: "" });
 	const [readError, setReadError] = useState(null);
 	const [writeError, setWriteError] = useState(null);
-	const [searchError, setSearchError] = useState(null);
-	const [chats, setChats] = useState(null);
+	const [chats, setChats] = useState(ChatContext);
 
 	const { content, email } = input;
 
@@ -55,70 +54,6 @@ function Chat() {
 		}));
 	};
 
-	/** https callable function to send emails  */
-	const emailInvite = () => {
-		const inviteUser = firebase.functions().httpsCallable("inviteUser");
-
-		inviteUser({
-			email: email.trim(),
-		})
-			.then((res) => {
-				console.log(res.data);
-				//create popup
-				setInput((prevState) => ({ ...prevState, email: "" }));
-				setSearchError(null);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-
-		setInput((prevState) => ({ ...prevState, content: "" }));
-	};
-
-	const createNewChat = (e) => {
-		let trimmedEmail = email.trim();
-		e.preventDefault();
-		setSearchError(null);
-
-		//email regex
-		let validateEmail = (email) => {
-			var re = /\S+@\S+\.\S+/;
-			return re.test(email);
-		};
-
-		let errorMessage = (userEmail) => {
-			document.getElementById(
-				"search-error"
-			).innerHTML = `User ${userEmail} does not yet exist. <button id='mail-btn'>Invite via email?</button> `;
-			document
-				.getElementById("mail-btn")
-				.addEventListener("click", emailInvite, true);
-		};
-
-		if (trimmedEmail === "") {
-			setSearchError("User email can not be empty");
-		} else if (!validateEmail(trimmedEmail)) {
-			setSearchError("Please enter a valid email.");
-		} else {
-			store
-				.collection("users")
-				.where("email", "==", trimmedEmail)
-				.get()
-				.then((docs) => {
-					if (docs.size > 0) {
-						docs.forEach((doc) => {
-							setChats(doc.data().uid);
-						});
-					} else {
-						setSearchError(errorMessage(trimmedEmail));
-					}
-				})
-				.catch((err) => {
-					console.log(err.message);
-				});
-		}
-	};
-
 	useEffect(() => {
 		setReadError(null);
 
@@ -149,21 +84,6 @@ function Chat() {
 	return (
 		<div>
 			<div className="chats">
-				<form onSubmit={createNewChat}>
-					<input
-						type="text"
-						onChange={handleChange}
-						id="newChat"
-						value={email}
-						name="email"
-						placeholder="Enter user email"
-					/>
-					<button type="submit">New Chat</button>
-					<div>
-						<p id="search-error">{searchError ? searchError : ""}</p>
-					</div>
-				</form>
-
 				{messages.map((text) => {
 					/** check to see if message bubble was sent or received */
 					let messageClass = text.uid === user.uid ? "sent" : "received";
