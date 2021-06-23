@@ -4,11 +4,45 @@ const nodemailer = require("nodemailer");
 
 admin.initializeApp();
 
+/** defining and destructuring environments config for firebase functions */
+let { useremail, refreshtoken, clientid, clientsecret } =
+	functions.config().gmail;
+
+let transporter = nodemailer.createTransport({
+	host: "smtp.gmail.com",
+	port: 465,
+	secure: true,
+	auth: {
+		type: "OAuth2",
+		user: useremail,
+		clientId: clientid,
+		clientSecret: clientsecret,
+		refreshToken: refreshtoken,
+	},
+});
+
 exports.userSignUp = functions.auth.user().onCreate((user) => {
-	return admin.firestore().collection("users").add({
-		email: user.email,
-		uid: user.uid,
-	});
+	//Defining mailOptions
+	const mailOptions = {
+		from: "okekechidera97@gmail.com",
+		to: user.email,
+		subject: "Thanks for Signing up",
+		html: "<b>common bitch!!</b>",
+	};
+
+	return admin
+		.firestore()
+		.collection("users")
+		.add({
+			email: user.email,
+			uid: user.uid,
+		})
+		.then(() => {
+			transporter.sendMail(mailOptions);
+		})
+		.catch((err) => {
+			console.log(err);
+		});
 });
 
 exports.userDelete = functions.auth.user().onDelete((user) => {
@@ -18,23 +52,6 @@ exports.userDelete = functions.auth.user().onDelete((user) => {
 
 exports.inviteUser = functions.https.onCall((data, context) => {
 	let email = data.email;
-
-	/** defining and destructuring environments config for firebase functions */
-	let { useremail, refreshtoken, clientid, clientsecret } =
-		functions.config().gmail;
-
-	let transporter = nodemailer.createTransport({
-		host: "smtp.gmail.com",
-		port: 465,
-		secure: true,
-		auth: {
-			type: "OAuth2",
-			user: useremail,
-			clientId: clientid,
-			clientSecret: clientsecret,
-			refreshToken: refreshtoken,
-		},
-	});
 
 	//Defining mailOptions
 	const mailOptions = {

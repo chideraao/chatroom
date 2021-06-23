@@ -5,12 +5,10 @@ import { auth, store } from "../services/firebase";
 function Chat() {
 	const [messages, setMessages] = useState([]);
 	const [user, setUser] = useState(auth().currentUser);
-	const [input, setInput] = useState({ content: "", email: "" });
+	const [content, setContent] = useState("");
 	const [readError, setReadError] = useState(null);
 	const [writeError, setWriteError] = useState(null);
 	const [chats, setChats] = useState(ChatContext);
-
-	const { content, email } = input;
 
 	const dummyDiv = useRef();
 
@@ -25,7 +23,7 @@ function Chat() {
 				timestamp: Date.now(),
 				uid: user.uid,
 			});
-			setInput((prevState) => ({ ...prevState, content: "" }));
+			setContent("");
 		} catch (err) {
 			setWriteError(err.message);
 			dummyDiv.current.scrollIntoView({ behaviour: "smooth" });
@@ -48,10 +46,7 @@ function Chat() {
 
 	/** handle form change and trim start to ensure no whitespace can be written to db */
 	const handleChange = (e) => {
-		setInput((prevState) => ({
-			...prevState,
-			[e.target.name]: e.target.value.trimStart(),
-		}));
+		setContent(e.target.value.trimStart());
 	};
 
 	useEffect(() => {

@@ -1,14 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import firebase from "firebase";
 import { auth, store } from "../services/firebase";
 import { ChatContext } from "../context/ChatsContext";
 
 function Contacts() {
+	const [user, setUser] = useState(auth().currentUser);
 	const [searchError, setSearchError] = useState(null);
 	const [chats, setChats] = useState(ChatContext);
 	const [input, setInput] = useState({ content: "", email: "" });
 
 	const { content, email } = input;
+
+	useEffect(() => {
+		user.providerData.forEach((profile) => {
+			console.log("sign-in provider", profile.providerId);
+			console.log("uid", profile.uid);
+			console.log(" displayname", profile.displayName);
+			console.log("email", profile.email);
+			console.log("photourl", profile.photoURL);
+		});
+	}, [user]);
 
 	/** handle form change and trim start to ensure no whitespace can be written to db */
 	const handleChange = (e) => {
