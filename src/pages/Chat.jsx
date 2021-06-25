@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { ChatContext } from "../context/ChatsContext";
 import { auth, store } from "../services/firebase";
 
@@ -8,7 +8,7 @@ function Chat() {
 	const [content, setContent] = useState("");
 	const [readError, setReadError] = useState(null);
 	const [writeError, setWriteError] = useState(null);
-	const [chats, setChats] = useState(ChatContext);
+	const [chats, setChats] = useContext(ChatContext);
 
 	const dummyDiv = useRef();
 

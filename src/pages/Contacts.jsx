@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import firebase from "firebase";
 import { auth, store } from "../services/firebase";
 import { ChatContext } from "../context/ChatsContext";
@@ -6,7 +6,7 @@ import { ChatContext } from "../context/ChatsContext";
 function Contacts() {
 	const [user, setUser] = useState(auth().currentUser);
 	const [searchError, setSearchError] = useState(null);
-	const [chats, setChats] = useState(ChatContext);
+	const [chats, setChats] = useContext(ChatContext);
 	const [input, setInput] = useState({ content: "", email: "" });
 
 	const { content, email } = input;
