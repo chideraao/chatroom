@@ -9,7 +9,8 @@ function Signup() {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		setError("");
-		signUp(user.email, user.password)
+		let email = user.email.toLowerCase().trim();
+		signUp(email, user.password)
 			.then(() => {
 				setError(null);
 				setUser({ email: "", password: "" });
@@ -39,10 +40,10 @@ function Signup() {
 
 	return (
 		<div>
-			<form onSubmit={handleSubmit}>
+			<form onSubmit={handleSubmit} autoComplete="off">
 				<h1>
-					Sign Up to {""}
-					<Link to="/">ChatRoom</Link>
+					Sign Up to
+					<Link to="/">DheraGram</Link>
 				</h1>
 				<p>Fill in the form below to create an account.</p>
 				<div>

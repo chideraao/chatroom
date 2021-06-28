@@ -76,7 +76,7 @@ function ChatRoom() {
 				})}
 				<div ref={dummyDiv}></div>
 			</div>
-			<form onSubmit={sendMessage}>
+			<form onSubmit={sendMessage} autoComplete="off">
 				<input
 					onChange={handleChange}
 					value={content}

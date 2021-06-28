@@ -8,7 +8,8 @@ function Login() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		signIn(user.email, user.password)
+		let email = user.email.toLowerCase().trim();
+		signIn(email, user.password)
 			.then(() => {
 				setUser({ email: "", password: "" });
 				setError(null);
@@ -38,7 +39,7 @@ function Login() {
 		<div>
 			<form autoComplete="off" onSubmit={handleSubmit}>
 				<h1>
-					Login to <Link to="/">ChatRoom</Link>
+					Login to <Link to="/">DheraGram</Link>
 				</h1>
 				<p>Fill in the form below to login to your account.</p>
 				<div>

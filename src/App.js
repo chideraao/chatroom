@@ -84,7 +84,7 @@ function App() {
 							authenticated={authenticated}
 						/>
 						<PublicRoute
-							path="/"
+							path="/login"
 							component={Login}
 							authenticated={authenticated}
 						/>

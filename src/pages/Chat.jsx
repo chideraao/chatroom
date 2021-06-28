@@ -10,6 +10,8 @@ function Chat() {
 	const [writeError, setWriteError] = useState(null);
 	const [chats, setChats] = useContext(ChatContext);
 
+	let arr = messages;
+
 	const dummyDiv = useRef();
 
 	/** handler for sending messages, updating db */
@@ -52,6 +54,12 @@ function Chat() {
 	useEffect(() => {
 		setReadError(null);
 
+		function pairwise(arr, func) {
+			for (var i = 0; i < arr.length - 1; i++) {
+				func(arr[i], arr[i + 1]);
+			}
+		}
+
 		/** load existing messages in doc on page load. setting a limit to it */
 		async function getSnapshot() {
 			try {
@@ -66,6 +74,13 @@ function Chat() {
 						docs.forEach((doc) => {
 							message.push(doc.data());
 						});
+						pairwise(message, function (current, next) {
+							if (current.uid === next.uid) {
+								current.style = "innnit";
+							} else {
+								current.style = "";
+							}
+						});
 						setMessages(message);
 					});
 			} catch (err) {
@@ -73,24 +88,32 @@ function Chat() {
 			}
 		}
 
+		console.log(messages);
+
 		getSnapshot();
 	}, [user, chats]);
 
 	return (
 		<div>
 			<div className="chats">
-				{messages.map((text) => {
-					/** check to see if message bubble was sent or received */
-					let messageClass = text.uid === user.uid ? "sent" : "received";
-					return (
-						<p key={text.timestamp} className={messageClass}>
-							{text.content}
-						</p>
-					);
-				})}
+				<div className="message">
+					{messages.map((text) => {
+						/** check to see if message bubble was sent or received */
+						let messageClass = text.uid === user.uid ? "sent" : "received";
+						return (
+							<p
+								key={text.timestamp}
+								className={`${messageClass} ${text.style}`}
+							>
+								{text.content}
+							</p>
+						);
+					})}
+				</div>
+
 				<div ref={dummyDiv}></div>
 			</div>
-			<form className="message-send" onSubmit={sendMessage}>
+			<form className="message-send" onSubmit={sendMessage} autoComplete="off">
 				<input
 					onChange={handleChange}
 					value={content}

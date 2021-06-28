@@ -34,32 +34,27 @@ function Contacts() {
 		const inviteUser = firebase.functions().httpsCallable("inviteUser");
 
 		inviteUser({
-			email: email.trim(),
+			email: email.trim().toLowerCase(),
 		})
 			.then((res) => {
 				console.log(res.data);
 				//create popup
 				setInput((prevState) => ({ ...prevState, email: "" }));
-				setSearchError(null);
+				setSearchError("");
 			})
 			.catch((err) => {
 				console.log(err);
 			});
-
-		setInput((prevState) => ({ ...prevState, content: "" }));
 	};
 
 	const createNewChat = (e) => {
-		let trimmedEmail = email.trim();
-		e.preventDefault();
-		setSearchError(null);
-
 		//email regex
 		let validateEmail = (email) => {
 			var re = /\S+@\S+\.\S+/;
 			return re.test(email);
 		};
 
+		/**fix the goddamned error message bug niggggggaaax */
 		let errorMessage = (userEmail) => {
 			document.getElementById(
 				"search-error"
@@ -68,6 +63,10 @@ function Contacts() {
 				.getElementById("mail-btn")
 				.addEventListener("click", emailInvite, true);
 		};
+
+		let trimmedEmail = email.trim().toLowerCase();
+		e.preventDefault();
+		setSearchError(null);
 
 		if (trimmedEmail === "") {
 			setSearchError("User email can not be empty");
@@ -82,6 +81,7 @@ function Contacts() {
 					if (docs.size > 0) {
 						docs.forEach((doc) => {
 							setChats(doc.data().uid);
+							setInput((prevState) => ({ ...prevState, email: "" }));
 						});
 					} else {
 						setSearchError(errorMessage(trimmedEmail));
@@ -106,7 +106,7 @@ function Contacts() {
 				/>
 				<button type="submit">New Chat</button>
 				<div>
-					<p id="search-error">{searchError ? searchError : ""}</p>
+					<p id="search-error">{searchError ? `${searchError}` : ""}</p>
 				</div>
 			</form>
 		</div>
