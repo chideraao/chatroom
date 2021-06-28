@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { ChatContext } from "../context/ChatsContext";
 import { auth, store } from "../services/firebase";
+import styles from "../styles/chats.module.css";
 
 function Chat() {
 	const [messages, setMessages] = useState([]);
@@ -10,9 +11,7 @@ function Chat() {
 	const [writeError, setWriteError] = useState(null);
 	const [chats, setChats] = useContext(ChatContext);
 
-	let arr = messages;
-
-	const dummyDiv = useRef();
+	const dummy = useRef();
 
 	/** handler for sending messages, updating db */
 	const sendMessage = async (e) => {
@@ -26,19 +25,26 @@ function Chat() {
 				uid: user.uid,
 			});
 			setContent("");
+			dummy.current.scrollIntoView({ behavior: "smooth" });
 		} catch (err) {
 			setWriteError(err.message);
-			dummyDiv.current.scrollIntoView({ behaviour: "smooth" });
 		}
 
-		try {
-			await store.collection(chats).doc("chats").collection(`${user.uid}`).add({
-				content: content.trim(),
-				timestamp: Date.now(),
-				uid: user.uid,
-			});
-		} catch (err) {
-			setWriteError(err.message);
+		if (chats !== user.uid) {
+			try {
+				await store
+					.collection(chats)
+					.doc("chats")
+					.collection(`${user.uid}`)
+					.add({
+						content: content.trim(),
+						timestamp: Date.now(),
+						uid: user.uid,
+					});
+				dummy.current.scrollIntoView({ behavior: "smooth" });
+			} catch (err) {
+				setWriteError(err.message);
+			}
 		}
 	};
 
@@ -54,9 +60,16 @@ function Chat() {
 	useEffect(() => {
 		setReadError(null);
 
-		function pairwise(arr, func) {
+		/**function to check uid of the next message in collection and add a style accordingly */
+		function nextCheck(arr) {
 			for (var i = 0; i < arr.length - 1; i++) {
-				func(arr[i], arr[i + 1]);
+				let current = arr[i];
+				let next = arr[i + 1];
+				if (current.uid === next.uid) {
+					current.style = "not-last-msg";
+				} else {
+					current.style = "";
+				}
 			}
 		}
 
@@ -74,13 +87,7 @@ function Chat() {
 						docs.forEach((doc) => {
 							message.push(doc.data());
 						});
-						pairwise(message, function (current, next) {
-							if (current.uid === next.uid) {
-								current.style = "innnit";
-							} else {
-								current.style = "";
-							}
-						});
+						nextCheck(message);
 						setMessages(message);
 					});
 			} catch (err) {
@@ -88,18 +95,18 @@ function Chat() {
 			}
 		}
 
-		console.log(messages);
-
 		getSnapshot();
 	}, [user, chats]);
 
 	return (
 		<div>
-			<div className="chats">
-				<div className="message">
+			<div className={styles.chats}>
+				<h2>DheraGram with {chats}</h2>
+				<div className={styles.message}>
 					{messages.map((text) => {
 						/** check to see if message bubble was sent or received */
-						let messageClass = text.uid === user.uid ? "sent" : "received";
+						let messageClass =
+							text.uid === user.uid ? styles.sent : styles.received;
 						return (
 							<p
 								key={text.timestamp}
@@ -111,7 +118,7 @@ function Chat() {
 					})}
 				</div>
 
-				<div ref={dummyDiv}></div>
+				<span ref={dummy}></span>
 			</div>
 			<form className="message-send" onSubmit={sendMessage} autoComplete="off">
 				<input

@@ -15,7 +15,6 @@ function ChatRoom() {
 	/** handler for sending messages, updating db */
 	const sendMessage = async (e) => {
 		e.preventDefault();
-		setContent("");
 		setWriteError(null);
 
 		/**regex to prevent sending whitespace */
@@ -25,10 +24,11 @@ function ChatRoom() {
 				timestamp: Date.now(),
 				uid: user.uid,
 			});
+			setContent("");
+			dummyDiv.current.scrollIntoView({ behaviour: "smooth" });
 		} catch (err) {
 			setWriteError(err.message);
 		}
-		dummyDiv.current.scrollIntoView({ behaviour: "smooth" });
 	};
 
 	const handleSignOut = () => {
@@ -74,7 +74,7 @@ function ChatRoom() {
 						</p>
 					);
 				})}
-				<div ref={dummyDiv}></div>
+				<span ref={dummyDiv}></span>
 			</div>
 			<form onSubmit={sendMessage} autoComplete="off">
 				<input
