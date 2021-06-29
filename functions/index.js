@@ -63,3 +63,12 @@ exports.inviteUser = functions.https.onCall((data, context) => {
 
 	return transporter.sendMail(mailOptions);
 });
+
+exports.getSubCollections = functions.https.onCall(async (data, context) => {
+	const docPath = data.docPath;
+
+	const collections = await admin.firestore().doc(docPath).listCollections();
+	const collectionIds = collections.map((col) => col.id);
+	console.log({ collections: collectionIds });
+	return { collections: collectionIds };
+});

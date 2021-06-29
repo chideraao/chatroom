@@ -1,7 +1,7 @@
 import React from "react";
-import Chat from "./Chat";
-import ChatRoom from "./ChatRoom";
-import Contacts from "./Contacts";
+import Chat from "../components/Chat";
+import ChatRoom from "../components/ChatRoom";
+import Contacts from "../components/Contacts";
 
 function Home() {
 	return (

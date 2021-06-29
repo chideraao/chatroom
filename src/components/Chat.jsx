@@ -9,7 +9,7 @@ function Chat() {
 	const [content, setContent] = useState("");
 	const [readError, setReadError] = useState(null);
 	const [writeError, setWriteError] = useState(null);
-	const [chats, setChats] = useContext(ChatContext);
+	const [chat, setChat] = useContext(ChatContext);
 
 	const dummy = useRef();
 
@@ -19,7 +19,7 @@ function Chat() {
 		setWriteError(null);
 
 		try {
-			await store.collection(`${user.uid}`).doc("chats").collection(chats).add({
+			await store.collection(`${user.uid}`).doc("chats").collection(chat).add({
 				content: content.trim(),
 				timestamp: Date.now(),
 				uid: user.uid,
@@ -30,10 +30,10 @@ function Chat() {
 			setWriteError(err.message);
 		}
 
-		if (chats !== user.uid) {
+		if (chat !== user.uid) {
 			try {
 				await store
-					.collection(chats)
+					.collection(chat)
 					.doc("chats")
 					.collection(`${user.uid}`)
 					.add({
@@ -79,9 +79,8 @@ function Chat() {
 				store
 					.collection(`${user.uid}`)
 					.doc("chats")
-					.collection(chats)
+					.collection(chat)
 					.orderBy("timestamp")
-					.limit(60)
 					.onSnapshot((docs) => {
 						let message = [];
 						docs.forEach((doc) => {
@@ -91,17 +90,17 @@ function Chat() {
 						setMessages(message);
 					});
 			} catch (err) {
-				console.log(err.message);
+				alert(err.message);
 			}
 		}
 
 		getSnapshot();
-	}, [user, chats]);
+	}, [user, chat]);
 
 	return (
 		<div>
 			<div className={styles.chats}>
-				<h2>DheraGram with {chats}</h2>
+				<h2>DheraGram with {chat}</h2>
 				<div className={styles.message}>
 					{messages.map((text) => {
 						/** check to see if message bubble was sent or received */

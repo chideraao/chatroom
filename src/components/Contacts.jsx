@@ -1,36 +1,44 @@
 import React, { useContext, useEffect, useState } from "react";
 import firebase from "firebase";
-import { auth, store } from "../services/firebase";
+import { auth, store, db } from "../services/firebase";
 import { ChatContext } from "../context/ChatsContext";
+import ChatList from "./ChatList";
 
 function Contacts() {
 	const [user, setUser] = useState(auth().currentUser);
 	const [searchError, setSearchError] = useState(null);
-	const [chats, setChats] = useContext(ChatContext);
+	const [chat, setChat] = useContext(ChatContext);
+	const [activeChats, setActiveChats] = useState([]);
 	const [input, setInput] = useState({ content: "", email: "" });
-
 	const { content, email } = input;
 
-	useEffect(() => {
-		user.providerData.forEach((profile) => {
-			console.log("sign-in provider", profile.providerId);
-			console.log("uid", profile.uid);
-			console.log(" displayname", profile.displayName);
-			console.log("email", profile.email);
-			console.log("photourl", profile.photoURL);
-		});
-	}, [user]);
+	user.providerData.forEach((profile) => {
+		console.log("sign-in provider", profile.providerId);
+		console.log("uid", profile.uid);
+		console.log(" displayname", profile.displayName);
+		console.log("email", profile.email);
+		console.log("photourl", profile.photoURL);
+	});
 
-	/** handle form change and trim start to ensure no whitespace can be written to db */
-	const handleChange = (e) => {
-		setInput((prevState) => ({
-			...prevState,
-			[e.target.name]: e.target.value.trimStart(),
-		}));
-	};
+	useEffect(() => {
+		const getSubCollections = firebase
+			.functions()
+			.httpsCallable("getSubCollections");
+		getSubCollections({ docPath: `${user.uid}/chats` })
+			.then((res) => {
+				var collections = res.data.collections;
+				setActiveChats(collections);
+			})
+			.catch((err) => {
+				alert(err.message);
+			});
+	}, [user]);
 
 	/** https callable function to send emails  */
 	const emailInvite = () => {
+		let contentReset = () => {
+			document.getElementById("search-error").innerHTML = "";
+		};
 		const inviteUser = firebase.functions().httpsCallable("inviteUser");
 
 		inviteUser({
@@ -38,12 +46,12 @@ function Contacts() {
 		})
 			.then((res) => {
 				console.log(res.data);
-				//create popup
 				setInput((prevState) => ({ ...prevState, email: "" }));
-				setSearchError("");
+				alert("Email invitation sent successfully");
+				setSearchError(contentReset);
 			})
 			.catch((err) => {
-				console.log(err);
+				alert(err);
 			});
 	};
 
@@ -80,7 +88,7 @@ function Contacts() {
 				.then((docs) => {
 					if (docs.size > 0) {
 						docs.forEach((doc) => {
-							setChats(doc.data().uid);
+							setChat(doc.data().email);
 							setInput((prevState) => ({ ...prevState, email: "" }));
 						});
 					} else {
@@ -88,9 +96,21 @@ function Contacts() {
 					}
 				})
 				.catch((err) => {
-					console.log(err.message);
+					alert(err.message);
 				});
 		}
+	};
+
+	/** handle form change and trim start to ensure no whitespace can be written to db */
+	const handleChange = (e) => {
+		setInput((prevState) => ({
+			...prevState,
+			[e.target.name]: e.target.value.trimStart(),
+		}));
+	};
+
+	const handleClick = (id) => {
+		setChat(id);
 	};
 
 	return (
@@ -109,6 +129,12 @@ function Contacts() {
 					<p id="search-error">{searchError ? `${searchError}` : ""}</p>
 				</div>
 			</form>
+			<div className="messages">
+				<div className="group-chat"></div>
+				{activeChats.map((chat) => {
+					return <ChatList key={chat} id={chat} chats={chat} />;
+				})}
+			</div>
 		</div>
 	);
 }
