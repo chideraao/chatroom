@@ -12,27 +12,27 @@ function Contacts() {
 	const [input, setInput] = useState({ content: "", email: "" });
 	const { content, email } = input;
 
-	user.providerData.forEach((profile) => {
-		console.log("sign-in provider", profile.providerId);
-		console.log("uid", profile.uid);
-		console.log(" displayname", profile.displayName);
-		console.log("email", profile.email);
-		console.log("photourl", profile.photoURL);
-	});
+	// user.providerData.forEach((profile) => {
+	// 	console.log("sign-in provider", profile.providerId);
+	// 	console.log("uid", profile.uid);
+	// 	console.log(" displayname", profile.displayName);
+	// 	console.log("email", profile.email);
+	// 	console.log("photourl", profile.photoURL);
+	// });
 
 	useEffect(() => {
-		const getSubCollections = firebase
+		const listActiveChats = firebase
 			.functions()
-			.httpsCallable("getSubCollections");
-		getSubCollections({ docPath: `${user.uid}/chats` })
+			.httpsCallable("listActiveChats");
+		listActiveChats({ docPath: `${user.email}/chats` })
 			.then((res) => {
-				var collections = res.data.collections;
+				let collections = res.data.collections;
 				setActiveChats(collections);
 			})
 			.catch((err) => {
 				alert(err.message);
 			});
-	}, [user]);
+	}, [user, chat]);
 
 	/** https callable function to send emails  */
 	const emailInvite = () => {
@@ -107,10 +107,6 @@ function Contacts() {
 			...prevState,
 			[e.target.name]: e.target.value.trimStart(),
 		}));
-	};
-
-	const handleClick = (id) => {
-		setChat(id);
 	};
 
 	return (

@@ -12,30 +12,37 @@ function Chat() {
 	const [chat, setChat] = useContext(ChatContext);
 
 	const dummy = useRef();
+	let chatInput = useRef();
 
 	/** handler for sending messages, updating db */
 	const sendMessage = async (e) => {
 		e.preventDefault();
 		setWriteError(null);
 
-		try {
-			await store.collection(`${user.uid}`).doc("chats").collection(chat).add({
-				content: content.trim(),
-				timestamp: Date.now(),
-				uid: user.uid,
-			});
-			setContent("");
-			dummy.current.scrollIntoView({ behavior: "smooth" });
-		} catch (err) {
-			setWriteError(err.message);
+		if (content !== "") {
+			try {
+				await store
+					.collection(`${user.email}`)
+					.doc("chats")
+					.collection(chat)
+					.add({
+						content: content.trim(),
+						timestamp: Date.now(),
+						uid: user.uid,
+					});
+				setContent("");
+				dummy.current.scrollIntoView({ behavior: "smooth" });
+			} catch (err) {
+				setWriteError(err.message);
+			}
 		}
 
-		if (chat !== user.uid) {
+		if (chat !== user.email) {
 			try {
 				await store
 					.collection(chat)
 					.doc("chats")
-					.collection(`${user.uid}`)
+					.collection(`${user.email}`)
 					.add({
 						content: content.trim(),
 						timestamp: Date.now(),
@@ -58,6 +65,7 @@ function Chat() {
 	};
 
 	useEffect(() => {
+		chatInput.focus();
 		setReadError(null);
 
 		/**function to check uid of the next message in collection and add a style accordingly */
@@ -77,7 +85,7 @@ function Chat() {
 		async function getSnapshot() {
 			try {
 				store
-					.collection(`${user.uid}`)
+					.collection(`${user.email}`)
 					.doc("chats")
 					.collection(chat)
 					.orderBy("timestamp")
@@ -125,6 +133,8 @@ function Chat() {
 					value={content}
 					name="content"
 					placeholder="Type a message"
+					autoFocus
+					ref={(input) => (chatInput = input)}
 				/>
 				{writeError ? <p>{writeError}</p> : null}
 				<button type="submit">Send</button>
