@@ -73,16 +73,6 @@ function App() {
 							component={Home}
 							authenticated={authenticated}
 						/>
-						<PrivateRoute
-							path="/chatroom"
-							component={ChatRoom}
-							authenticated={authenticated}
-						/>
-						<PrivateRoute
-							path="/chat"
-							component={Chat}
-							authenticated={authenticated}
-						/>
 						<PublicRoute
 							path="/login"
 							component={Login}

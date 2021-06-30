@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { ChatContext } from "../context/ChatsContext";
 import firebase from "firebase";
 import { auth, store, db } from "../services/firebase";

@@ -69,3 +69,13 @@ button {
 .not-last-msg::before {
 	display: none;
 }
+
+.card {
+	background-color: #212124;
+	border-radius: 5px;
+	display: flex;
+	flex-wrap: wrap;
+	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+	padding: 20px;
+	margin: 10px;
+}

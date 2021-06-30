@@ -34,7 +34,7 @@
 p.sent {
 	align-self: flex-end;
 	background-color: #1982fc;
-	color: #fdfdfd;
+	color: #fff;
 }
 
 p.sent::before {
@@ -72,7 +72,7 @@ p.sent ~ p.sent:last-child {
 p.received {
 	align-items: flex-start;
 	background-color: #7d7d7d;
-	color: #fbfbf8;
+	color: #fff;
 	width: auto;
 	margin-bottom: 0.18rem;
 }

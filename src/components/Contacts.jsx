@@ -125,8 +125,8 @@ function Contacts() {
 					<p id="search-error">{searchError ? `${searchError}` : ""}</p>
 				</div>
 			</form>
-			<div className="messages">
-				<div className="group-chat"></div>
+			<div className="message-list">
+				<div className="group-chat"> </div>
 				{activeChats.map((chat) => {
 					return <ChatList key={chat} id={chat} chats={chat} />;
 				})}
