@@ -1,5 +1,5 @@
-Jun 30, 2021 4:53:04 PM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketServer start
-INFO: Started WebSocket server on ws://localhost:49179
+Jul 01, 2021 12:52:35 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketServer start
+INFO: Started WebSocket server on ws://localhost:49342
 API endpoint: http://localhost:8080
 If you are using a library that supports the FIRESTORE_EMULATOR_HOST environment variable, run:
 
@@ -7,9 +7,13 @@ If you are using a library that supports the FIRESTORE_EMULATOR_HOST environment
 
 Dev App Server is now running.
 
-Jun 30, 2021 4:54:26 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+Jul 01, 2021 12:53:40 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Jul 01, 2021 12:53:41 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected HTTP/2 connection.
-Jun 30, 2021 4:54:29 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+Jul 01, 2021 12:55:33 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected HTTP/2 connection.
-Jun 30, 2021 5:13:10 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+Jul 01, 2021 12:55:35 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+Jul 01, 2021 1:09:35 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected HTTP/2 connection.

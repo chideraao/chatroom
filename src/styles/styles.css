@@ -66,6 +66,26 @@ button {
 	grid-template-columns: 20% 80%;
 }
 
+.searchbox {
+	display: block;
+	width: 100%;
+	padding: 15px;
+	border: none;
+	outline: none;
+	background: none;
+	background-color: #212124;
+	border-radius: 8px;
+	color: #fff;
+	font-size: 20px;
+	font-weight: 300;
+
+	transition: 0.4s ease-out;
+}
+
+.searchbox:focus {
+	box-shadow: 0px 0px 8px 3px #4484c4;
+}
+
 .not-last-msg::before {
 	display: none;
 }
@@ -73,9 +93,17 @@ button {
 .card {
 	background-color: #212124;
 	border-radius: 5px;
-	display: flex;
-	flex-wrap: wrap;
+	color: #fff;
 	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
 	padding: 20px;
 	margin: 10px;
+}
+
+.flex {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.flex p {
+	padding: 0.2rem;
 }

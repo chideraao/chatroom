@@ -115,6 +115,7 @@ function Contacts() {
 				<input
 					type="text"
 					onChange={handleChange}
+					className="searchbox"
 					id="newChat"
 					value={email}
 					name="email"
