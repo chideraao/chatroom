@@ -10,10 +10,10 @@ function Home() {
 
 	return (
 		<div className="grid">
-			<Contacts />
-			<Chat />
+			{/* <Contacts /> */}
+			{/* <Chat /> */}
 			<Emoji />
-			<ChatRoom />
+			{/* <ChatRoom /> */}
 		</div>
 	);
 }

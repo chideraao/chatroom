@@ -37,7 +37,7 @@ function Chat() {
 			}
 		}
 
-		if (chat !== user.email) {
+		if (chat !== user.email && content !== "") {
 			try {
 				await store
 					.collection(chat)
@@ -106,8 +106,8 @@ function Chat() {
 	}, [user, chat]);
 
 	return (
-		<div>
-			<div className={styles.chats}>
+		<div className={styles.chat}>
+			<div className={styles.body}>
 				<h2>DheraGram with {chat}</h2>
 				<div className={styles.message}>
 					{messages.map((text) => {

@@ -3083,36 +3083,6 @@
 		"skin_tones": true
 	},
 	{
-		"emoji": "👩‍🍼",
-		"description": "woman feeding baby",
-		"category": "People & Body",
-		"aliases": "woman_feeding_baby",
-		"tags": "",
-		"unicode_version": "13.0",
-		"ios_version": "14.0",
-		"skin_tones": true
-	},
-	{
-		"emoji": "👨‍🍼",
-		"description": "man feeding baby",
-		"category": "People & Body",
-		"aliases": "man_feeding_baby",
-		"tags": "",
-		"unicode_version": "13.0",
-		"ios_version": "14.0",
-		"skin_tones": true
-	},
-	{
-		"emoji": "🧑‍🍼",
-		"description": "person feeding baby",
-		"category": "People & Body",
-		"aliases": "person_feeding_baby",
-		"tags": "",
-		"unicode_version": "13.0",
-		"ios_version": "14.0",
-		"skin_tones": true
-	},
-	{
 		"emoji": "👼",
 		"description": "baby angel",
 		"category": "People & Body",

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import firebase from "firebase";
 import { auth, store, db } from "../services/firebase";
 import { ChatContext } from "../context/ChatsContext";
@@ -11,6 +11,8 @@ function Contacts() {
 	const [activeChats, setActiveChats] = useState([]);
 	const [input, setInput] = useState({ content: "", email: "" });
 	const { content, email } = input;
+
+	const searchRef = useRef();
 
 	// user.providerData.forEach((profile) => {
 	// 	console.log("sign-in provider", profile.providerId);
@@ -37,7 +39,7 @@ function Contacts() {
 	/** https callable function to send emails  */
 	const emailInvite = () => {
 		let contentReset = () => {
-			document.getElementById("search-error").innerHTML = "";
+			searchRef.current.innerHTML = "";
 		};
 		const inviteUser = firebase.functions().httpsCallable("inviteUser");
 
@@ -64,9 +66,7 @@ function Contacts() {
 
 		/**fix the goddamned error message bug niggggggaaax */
 		let errorMessage = (userEmail) => {
-			document.getElementById(
-				"search-error"
-			).innerHTML = `User ${userEmail} does not yet exist. <button id='mail-btn'>Invite via email?</button> `;
+			searchRef.current.innerHTML = `User ${userEmail} does not yet exist. <button id='mail-btn'>Invite via email?</button> `;
 			document
 				.getElementById("mail-btn")
 				.addEventListener("click", emailInvite, true);
@@ -123,7 +123,9 @@ function Contacts() {
 				/>
 				<button type="submit">New Chat</button>
 				<div>
-					<p id="search-error">{searchError ? `${searchError}` : ""}</p>
+					<p id="search-error" ref={searchRef}>
+						{searchError ? `${searchError}` : ""}
+					</p>
 				</div>
 			</form>
 			<div className="message-list">

@@ -107,3 +107,7 @@ button {
 .flex p {
 	padding: 0.2rem;
 }
+
+.contacts {
+	background-color: rgba(121, 116, 116, 0.72);
+}
