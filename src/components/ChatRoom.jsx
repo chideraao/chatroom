@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { ChatContext } from "../context/ChatsContext";
 import { auth, db } from "../services/firebase";
+import Emoji from "./Emoji";
+import { ReactComponent as Emoticon } from "../assets/logo/insert_emoticon_black_24dp.svg";
 
 function ChatRoom() {
 	const [messages, setMessages] = useState([]);
@@ -9,6 +11,7 @@ function ChatRoom() {
 	const [readError, setReadError] = useState(null);
 	const [writeError, setWriteError] = useState(null);
 	const [chats, setChats] = useContext(ChatContext);
+	const [emojiOpen, setEmojiOpen] = useState(false);
 
 	const dummyDiv = useRef();
 
@@ -38,6 +41,10 @@ function ChatRoom() {
 	/** handle form change and trim start to ensure no whitespace can be written to db */
 	const handleChange = (e) => {
 		setContent(e.target.value.trimStart());
+	};
+
+	const handleClick = () => {
+		setEmojiOpen(true);
 	};
 
 	useEffect(() => {
@@ -76,15 +83,19 @@ function ChatRoom() {
 				})}
 				<span ref={dummyDiv}></span>
 			</div>
-			<form onSubmit={sendMessage} autoComplete="off">
-				<input
-					onChange={handleChange}
-					value={content}
-					placeholder="Type a message"
-				></input>
-				{writeError ? <p>{writeError}</p> : null}
-				<button type="submit">Send</button>
-			</form>
+			<div className="input-container flex">
+				<form onSubmit={sendMessage} autoComplete="off">
+					<input
+						onChange={handleChange}
+						value={content}
+						placeholder="Type a message"
+					></input>
+					{writeError ? <p>{writeError}</p> : null}
+					<button type="submit">Send</button>
+				</form>
+				{emojiOpen ? <Emoji /> : ""}
+				<Emoticon onClick={handleClick} />
+			</div>
 			<div>
 				ChatRoom Logged in as: <strong>{user.email}</strong>
 				<button onClick={handleSignOut}>Sign out</button>

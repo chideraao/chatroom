@@ -3034,26 +3034,6 @@
 	},
 	{
 		"emoji": "👰",
-		"description": "person with veil",
-		"category": "People & Body",
-		"aliases": "person_with_veil",
-		"tags": "marriage wedding",
-		"unicode_version": "6.0",
-		"ios_version": "6.0",
-		"skin_tones": true
-	},
-	{
-		"emoji": "👰",
-		"description": "man with veil",
-		"category": "People & Body",
-		"aliases": "man_with_veil",
-		"tags": "",
-		"unicode_version": "13.0",
-		"ios_version": "14.0",
-		"skin_tones": true
-	},
-	{
-		"emoji": "👰",
 		"description": "woman with veil",
 		"category": "People & Body",
 		"aliases": "woman_with_veil bride_with_veil",
