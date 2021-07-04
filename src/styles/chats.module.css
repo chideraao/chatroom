@@ -96,11 +96,13 @@ p.received::after {
 	width: 10px;
 }
 
-p[class^="from-"].emoji {
+p.sent.emoji,
+p.received.emoji {
 	background: none;
 	font-size: 2.5rem;
 }
 
-p[class^="from-"].emoji::before {
+p.sent.emoji::before,
+p.received.emoji::before {
 	content: none;
 }

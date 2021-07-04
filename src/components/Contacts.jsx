@@ -60,8 +60,8 @@ function Contacts() {
 	const createNewChat = (e) => {
 		//email regex
 		let validateEmail = (email) => {
-			var re = /\S+@\S+\.\S+/;
-			return re.test(email);
+			let regex = /\S+@\S+\.\S+/;
+			return regex.test(email);
 		};
 
 		/**fix the goddamned error message bug niggggggaaax */

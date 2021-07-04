@@ -88,7 +88,7 @@ function ChatRoom() {
 					<input
 						onChange={handleChange}
 						value={content}
-						placeholder="Type a message"
+						placeholder="DheraGram"
 					></input>
 					{writeError ? <p>{writeError}</p> : null}
 					<button type="submit">Send</button>

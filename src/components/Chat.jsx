@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { ChatContext } from "../context/ChatsContext";
+import { ChatContext, ContentContext } from "../context/ChatsContext";
 import { auth, store } from "../services/firebase";
 import styles from "../styles/chats.module.css";
 import Emoji from "./Emoji";
@@ -8,7 +8,7 @@ import { ReactComponent as Emoticon } from "../assets/logo/insert_emoticon_black
 function Chat() {
 	const [messages, setMessages] = useState([]);
 	const [user, setUser] = useState(auth().currentUser);
-	const [content, setContent] = useState("");
+	const [content, setContent] = useContext(ContentContext);
 	const [readError, setReadError] = useState(null);
 	const [writeError, setWriteError] = useState(null);
 	const [chat, setChat] = useContext(ChatContext);
@@ -62,6 +62,11 @@ function Chat() {
 		auth().signOut();
 	};
 
+	const xxx = (mee) => {
+		let regex = /[ A-Za-z0-9\\!_$%^*()@={}"';:?.,><|./#&+-]/;
+		return regex.test(mee);
+	};
+
 	/** handle form change and trim start to ensure no whitespace can be written to db */
 	const handleChange = (e) => {
 		setContent(e.target.value.trimStart());
@@ -80,8 +85,9 @@ function Chat() {
 			for (var i = 0; i < arr.length - 1; i++) {
 				let current = arr[i];
 				let next = arr[i + 1];
+
 				if (current.uid === next.uid) {
-					current.style = "not-last-msg";
+					current.style = `${current.style} not-last-msg`;
 				} else {
 					current.style = "";
 				}
@@ -144,7 +150,7 @@ function Chat() {
 						onChange={handleChange}
 						value={content}
 						name="content"
-						placeholder="Type a message"
+						placeholder="DheraGram"
 						autoFocus
 						ref={(input) => (chatInput = input)}
 					/>

@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+	useCallback,
+	useContext,
+	useEffect,
+	useRef,
+	useState,
+} from "react";
 import emojis from "../assets/emojiList.json";
 import { ReactComponent as Emotion } from "../assets/logo/emoji_emotions_white_24dp.svg";
 import { ReactComponent as Nature } from "../assets/logo/emoji_nature_white_24dp.svg";
@@ -9,10 +15,12 @@ import { ReactComponent as Transportation } from "../assets/logo/emoji_transport
 import { ReactComponent as Symbols } from "../assets/logo/emoji_symbols_white_24dp.svg";
 import { ReactComponent as Flags } from "../assets/logo/emoji_flags_white_24dp.svg";
 import { ReactComponent as Recent } from "../assets/logo/schedule_white_24dp.svg";
+import { ContentContext } from "../context/ChatsContext";
 
 function Emoji() {
 	const [searchInput, setSearchInput] = useState("");
 	const [scrollText, setScrollText] = useState();
+	const [content, setContent] = useContext(ContentContext);
 
 	const iconRef = useRef();
 	let emojiSearch = useRef();
@@ -20,7 +28,7 @@ function Emoji() {
 	/** sticky emoji.category function*/
 	const handleScroll = useCallback(() => {
 		const links = iconRef.current.querySelectorAll("a");
-		let fromTop = iconRef.current.scrollTop;
+		let fromTop = iconRef.current.scrollTop + 24;
 
 		links.forEach((link) => {
 			let section = document.querySelector(link.hash);
@@ -74,6 +82,10 @@ function Emoji() {
 		setSearchInput(e.target.value);
 	};
 
+	const handleClick = (e) => {
+		setContent((prevState) => prevState + e.target.innerText);
+	};
+
 	const filteredEmojis = !searchInput
 		? emojis
 		: emojis.filter((emoji) => {
@@ -103,10 +115,24 @@ function Emoji() {
 				/>
 
 				<div className="emoticons flex">
-					<a href="#recent">
+					<a
+						href="#recent"
+						onClick={() => {
+							window.history.replaceState(null, null, " ");
+						}}
+					>
 						<Recent />
 					</a>
-					<a href="#emotion">
+					<a
+						href="#emotion"
+						onClick={() => {
+							window.history.replaceState(
+								"",
+								document.title,
+								window.location.pathname + window.location.search
+							);
+						}}
+					>
 						<Emotion />
 					</a>
 					<a href="#nature">
@@ -134,20 +160,40 @@ function Emoji() {
 				{searchInput ? (
 					<div className="emojis flex">
 						{filteredEmojis.map((emoji) => {
-							return <p key={emoji.emoji}>{emoji.emoji}</p>;
+							return (
+								<p
+									key={emoji.emoji}
+									onClick={handleClick}
+									value={content}
+									name="content"
+								>
+									{emoji.emoji}
+								</p>
+							);
 						})}{" "}
 					</div>
 				) : (
 					<div className="emojis">
 						<div className="RECENT" id="recent">
 							RECENT
-							<div className="flex"></div>
+							<div className="flex">
+								<p onClick={handleClick} value={content} name="content"></p>
+							</div>
 						</div>
 						<div className="SMILEYS & PEOPLE" id="emotion">
 							SMILEYS & PEOPLE
 							<div className="flex">
 								{smileys.map((emoji) => {
-									return <p key={emoji.emoji}>{emoji.emoji}</p>;
+									return (
+										<p
+											key={emoji.emoji}
+											onClick={handleClick}
+											value={content}
+											name="content"
+										>
+											{emoji.emoji}
+										</p>
+									);
 								})}
 							</div>
 						</div>
@@ -155,7 +201,16 @@ function Emoji() {
 							ANIMALS & NATURE
 							<div className="flex">
 								{animals.map((emoji) => {
-									return <p key={emoji.emoji}>{emoji.emoji}</p>;
+									return (
+										<p
+											key={emoji.emoji}
+											onClick={handleClick}
+											value={content}
+											name="content"
+										>
+											{emoji.emoji}
+										</p>
+									);
 								})}
 							</div>
 						</div>
@@ -163,7 +218,16 @@ function Emoji() {
 							FOOD & DRINK
 							<div className="flex">
 								{food.map((emoji) => {
-									return <p key={emoji.emoji}>{emoji.emoji}</p>;
+									return (
+										<p
+											key={emoji.emoji}
+											onClick={handleClick}
+											value={content}
+											name="content"
+										>
+											{emoji.emoji}
+										</p>
+									);
 								})}
 							</div>
 						</div>{" "}
@@ -171,7 +235,16 @@ function Emoji() {
 							ACTIVITIES
 							<div className="flex">
 								{activities.map((emoji) => {
-									return <p key={emoji.emoji}>{emoji.emoji}</p>;
+									return (
+										<p
+											key={emoji.emoji}
+											onClick={handleClick}
+											value={content}
+											name="content"
+										>
+											{emoji.emoji}
+										</p>
+									);
 								})}
 							</div>
 						</div>
@@ -179,7 +252,16 @@ function Emoji() {
 							TRAVEL & PLACES
 							<div className="flex">
 								{travel.map((emoji) => {
-									return <p key={emoji.emoji}>{emoji.emoji}</p>;
+									return (
+										<p
+											key={emoji.emoji}
+											onClick={handleClick}
+											value={content}
+											name="content"
+										>
+											{emoji.emoji}
+										</p>
+									);
 								})}
 							</div>
 						</div>
@@ -187,7 +269,16 @@ function Emoji() {
 							OBJECTS
 							<div className="flex">
 								{objects.map((emoji) => {
-									return <p key={emoji.emoji}>{emoji.emoji}</p>;
+									return (
+										<p
+											key={emoji.emoji}
+											onClick={handleClick}
+											value={content}
+											name="content"
+										>
+											{emoji.emoji}
+										</p>
+									);
 								})}
 							</div>
 						</div>
@@ -195,7 +286,16 @@ function Emoji() {
 							SYMBOLS
 							<div className="flex">
 								{symbols.map((emoji) => {
-									return <p key={emoji.emoji}>{emoji.emoji}</p>;
+									return (
+										<p
+											key={emoji.emoji}
+											onClick={handleClick}
+											value={content}
+											name="content"
+										>
+											{emoji.emoji}
+										</p>
+									);
 								})}
 							</div>
 						</div>
@@ -204,7 +304,16 @@ function Emoji() {
 							<div className="flex">
 								{" "}
 								{flags.map((emoji) => {
-									return <p key={emoji.emoji}>{emoji.emoji}</p>;
+									return (
+										<p
+											key={emoji.emoji}
+											onClick={handleClick}
+											value={content}
+											name="content"
+										>
+											{emoji.emoji}
+										</p>
+									);
 								})}
 							</div>
 						</div>
