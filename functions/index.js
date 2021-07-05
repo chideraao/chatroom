@@ -33,7 +33,8 @@ exports.userSignUp = functions.auth.user().onCreate((user) => {
 	return admin
 		.firestore()
 		.collection("users")
-		.add({
+		.doc(user.uid)
+		.set({
 			email: user.email,
 			uid: user.uid,
 			recentEmojis: [],

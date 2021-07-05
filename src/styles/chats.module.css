@@ -96,10 +96,14 @@ p.received::after {
 	width: 10px;
 }
 
+.pasDernier::before {
+	display: none;
+}
+
 p.sent.emoji,
 p.received.emoji {
 	background: none;
-	font-size: 2.5rem;
+	font-size: 3rem;
 }
 
 p.sent.emoji::before,

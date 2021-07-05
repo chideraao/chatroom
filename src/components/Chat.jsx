@@ -1,5 +1,9 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { ChatContext, ContentContext } from "../context/ChatsContext";
+import {
+	ChatContext,
+	ContentContext,
+	EmojiContext,
+} from "../context/ChatsContext";
 import { auth, store } from "../services/firebase";
 import styles from "../styles/chats.module.css";
 import Emoji from "./Emoji";
@@ -12,7 +16,8 @@ function Chat() {
 	const [readError, setReadError] = useState(null);
 	const [writeError, setWriteError] = useState(null);
 	const [chat, setChat] = useContext(ChatContext);
-	const [emojiOpen, setEmojiOpen] = useState(false);
+	const [emojiOpen, setEmojiOpen] = useContext(EmojiContext);
+	const [inputClass, setInputClass] = useState("");
 
 	const dummy = useRef();
 	let chatInput = useRef();
@@ -62,9 +67,9 @@ function Chat() {
 		auth().signOut();
 	};
 
-	const xxx = (mee) => {
+	const emojiCheck = (str) => {
 		let regex = /[ A-Za-z0-9\\!_$%^*()@={}"';:?.,><|./#&+-]/;
-		return regex.test(mee);
+		return regex.test(str);
 	};
 
 	/** handle form change and trim start to ensure no whitespace can be written to db */
@@ -77,6 +82,9 @@ function Chat() {
 	};
 
 	useEffect(() => {
+		console.log(dummy);
+		console.log(dummy.current.scrollHeight);
+		dummy.current.scrollTop = dummy.current.offsetTop;
 		chatInput.focus();
 		setReadError(null);
 
@@ -85,13 +93,22 @@ function Chat() {
 			for (var i = 0; i < arr.length - 1; i++) {
 				let current = arr[i];
 				let next = arr[i + 1];
+				console.log(emojiCheck(current));
 
-				if (current.uid === next.uid) {
-					current.style = `${current.style} not-last-msg`;
-				} else {
+				if (!emojiCheck(next) || current.uid !== next.uid) {
 					current.style = "";
+				} else {
+					current.style = `${styles.pasDernier}`;
 				}
 			}
+		}
+
+		if (content !== "" && !emojiCheck(content) && content.length <= 10) {
+			setInputClass("emoji");
+			chatInput.focus();
+		} else {
+			setInputClass("");
+			chatInput.focus();
 		}
 
 		/** load existing messages in doc on page load. setting a limit to it */
@@ -108,6 +125,11 @@ function Chat() {
 							message.push(doc.data());
 						});
 						nextCheck(message);
+						message.forEach((msg) => {
+							if (!emojiCheck(msg.content) && msg.content.length <= 10) {
+								msg.style = `${msg.style} ${styles.emoji}`;
+							}
+						});
 						setMessages(message);
 					});
 			} catch (err) {
@@ -116,7 +138,7 @@ function Chat() {
 		}
 
 		getSnapshot();
-	}, [user, chat]);
+	}, [user, chat, content]);
 
 	return (
 		<div className={styles.chat}>
@@ -138,7 +160,7 @@ function Chat() {
 					})}
 				</div>
 
-				<span ref={dummy}></span>
+				<span ref={dummy} className={styles.trial}></span>
 			</div>
 			<div className="input-container flex">
 				<form
@@ -150,6 +172,7 @@ function Chat() {
 						onChange={handleChange}
 						value={content}
 						name="content"
+						className={inputClass}
 						placeholder="DheraGram"
 						autoFocus
 						ref={(input) => (chatInput = input)}

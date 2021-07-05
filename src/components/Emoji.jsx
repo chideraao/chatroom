@@ -6,6 +6,7 @@ import React, {
 	useState,
 } from "react";
 import emojis from "../assets/emojiList.json";
+import firebase from "firebase";
 import { ReactComponent as Emotion } from "../assets/logo/emoji_emotions_white_24dp.svg";
 import { ReactComponent as Nature } from "../assets/logo/emoji_nature_white_24dp.svg";
 import { ReactComponent as Food } from "../assets/logo/emoji_food_beverage_white_24dp.svg";
@@ -15,12 +16,16 @@ import { ReactComponent as Transportation } from "../assets/logo/emoji_transport
 import { ReactComponent as Symbols } from "../assets/logo/emoji_symbols_white_24dp.svg";
 import { ReactComponent as Flags } from "../assets/logo/emoji_flags_white_24dp.svg";
 import { ReactComponent as Recent } from "../assets/logo/schedule_white_24dp.svg";
-import { ContentContext } from "../context/ChatsContext";
+import { ContentContext, EmojiContext } from "../context/ChatsContext";
+import { auth, store } from "../services/firebase";
 
 function Emoji() {
+	const [user, setUser] = useState(auth().currentUser);
 	const [searchInput, setSearchInput] = useState("");
 	const [scrollText, setScrollText] = useState();
+	const [recent, setRecent] = useState([]);
 	const [content, setContent] = useContext(ContentContext);
+	const [emojiOpen, setEmojiOpen] = useContext(EmojiContext);
 
 	const iconRef = useRef();
 	let emojiSearch = useRef();
@@ -48,7 +53,21 @@ function Emoji() {
 	useEffect(() => {
 		emojiSearch.focus();
 		iconRef.current.addEventListener("scroll", handleScroll);
-	}, [handleScroll]);
+
+		try {
+			store
+				.collection("users")
+				.doc(user.uid)
+				.onSnapshot((doc) => {
+					let recents = [];
+					recents = doc.data().recentEmojis;
+					recents = recents.reverse().slice(0, 17);
+					setRecent(recents);
+				});
+		} catch (err) {
+			console.log(err.message);
+		}
+	}, [handleScroll, user]);
 
 	let smileys = emojis.filter((emoji) => {
 		return (
@@ -56,24 +75,31 @@ function Emoji() {
 			emoji.category.includes("People & Body")
 		);
 	});
+
 	let flags = emojis.filter((emoji) => {
 		return emoji.category === "Flags";
 	});
+
 	let animals = emojis.filter((emoji) => {
 		return emoji.category === "Animals & Nature";
 	});
+
 	let food = emojis.filter((emoji) => {
 		return emoji.category === "Food & Drink";
 	});
+
 	let objects = emojis.filter((emoji) => {
 		return emoji.category === "Objects";
 	});
+
 	let symbols = emojis.filter((emoji) => {
 		return emoji.category === "Symbols";
 	});
+
 	let travel = emojis.filter((emoji) => {
 		return emoji.category === "Travel & Places";
 	});
+
 	let activities = emojis.filter((emoji) => {
 		return emoji.category === "Activities";
 	});
@@ -84,6 +110,17 @@ function Emoji() {
 
 	const handleClick = (e) => {
 		setContent((prevState) => prevState + e.target.innerText);
+		store
+			.collection("users")
+			.doc(user.uid)
+			.update({
+				recentEmojis: firebase.firestore.FieldValue.arrayUnion(
+					e.target.innerText
+				),
+			});
+		setTimeout(() => {
+			setEmojiOpen(false);
+		}, 500);
 	};
 
 	const filteredEmojis = !searchInput
@@ -177,7 +214,18 @@ function Emoji() {
 						<div className="RECENT" id="recent">
 							RECENT
 							<div className="flex">
-								<p onClick={handleClick} value={content} name="content"></p>
+								{recent.map((emoji) => {
+									return (
+										<p
+											key={emoji}
+											onClick={handleClick}
+											value={content}
+											name="content"
+										>
+											{emoji}
+										</p>
+									);
+								})}
 							</div>
 						</div>
 						<div className="SMILEYS & PEOPLE" id="emotion">

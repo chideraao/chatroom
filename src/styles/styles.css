@@ -36,7 +36,7 @@ form button {
 }
 
 input {
-	line-height: 1.5;
+	line-height: 0.8;
 	width: 65vw;
 	font-size: 1.5rem;
 	background: rgb(58, 58, 58);
@@ -46,6 +46,11 @@ input {
 	outline: none;
 	border: none;
 	padding: 0 10px;
+}
+
+input.emoji {
+	line-height: 1;
+	font-size: 3rem;
 }
 
 button {
@@ -83,10 +88,6 @@ button {
 
 .searchbox:focus {
 	box-shadow: 0px 0px 8px 3px #4484c4;
-}
-
-.not-last-msg::before {
-	display: none;
 }
 
 .card {
@@ -153,6 +154,7 @@ button {
 
 .card .flex p {
 	font-size: 1.5rem;
+	cursor: pointer;
 }
 
 .flex p {
