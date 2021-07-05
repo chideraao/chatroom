@@ -212,7 +212,7 @@ function Emoji() {
 				) : (
 					<div className="emojis">
 						<div className="RECENT" id="recent">
-							RECENT
+							<p></p> RECENT
 							<div className="flex">
 								{recent.map((emoji) => {
 									return (
@@ -229,7 +229,7 @@ function Emoji() {
 							</div>
 						</div>
 						<div className="SMILEYS & PEOPLE" id="emotion">
-							SMILEYS & PEOPLE
+							<p>SMILEYS & PEOPLE</p>
 							<div className="flex">
 								{smileys.map((emoji) => {
 									return (
@@ -246,7 +246,7 @@ function Emoji() {
 							</div>
 						</div>
 						<div className="ANIMALS & NATURE" id="nature">
-							ANIMALS & NATURE
+							<p> ANIMALS & NATURE</p>
 							<div className="flex">
 								{animals.map((emoji) => {
 									return (
@@ -263,7 +263,7 @@ function Emoji() {
 							</div>
 						</div>
 						<div className="FOOD & DRINK" id="food">
-							FOOD & DRINK
+							<p>FOOD & DRINK</p>
 							<div className="flex">
 								{food.map((emoji) => {
 									return (
@@ -280,7 +280,7 @@ function Emoji() {
 							</div>
 						</div>{" "}
 						<div className="ACTIVITIES" id="activities">
-							ACTIVITIES
+							<p>ACTIVITIES</p>
 							<div className="flex">
 								{activities.map((emoji) => {
 									return (
@@ -297,7 +297,7 @@ function Emoji() {
 							</div>
 						</div>
 						<div className="TRAVEL & PLACES" id="travel">
-							TRAVEL & PLACES
+							<p>TRAVEL & PLACES</p>
 							<div className="flex">
 								{travel.map((emoji) => {
 									return (
@@ -314,7 +314,7 @@ function Emoji() {
 							</div>
 						</div>
 						<div className="OBJECTS" id="objects">
-							OBJECTS
+							<p>OBJECTS</p>
 							<div className="flex">
 								{objects.map((emoji) => {
 									return (
@@ -331,7 +331,7 @@ function Emoji() {
 							</div>
 						</div>
 						<div className="SYMBOLS" id="symbols">
-							SYMBOLS
+							<p>SYMBOLS</p>
 							<div className="flex">
 								{symbols.map((emoji) => {
 									return (
@@ -348,7 +348,7 @@ function Emoji() {
 							</div>
 						</div>
 						<div className="FLAGS" id="flags">
-							FLAGS
+							<p>FLAGS</p>
 							<div className="flex">
 								{" "}
 								{flags.map((emoji) => {

@@ -104,9 +104,17 @@ p.sent.emoji,
 p.received.emoji {
 	background: none;
 	font-size: 3rem;
+	padding-right: 0;
+	padding-left: 0;
 }
 
 p.sent.emoji::before,
 p.received.emoji::before {
 	content: none;
+}
+
+.message_input {
+	width: 63vw;
+	background-color: #3a3b3c;
+	border-radius: 1rem;
 }

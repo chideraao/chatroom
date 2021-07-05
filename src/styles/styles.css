@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,700;1,300;1,500;1,700&display=swap");
 
 :root {
-	--primary-color: #1a508b;
-	--text-color: #fff3e6;
+	--primary-color: #212124;
+	--text-color: #e4e6eb;
 	--secondary-color: #0d335d;
 }
 
@@ -14,43 +14,23 @@
 
 * body {
 	font-family: "Roboto", sans-serif;
-	background-color: #212124;
+	background-color: var(--primary-color);
+	color: var(--text-color);
 	line-height: 1.6;
 	font-size: 1rem;
-}
-
-form .message-send {
-	height: 7vh;
-	position: fixed;
-	bottom: 0;
-	background-color: rgb(24, 23, 23);
-	width: 90%;
-	max-width: 728px;
-	display: flex;
-	font-size: 1.5rem;
-}
-
-form button {
-	width: 20%;
-	background-color: rgb(56, 56, 143);
 }
 
 input {
 	line-height: 0.8;
 	width: 65vw;
 	font-size: 1.5rem;
-	background: rgb(58, 58, 58);
+	/* background: rgb(58, 58, 58); */
 	border-bottom-left-radius: 10px;
 	border-top-left-radius: 10px;
 	color: white;
 	outline: none;
 	border: none;
 	padding: 0 10px;
-}
-
-input.emoji {
-	line-height: 1;
-	font-size: 3rem;
 }
 
 button {
@@ -67,7 +47,7 @@ button {
 
 .grid {
 	display: grid;
-	grid-template-columns: 30% 70%;
+	grid-template-columns: 25% 75%;
 }
 
 .searchbox {
@@ -77,7 +57,7 @@ button {
 	border: none;
 	outline: none;
 	background: none;
-	background-color: #212124;
+	background-color: #3a3b3c;
 	border-radius: 8px;
 	color: #fff;
 	font-size: 20px;
@@ -162,5 +142,23 @@ button {
 }
 
 .contacts {
-	background-color: rgba(121, 116, 116, 0.72);
+	background-color: #212124;
+	border-right: 1px solid #282c34;
+	margin: 1rem;
+}
+
+.contacts .searchbox {
+	height: 2rem;
+	width: 90%;
+	margin: 1rem;
+	margin-left: 0;
+}
+
+.input-container svg {
+	margin: 1rem 0.25rem;
+	margin-top: 0.19rem;
+}
+
+.input-container *:nth-child(2) {
+	margin-right: 0.75rem;
 }

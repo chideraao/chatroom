@@ -111,6 +111,9 @@ function Contacts() {
 
 	return (
 		<div className="contacts">
+			<div className="contact-header">
+				<h2>Chats</h2>
+			</div>
 			<form onSubmit={createNewChat}>
 				<input
 					type="text"
@@ -119,9 +122,8 @@ function Contacts() {
 					id="newChat"
 					value={email}
 					name="email"
-					placeholder="Enter user email"
+					placeholder="Search Dheragram"
 				/>
-				<button type="submit">New Chat</button>
 				<div>
 					<p id="search-error" ref={searchRef}>
 						{searchError ? `${searchError}` : ""}

@@ -84,17 +84,15 @@ function ChatRoom() {
 				<span ref={dummyDiv}></span>
 			</div>
 			<div className="input-container flex">
+				{emojiOpen ? <Emoji /> : ""}
+				<Emoticon onClick={handleClick} />
 				<form onSubmit={sendMessage} autoComplete="off">
 					<input
 						onChange={handleChange}
 						value={content}
 						placeholder="DheraGram"
 					></input>
-					{writeError ? <p>{writeError}</p> : null}
-					<button type="submit">Send</button>
 				</form>
-				{emojiOpen ? <Emoji /> : ""}
-				<Emoticon onClick={handleClick} />
 			</div>
 			<div>
 				ChatRoom Logged in as: <strong>{user.email}</strong>

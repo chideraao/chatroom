@@ -11,8 +11,6 @@ import Login from "./pages/Login.jsx";
 import Signup from "./pages/Signup.jsx";
 import { auth } from "./services/firebase.js";
 import { ChatsProvider } from "./context/ChatsContext";
-import ChatRoom from "./components/ChatRoom";
-import Chat from "./components/Chat";
 
 /**Higher order component for Private pages */
 function PrivateRoute({ component: Component, authenticated, ...rest }) {

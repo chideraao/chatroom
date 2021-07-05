@@ -82,9 +82,9 @@ function Chat() {
 	};
 
 	useEffect(() => {
-		console.log(dummy);
-		console.log(dummy.current.scrollHeight);
-		dummy.current.scrollTop = dummy.current.offsetTop;
+		// console.log(dummy);
+		// console.log(dummy.current.scrollHeight);
+		// dummy.current.scrollTop = dummy.current.offsetTop;
 		chatInput.focus();
 		setReadError(null);
 
@@ -93,9 +93,8 @@ function Chat() {
 			for (var i = 0; i < arr.length - 1; i++) {
 				let current = arr[i];
 				let next = arr[i + 1];
-				console.log(emojiCheck(current));
 
-				if (!emojiCheck(next) || current.uid !== next.uid) {
+				if (!emojiCheck(next.content) || current.uid !== next.uid) {
 					current.style = "";
 				} else {
 					current.style = `${styles.pasDernier}`;
@@ -163,6 +162,9 @@ function Chat() {
 				<span ref={dummy} className={styles.trial}></span>
 			</div>
 			<div className="input-container flex">
+				<Emoticon onClick={handleClick} />
+				<Emoticon onClick={handleClick} />
+				{emojiOpen ? <Emoji /> : ""}
 				<form
 					className="message-send"
 					onSubmit={sendMessage}
@@ -172,21 +174,16 @@ function Chat() {
 						onChange={handleChange}
 						value={content}
 						name="content"
-						className={inputClass}
+						className={`${inputClass} ${styles.message_input}`}
 						placeholder="DheraGram"
 						autoFocus
 						ref={(input) => (chatInput = input)}
 					/>
-					{writeError ? <p>{writeError}</p> : null}
-					<button type="submit">Send</button>
 				</form>
-				{emojiOpen ? <Emoji /> : ""}
-				<Emoticon onClick={handleClick} />
 			</div>
-			<div>
-				Chat Logged in as: <strong>{user.email}</strong>
+			{/* <div>
 				<button onClick={handleSignOut}>Sign out</button>
-			</div>
+			</div> */}
 		</div>
 	);
 }
