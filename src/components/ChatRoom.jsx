@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { ChatContext } from "../context/ChatsContext";
 import { auth, db } from "../services/firebase";
 import Emoji from "./Emoji";
+import styles from "../styles/chats.module.css";
 import { ReactComponent as Emoticon } from "../assets/logo/insert_emoticon_black_24dp.svg";
 
 function ChatRoom() {
@@ -12,8 +13,10 @@ function ChatRoom() {
 	const [writeError, setWriteError] = useState(null);
 	const [chats, setChats] = useContext(ChatContext);
 	const [emojiOpen, setEmojiOpen] = useState(false);
+	const [inputClass, setInputClass] = useState("");
 
 	const dummyDiv = useRef();
+	let chatInput = useRef();
 
 	/** handler for sending messages, updating db */
 	const sendMessage = async (e) => {
@@ -34,6 +37,11 @@ function ChatRoom() {
 		}
 	};
 
+	const emojiCheck = (str) => {
+		let regex = /[ A-Za-z0-9\\!_$%^*()@={}"';:?.,><|./#&+-]/;
+		return regex.test(str);
+	};
+
 	const handleSignOut = () => {
 		auth().signOut();
 	};
@@ -48,7 +56,30 @@ function ChatRoom() {
 	};
 
 	useEffect(() => {
+		chatInput.focus();
 		setReadError(null);
+
+		/**function to check uid of the next message in collection and add a style accordingly */
+		function nextCheck(arr) {
+			for (var i = 0; i < arr.length - 1; i++) {
+				let current = arr[i];
+				let next = arr[i + 1];
+
+				if (!emojiCheck(next.content) || current.uid !== next.uid) {
+					current.style = "";
+				} else {
+					current.style = `${styles.pasDernier}`;
+				}
+			}
+		}
+
+		if (content !== "" && !emojiCheck(content) && content.length <= 10) {
+			setInputClass("emoji");
+			chatInput.focus();
+		} else {
+			setInputClass("");
+			chatInput.focus();
+		}
 
 		/** get existing messages in doc on page load. setting a limit to it */
 		async function getSnapshot() {
@@ -60,6 +91,12 @@ function ChatRoom() {
 						snapshot.forEach((snap) => {
 							message.push(snap.val());
 						});
+						nextCheck(message);
+						message.forEach((msg) => {
+							if (!emojiCheck(msg.content) && msg.content.length <= 10) {
+								msg.style = `${msg.style} ${styles.emoji}`;
+							}
+						});
 						setMessages(message);
 					});
 			} catch (err) {
@@ -67,7 +104,7 @@ function ChatRoom() {
 			}
 		}
 		getSnapshot();
-	}, []);
+	}, [content]);
 
 	return (
 		<div>
@@ -90,7 +127,10 @@ function ChatRoom() {
 					<input
 						onChange={handleChange}
 						value={content}
+						name="content"
 						placeholder="DheraGram"
+						className={`${inputClass} ${styles.message_input}`}
+						ref={(input) => (chatInput = input)}
 					></input>
 				</form>
 			</div>

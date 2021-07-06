@@ -10,8 +10,8 @@ function Contacts() {
 	const [chat, setChat] = useContext(ChatContext);
 	const [activeChats, setActiveChats] = useState([]);
 	const [input, setInput] = useState({ content: "", email: "" });
-	const { content, email } = input;
 
+	const { content, email } = input;
 	const searchRef = useRef();
 
 	// user.providerData.forEach((profile) => {
@@ -30,6 +30,19 @@ function Contacts() {
 			.then((res) => {
 				let collections = res.data.collections;
 				setActiveChats(collections);
+				collections.forEach((collection) => {
+					store
+						.collection(`${user.email}`)
+						.doc("chats")
+						.collection(collection)
+						.orderBy("timestamp")
+						.limitToLast(1)
+						.onSnapshot((docs) => {
+							docs.forEach((doc) => {
+								console.log(doc.data().content);
+							});
+						});
+				});
 			})
 			.catch((err) => {
 				alert(err.message);

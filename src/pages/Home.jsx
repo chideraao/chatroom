@@ -12,6 +12,7 @@ function Home() {
 		<div className="grid">
 			<Contacts />
 			<Chat />
+			<ChatRoom />
 		</div>
 	);
 }
