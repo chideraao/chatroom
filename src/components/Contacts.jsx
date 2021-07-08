@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import firebase from "firebase";
 import { auth, store, db } from "../services/firebase";
-import { ChatContext } from "../context/ChatsContext";
+import { ChatContext, ScreenContext } from "../context/ChatsContext";
 import ChatList from "./ChatList";
 
 function Contacts() {
@@ -9,40 +9,22 @@ function Contacts() {
 	const [searchError, setSearchError] = useState(null);
 	const [chat, setChat] = useContext(ChatContext);
 	const [activeChats, setActiveChats] = useState([]);
+	const [screen, setScreen] = useContext(ScreenContext);
 	const [input, setInput] = useState({ content: "", email: "" });
 
 	const { content, email } = input;
 	const searchRef = useRef();
 
-	// user.providerData.forEach((profile) => {
-	// 	console.log("sign-in provider", profile.providerId);
-	// 	console.log("uid", profile.uid);
-	// 	console.log(" displayname", profile.displayName);
-	// 	console.log("email", profile.email);
-	// 	console.log("photourl", profile.photoURL);
-	// });
-
 	useEffect(() => {
+		/** initialise and call cloud function to list chats */
 		const listActiveChats = firebase
 			.functions()
 			.httpsCallable("listActiveChats");
+
 		listActiveChats({ docPath: `${user.email}/chats` })
 			.then((res) => {
 				let collections = res.data.collections;
 				setActiveChats(collections);
-				collections.forEach((collection) => {
-					store
-						.collection(`${user.email}`)
-						.doc("chats")
-						.collection(collection)
-						.orderBy("timestamp")
-						.limitToLast(1)
-						.onSnapshot((docs) => {
-							docs.forEach((doc) => {
-								console.log(doc.data().content);
-							});
-						});
-				});
 			})
 			.catch((err) => {
 				alert(err.message);
@@ -77,7 +59,6 @@ function Contacts() {
 			return regex.test(email);
 		};
 
-		/**fix the goddamned error message bug niggggggaaax */
 		let errorMessage = (userEmail) => {
 			searchRef.current.innerHTML = `User ${userEmail} does not yet exist. <button id='mail-btn'>Invite via email?</button> `;
 			document
@@ -114,6 +95,10 @@ function Contacts() {
 		}
 	};
 
+	const handleClick = () => {
+		setScreen("chatroom");
+	};
+
 	/** handle form change and trim start to ensure no whitespace can be written to db */
 	const handleChange = (e) => {
 		setInput((prevState) => ({
@@ -144,10 +129,15 @@ function Contacts() {
 				</div>
 			</form>
 			<div className="message-list">
-				<div className="group-chat"> </div>
-				{activeChats.map((chat) => {
-					return <ChatList key={chat} id={chat} chats={chat} />;
-				})}
+				<div className="group-chat" onClick={handleClick}>
+					<div className="img"></div>
+					megachat
+				</div>
+				<div className="">
+					{activeChats.map((chat) => {
+						return <ChatList key={chat} id={chat} chats={chat} />;
+					})}
+				</div>
 			</div>
 		</div>
 	);

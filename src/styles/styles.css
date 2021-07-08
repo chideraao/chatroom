@@ -118,9 +118,10 @@ button {
 }
 
 .emoticons {
+	height: 2rem;
 	position: absolute;
 	width: 90%;
-	top: 19.25rem;
+	top: 19.68rem;
 	background-color: rgba(33, 33, 36, 0.9);
 }
 
@@ -129,7 +130,7 @@ button {
 }
 
 .emoticons a {
-	padding: 0.4rem;
+	padding: 0.2rem;
 	padding-bottom: 0;
 }
 
@@ -162,8 +163,4 @@ button {
 .input-container svg {
 	margin: 1rem 0.25rem;
 	margin-top: 0.1rem;
-}
-
-.input-container *:nth-child(2) {
-	margin-right: 0.75rem;
 }

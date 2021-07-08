@@ -11,8 +11,8 @@ function Home() {
 	return (
 		<div className="grid">
 			<Contacts />
-			<Chat />
-			<ChatRoom />
+
+			{screen === "chatroom" ? <ChatRoom /> : <Chat />}
 		</div>
 	);
 }

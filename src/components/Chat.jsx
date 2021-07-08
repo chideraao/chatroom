@@ -3,6 +3,7 @@ import {
 	ChatContext,
 	ContentContext,
 	EmojiContext,
+	ScreenContext,
 } from "../context/ChatsContext";
 import { auth, store } from "../services/firebase";
 import styles from "../styles/chats.module.css";
@@ -18,6 +19,7 @@ function Chat() {
 	const [chat, setChat] = useContext(ChatContext);
 	const [emojiOpen, setEmojiOpen] = useContext(EmojiContext);
 	const [inputClass, setInputClass] = useState("");
+	const [screen, setScreen] = useContext(ScreenContext);
 
 	const dummy = useRef();
 	let chatInput = useRef();
@@ -84,7 +86,6 @@ function Chat() {
 	useEffect(() => {
 		// console.log(dummy);
 		// console.log(dummy.current.scrollHeight);
-		// dummy.current.scrollTop = dummy.current.offsetTop;
 		chatInput.focus();
 		setReadError(null);
 
@@ -159,10 +160,9 @@ function Chat() {
 					})}
 				</div>
 
-				<span ref={dummy} className={styles.trial}></span>
+				<span ref={dummy}></span>
 			</div>
 			<div className="input-container flex">
-				<Emoticon onClick={handleClick} />
 				<Emoticon onClick={handleClick} />
 				{emojiOpen ? <Emoji /> : ""}
 				<form

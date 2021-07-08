@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { ChatContext } from "../context/ChatsContext";
 import { auth, db } from "../services/firebase";
 import Emoji from "./Emoji";
-import styles from "../styles/chats.module.css";
+import styles from "../styles/chatroom.module.css";
 import { ReactComponent as Emoticon } from "../assets/logo/insert_emoticon_black_24dp.svg";
 
 function ChatRoom() {
@@ -23,17 +23,18 @@ function ChatRoom() {
 		e.preventDefault();
 		setWriteError(null);
 
-		/**regex to prevent sending whitespace */
-		try {
-			await db.ref("chats").push({
-				content,
-				timestamp: Date.now(),
-				uid: user.uid,
-			});
-			setContent("");
-			dummyDiv.current.scrollIntoView({ behaviour: "smooth" });
-		} catch (err) {
-			setWriteError(err.message);
+		if (content !== "") {
+			try {
+				await db.ref("chats").push({
+					content,
+					timestamp: Date.now(),
+					uid: user.uid,
+				});
+				setContent("");
+				dummyDiv.current.scrollIntoView({ behaviour: "smooth" });
+			} catch (err) {
+				setWriteError(err.message);
+			}
 		}
 	};
 
@@ -108,17 +109,23 @@ function ChatRoom() {
 
 	return (
 		<div>
-			<div className="chats">
-				{messages.map((text) => {
-					/** check to see if message bubble was sent or received */
-					let messageClass = text.uid === user.uid ? "sent" : "received";
-					return (
-						<p key={text.timestamp} className={messageClass}>
-							{text.content}
-						</p>
-					);
-				})}
-				<span ref={dummyDiv}></span>
+			<div className={styles.chat}>
+				<div className={styles.message}>
+					{messages.map((text) => {
+						/** check to see if message bubble was sent or received */
+						let messageClass =
+							text.uid === user.uid ? styles.sent : styles.received;
+						return (
+							<p
+								key={text.timestamp}
+								className={`${messageClass} ${text.style}`}
+							>
+								{text.content}
+							</p>
+						);
+					})}
+					<span ref={dummyDiv}></span>
+				</div>
 			</div>
 			<div className="input-container flex">
 				{emojiOpen ? <Emoji /> : ""}
