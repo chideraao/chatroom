@@ -1,8 +1,13 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import firebase from "firebase";
 import { auth, store, db } from "../services/firebase";
-import { ChatContext, ScreenContext } from "../context/ChatsContext";
+import {
+	ChatContext,
+	ContentContext,
+	ScreenContext,
+} from "../context/ChatsContext";
 import ChatList from "./ChatList";
+import GroupIcon from "../assets/logo/group_icon.svg";
 
 function Contacts() {
 	const [user, setUser] = useState(auth().currentUser);
@@ -10,9 +15,10 @@ function Contacts() {
 	const [chat, setChat] = useContext(ChatContext);
 	const [activeChats, setActiveChats] = useState([]);
 	const [screen, setScreen] = useContext(ScreenContext);
-	const [input, setInput] = useState({ content: "", email: "" });
+	const [input, setInput] = useState({ email: "" });
+	const [content, setContent] = useContext(ContentContext);
 
-	const { content, email } = input;
+	const { email } = input;
 	const searchRef = useRef();
 
 	useEffect(() => {
@@ -29,7 +35,7 @@ function Contacts() {
 			.catch((err) => {
 				alert(err.message);
 			});
-	}, [user, chat]);
+	}, [user, chat, screen]);
 
 	/** https callable function to send emails  */
 	const emailInvite = () => {
@@ -82,6 +88,8 @@ function Contacts() {
 				.then((docs) => {
 					if (docs.size > 0) {
 						docs.forEach((doc) => {
+							setScreen("chat");
+							setContent("");
 							setChat(doc.data().email);
 							setInput((prevState) => ({ ...prevState, email: "" }));
 						});
@@ -97,6 +105,7 @@ function Contacts() {
 
 	const handleClick = () => {
 		setScreen("chatroom");
+		setChat(null);
 	};
 
 	/** handle form change and trim start to ensure no whitespace can be written to db */
@@ -129,13 +138,22 @@ function Contacts() {
 				</div>
 			</form>
 			<div className="message-list">
-				<div className="group-chat" onClick={handleClick}>
-					<div className="img"></div>
+				<div
+					className={`group-chat flex ${screen === "chatroom" ? "onChat" : ""}`}
+					onClick={handleClick}
+				>
+					<div className="chat-img">
+						<img src={GroupIcon} alt="group avatar" />
+					</div>
 					megachat
 				</div>
 				<div className="">
 					{activeChats.map((chat) => {
-						return <ChatList key={chat} id={chat} chats={chat} />;
+						return (
+							<div className="single-chat" key={chat}>
+								<ChatList id={chat} chats={chat} />
+							</div>
+						);
 					})}
 				</div>
 			</div>

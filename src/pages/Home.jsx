@@ -2,7 +2,6 @@ import { React, useContext } from "react";
 import Chat from "../components/Chat";
 import ChatRoom from "../components/ChatRoom";
 import Contacts from "../components/Contacts";
-import Emoji from "../components/Emoji";
 import { ScreenContext } from "../context/ChatsContext";
 
 function Home() {
@@ -11,7 +10,6 @@ function Home() {
 	return (
 		<div className="grid">
 			<Contacts />
-
 			{screen === "chatroom" ? <ChatRoom /> : <Chat />}
 		</div>
 	);

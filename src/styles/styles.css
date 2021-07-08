@@ -3,7 +3,7 @@
 :root {
 	--primary-color: #212124;
 	--text-color: #e4e6eb;
-	--secondary-color: #0d335d;
+	--secondary-color: #3a3b3c;
 }
 
 * {
@@ -151,6 +151,7 @@ button {
 	background-color: #212124;
 	border-right: 1px solid #282c34;
 	margin: 1rem;
+	margin-left: 0;
 }
 
 .contacts .searchbox {
@@ -163,4 +164,25 @@ button {
 .input-container svg {
 	margin: 1rem 0.25rem;
 	margin-top: 0.1rem;
+}
+
+.message-list {
+	cursor: pointer;
+}
+
+.contacts img {
+	height: 3rem;
+	width: auto;
+	border-radius: 50%;
+	border: 1px solid red;
+	border-radius: 50%;
+}
+
+.group-chat:hover,
+.single-chat:hover {
+	background-color: var(--secondary-color);
+}
+
+.contacts .onChat {
+	background-color: #282c34;
 }
