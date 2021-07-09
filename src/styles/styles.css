@@ -10,6 +10,7 @@
 	box-sizing: border-box;
 	padding: 0;
 	margin: 0;
+	overflow: hidden;
 }
 
 * body {
@@ -24,7 +25,6 @@ input {
 	line-height: 0.8;
 	width: 65vw;
 	font-size: 1.5rem;
-	/* background: rgb(58, 58, 58); */
 	border-bottom-left-radius: 10px;
 	border-top-left-radius: 10px;
 	color: white;
@@ -151,12 +151,39 @@ button {
 	background-color: #212124;
 	border-right: 1px solid #282c34;
 	margin: 1rem;
-	margin-left: 0;
+	margin-left: 0.5rem;
+	overflow: visible;
+}
+
+.contact-header {
+	justify-content: space-between;
+}
+
+.contact-header h2 {
+	margin-top: 0.5rem;
+}
+
+.contact-header .svg-container {
+	height: 2.5rem;
+	width: 2.5rem;
+	border-radius: 50%;
+	background-color: var(--secondary-color);
+	align-items: center;
+	justify-content: center;
+	margin: 0.5rem;
+}
+
+.contact-header .svg-container:hover {
+	background-color: #4f5255;
+}
+
+.contact-header svg {
+	fill: var(--text-color);
 }
 
 .contacts .searchbox {
 	height: 2rem;
-	width: 90%;
+	width: 95%;
 	margin: 1rem;
 	margin-left: 0;
 }
@@ -168,21 +195,52 @@ button {
 
 .message-list {
 	cursor: pointer;
+	margin: 0.5rem;
+	margin-left: 0;
 }
 
 .contacts img {
+	background-color: #b0b3b8;
 	height: 3rem;
 	width: auto;
 	border-radius: 50%;
-	border: 1px solid red;
-	border-radius: 50%;
+}
+
+.contacts .group-chat,
+.contacts .single-chat {
+	margin-bottom: 0.1rem;
+	border-bottom: 1px solid #282c34;
+}
+
+.contacts .group-chat .flex,
+.contacts .single-chat .flex {
+	flex-wrap: nowrap;
+}
+
+.contacts .chat-img {
+	margin: 0.5rem;
+	margin-top: 0.6rem;
 }
 
 .group-chat:hover,
 .single-chat:hover {
 	background-color: var(--secondary-color);
+	border-radius: 7px;
+}
+
+.contacts .group-chat .group-title,
+.contacts .single-chat .chat-email {
+	display: flex;
+	align-items: center;
+}
+
+.contacts .group-chat .group-title p,
+.contacts .single-chat .chat-email p {
+	font-size: 1rem;
+	font-weight: 300;
 }
 
 .contacts .onChat {
 	background-color: #282c34;
+	border-radius: 7px;
 }

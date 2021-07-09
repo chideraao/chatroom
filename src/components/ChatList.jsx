@@ -36,7 +36,9 @@ function ChatList({ id, chats }) {
 			<div className="chat-img">
 				<img src={UserIcon} alt="" />
 			</div>
-			<p>{chats}</p>
+			<div className="chat-email">
+				<p>{chats}</p>
+			</div>
 		</div>
 	);
 }

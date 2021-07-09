@@ -16,8 +16,13 @@ import { ReactComponent as Transportation } from "../assets/logo/emoji_transport
 import { ReactComponent as Symbols } from "../assets/logo/emoji_symbols_white_24dp.svg";
 import { ReactComponent as Flags } from "../assets/logo/emoji_flags_white_24dp.svg";
 import { ReactComponent as Recent } from "../assets/logo/schedule_white_24dp.svg";
-import { ContentContext, EmojiContext } from "../context/ChatsContext";
+import {
+	ContentContext,
+	EmojiContext,
+	ScreenContext,
+} from "../context/ChatsContext";
 import { auth, store } from "../services/firebase";
+import { ChatroomContentContext } from "../context/ChatRoomContext";
 
 function Emoji() {
 	const [user, setUser] = useState(auth().currentUser);
@@ -26,6 +31,8 @@ function Emoji() {
 	const [recent, setRecent] = useState([]);
 	const [content, setContent] = useContext(ContentContext);
 	const [emojiOpen, setEmojiOpen] = useContext(EmojiContext);
+	const [screen, setScreen] = useContext(ScreenContext);
+	const [roomContent, setRoomContent] = useContext(ChatroomContentContext);
 
 	const iconRef = useRef();
 	let emojiSearch = useRef();
@@ -109,7 +116,12 @@ function Emoji() {
 	};
 
 	const handleClick = (e) => {
-		setContent((prevState) => prevState + e.target.innerText);
+		if (screen === "chatroom") {
+			setRoomContent((prevState) => prevState + e.target.innerText);
+		} else {
+			setContent((prevState) => prevState + e.target.innerText);
+		}
+
 		store
 			.collection("users")
 			.doc(user.uid)

@@ -11,6 +11,7 @@ import Login from "./pages/Login.jsx";
 import Signup from "./pages/Signup.jsx";
 import { auth } from "./services/firebase.js";
 import { ChatsProvider } from "./context/ChatsContext";
+import { ChatRoomProvider } from "./context/ChatRoomContext";
 
 /**Higher order component for Private pages */
 function PrivateRoute({ component: Component, authenticated, ...rest }) {
@@ -65,23 +66,25 @@ function App() {
 		<div className="App">
 			<Router>
 				<ChatsProvider>
-					<Switch>
-						<PrivateRoute
-							path="/home"
-							component={Home}
-							authenticated={authenticated}
-						/>
-						<PublicRoute
-							path="/login"
-							component={Login}
-							authenticated={authenticated}
-						/>
-						<PublicRoute
-							path="/signup"
-							component={Signup}
-							authenticated={authenticated}
-						/>
-					</Switch>
+					<ChatRoomProvider>
+						<Switch>
+							<PrivateRoute
+								path="/home"
+								component={Home}
+								authenticated={authenticated}
+							/>
+							<PublicRoute
+								path="/login"
+								component={Login}
+								authenticated={authenticated}
+							/>
+							<PublicRoute
+								path="/signup"
+								component={Signup}
+								authenticated={authenticated}
+							/>
+						</Switch>
+					</ChatRoomProvider>
 				</ChatsProvider>
 			</Router>
 		</div>

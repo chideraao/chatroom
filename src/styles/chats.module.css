@@ -8,6 +8,11 @@
 	overflow-y: scroll;
 }
 
+.body > p {
+	color: #86888a;
+	text-align: center;
+}
+
 .message {
 	background-color: #212124;
 	border-radius: 0.2rem;
@@ -25,6 +30,7 @@
 	padding: 0.25rem 0.675rem;
 	position: relative;
 	word-wrap: break-word;
+	overflow: visible;
 }
 
 .message p::before,

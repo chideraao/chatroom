@@ -8,6 +8,8 @@ import {
 } from "../context/ChatsContext";
 import ChatList from "./ChatList";
 import GroupIcon from "../assets/logo/group_icon.svg";
+import { ReactComponent as NewIcon } from "../assets/logo/open_in_new_black_24dp.svg";
+import { ReactComponent as MoreIcon } from "../assets/logo/more_horiz_black_24dp.svg";
 
 function Contacts() {
 	const [user, setUser] = useState(auth().currentUser);
@@ -66,7 +68,7 @@ function Contacts() {
 		};
 
 		let errorMessage = (userEmail) => {
-			searchRef.current.innerHTML = `User ${userEmail} does not yet exist. <button id='mail-btn'>Invite via email?</button> `;
+			searchRef.current.innerHTML = `User '${userEmail}' does not yet exist. <button id='mail-btn'>Invite via email?</button> `;
 			document
 				.getElementById("mail-btn")
 				.addEventListener("click", emailInvite, true);
@@ -118,10 +120,18 @@ function Contacts() {
 
 	return (
 		<div className="contacts">
-			<div className="contact-header">
-				<h2>Chats</h2>
+			<div className="contact-header flex">
+				<h2>DheraGram</h2>
+				<div className="flex">
+					<div className="svg-container flex">
+						<NewIcon />
+					</div>
+					<div className="svg-container flex">
+						<MoreIcon />
+					</div>
+				</div>
 			</div>
-			<form onSubmit={createNewChat}>
+			<form onSubmit={createNewChat} className="flex">
 				<input
 					type="text"
 					onChange={handleChange}
@@ -131,6 +141,7 @@ function Contacts() {
 					name="email"
 					placeholder="Search Dheragram"
 				/>
+
 				<div>
 					<p id="search-error" ref={searchRef}>
 						{searchError ? `${searchError}` : ""}
@@ -145,7 +156,9 @@ function Contacts() {
 					<div className="chat-img">
 						<img src={GroupIcon} alt="group avatar" />
 					</div>
-					megachat
+					<div className="group-title flex">
+						<p>Megachat</p>
+					</div>
 				</div>
 				<div className="">
 					{activeChats.map((chat) => {

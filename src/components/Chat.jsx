@@ -19,7 +19,6 @@ function Chat() {
 	const [chat, setChat] = useContext(ChatContext);
 	const [emojiOpen, setEmojiOpen] = useContext(EmojiContext);
 	const [inputClass, setInputClass] = useState("");
-	const [screen, setScreen] = useContext(ScreenContext);
 
 	const dummy = useRef();
 	let chatInput = useRef();
@@ -103,7 +102,7 @@ function Chat() {
 			}
 		}
 
-		if (content !== "" && !emojiCheck(content) && content.length <= 10) {
+		if (content !== "" && !emojiCheck(content) && content.length <= 8) {
 			setInputClass("emoji");
 			chatInput.focus();
 		} else {
@@ -126,7 +125,7 @@ function Chat() {
 						});
 						nextCheck(message);
 						message.forEach((msg) => {
-							if (!emojiCheck(msg.content) && msg.content.length <= 10) {
+							if (!emojiCheck(msg.content) && msg.content.length <= 8) {
 								msg.style = `${msg.style} ${styles.emoji}`;
 							}
 						});
@@ -142,8 +141,9 @@ function Chat() {
 
 	return (
 		<div className={styles.chat}>
+			<div className={styles.header}>To: {chat}</div>
 			<div className={styles.body}>
-				<h2>DheraGram with {chat}</h2>
+				<p>DheraGram with {chat}</p>
 				<div className={styles.message}>
 					{messages.map((text) => {
 						/** check to see if message bubble was sent or received */

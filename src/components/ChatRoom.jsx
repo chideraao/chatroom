@@ -1,18 +1,19 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { ChatContext } from "../context/ChatsContext";
+import { ChatContext, EmojiContext } from "../context/ChatsContext";
 import { auth, db } from "../services/firebase";
 import Emoji from "./Emoji";
 import styles from "../styles/chatroom.module.css";
 import { ReactComponent as Emoticon } from "../assets/logo/insert_emoticon_black_24dp.svg";
+import { ChatroomContentContext } from "../context/ChatRoomContext";
 
 function ChatRoom() {
 	const [messages, setMessages] = useState([]);
 	const [user, setUser] = useState(auth().currentUser);
-	const [content, setContent] = useState("");
+	const [content, setContent] = useContext(ChatroomContentContext);
 	const [readError, setReadError] = useState(null);
 	const [writeError, setWriteError] = useState(null);
 	const [chats, setChats] = useContext(ChatContext);
-	const [emojiOpen, setEmojiOpen] = useState(false);
+	const [emojiOpen, setEmojiOpen] = useContext(EmojiContext);
 	const [inputClass, setInputClass] = useState("");
 
 	const dummyDiv = useRef();
@@ -74,7 +75,7 @@ function ChatRoom() {
 			}
 		}
 
-		if (content !== "" && !emojiCheck(content) && content.length <= 10) {
+		if (content !== "" && !emojiCheck(content) && content.length <= 8) {
 			setInputClass("emoji");
 			chatInput.focus();
 		} else {
@@ -94,7 +95,7 @@ function ChatRoom() {
 						});
 						nextCheck(message);
 						message.forEach((msg) => {
-							if (!emojiCheck(msg.content) && msg.content.length <= 10) {
+							if (!emojiCheck(msg.content) && msg.content.length <= 8) {
 								msg.style = `${msg.style} ${styles.emoji}`;
 							}
 						});
