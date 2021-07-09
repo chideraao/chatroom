@@ -1,5 +1,6 @@
 .chat {
 	background-color: #212124;
+	overflow-y: scroll;
 }
 
 .message {

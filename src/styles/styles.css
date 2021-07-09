@@ -159,8 +159,8 @@ button {
 	justify-content: space-between;
 }
 
-.contact-header h2 {
-	margin-top: 0.5rem;
+.contact-header img {
+	margin-top: 0.4rem;
 }
 
 .contact-header .svg-container {
@@ -179,6 +179,10 @@ button {
 
 .contact-header svg {
 	fill: var(--text-color);
+}
+
+.contacts form {
+	padding-left: 0.2rem;
 }
 
 .contacts .searchbox {

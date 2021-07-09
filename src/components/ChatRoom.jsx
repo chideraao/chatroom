@@ -142,10 +142,10 @@ function ChatRoom() {
 					></input>
 				</form>
 			</div>
-			<div>
+			{/* <div>
 				ChatRoom Logged in as: <strong>{user.email}</strong>
 				<button onClick={handleSignOut}>Sign out</button>
-			</div>
+			</div> */}
 		</div>
 	);
 }

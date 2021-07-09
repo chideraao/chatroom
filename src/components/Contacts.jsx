@@ -19,11 +19,23 @@ function Contacts() {
 	const [screen, setScreen] = useContext(ScreenContext);
 	const [input, setInput] = useState({ email: "" });
 	const [content, setContent] = useContext(ContentContext);
+	const [allUsers, setAllUsers] = useState([]);
 
 	const { email } = input;
 	const searchRef = useRef();
+	let searchInput = useRef();
 
 	useEffect(() => {
+		store
+			.collection("users")
+			.get()
+			.then((snapshot) => {
+				let users = [];
+				snapshot.forEach((doc) => {
+					users.push(doc.data().email);
+				});
+				setAllUsers(users);
+			});
 		/** initialise and call cloud function to list chats */
 		const listActiveChats = firebase
 			.functions()
@@ -105,6 +117,10 @@ function Contacts() {
 		}
 	};
 
+	const NewClick = () => {
+		searchInput.focus();
+	};
+
 	const handleClick = () => {
 		setScreen("chatroom");
 		setChat(null);
@@ -118,16 +134,25 @@ function Contacts() {
 		}));
 	};
 
+	const filteredChats = !email
+		? activeChats
+		: activeChats.filter((chat) => {
+				return chat.toLowerCase().includes(email.toLowerCase());
+		  });
+
 	return (
 		<div className="contacts">
 			<div className="contact-header flex">
-				<h2>DheraGram</h2>
+				<div className="flex">
+					<img src={GroupIcon} alt="logo dhera" />
+				</div>
+
 				<div className="flex">
 					<div className="svg-container flex">
-						<NewIcon />
-					</div>
-					<div className="svg-container flex">
 						<MoreIcon />
+					</div>
+					<div className="svg-container flex" onClick={NewClick}>
+						<NewIcon />
 					</div>
 				</div>
 			</div>
@@ -139,7 +164,9 @@ function Contacts() {
 					id="newChat"
 					value={email}
 					name="email"
+					autoComplete="off"
 					placeholder="Search Dheragram"
+					ref={(input) => (searchInput = input)}
 				/>
 
 				<div>
@@ -161,7 +188,7 @@ function Contacts() {
 					</div>
 				</div>
 				<div className="">
-					{activeChats.map((chat) => {
+					{filteredChats.map((chat) => {
 						return (
 							<div className="single-chat" key={chat}>
 								<ChatList id={chat} chats={chat} />
