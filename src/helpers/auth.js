@@ -19,12 +19,3 @@ export function signInWithGithub() {
 	const provider = new auth.GithubAuthProvider();
 	return auth().signInWithPopup(provider);
 }
-
-/** {
-  "rules": {
-    "chats":{
-        ".read": "auth != null"
-      ".write": "auth != null"
-    }
-  }
-}*/

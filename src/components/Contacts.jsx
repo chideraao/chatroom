@@ -10,6 +10,7 @@ import ChatList from "./ChatList";
 import GroupIcon from "../assets/logo/group_icon.svg";
 import { ReactComponent as NewIcon } from "../assets/logo/open_in_new_black_24dp.svg";
 import { ReactComponent as MoreIcon } from "../assets/logo/more_horiz_black_24dp.svg";
+import ProfileCard from "./ProfileCard";
 
 function Contacts() {
 	const [user, setUser] = useState(auth().currentUser);
@@ -19,23 +20,13 @@ function Contacts() {
 	const [screen, setScreen] = useContext(ScreenContext);
 	const [input, setInput] = useState({ email: "" });
 	const [content, setContent] = useContext(ContentContext);
-	const [allUsers, setAllUsers] = useState([]);
+	const [profileOpen, setProfileOpen] = useState(false);
 
 	const { email } = input;
 	const searchRef = useRef();
 	let searchInput = useRef();
 
 	useEffect(() => {
-		store
-			.collection("users")
-			.get()
-			.then((snapshot) => {
-				let users = [];
-				snapshot.forEach((doc) => {
-					users.push(doc.data().email);
-				});
-				setAllUsers(users);
-			});
 		/** initialise and call cloud function to list chats */
 		const listActiveChats = firebase
 			.functions()
@@ -134,6 +125,10 @@ function Contacts() {
 		}));
 	};
 
+	const profileClick = () => {
+		setProfileOpen(true);
+	};
+
 	const filteredChats = !email
 		? activeChats
 		: activeChats.filter((chat) => {
@@ -148,13 +143,14 @@ function Contacts() {
 				</div>
 
 				<div className="flex">
-					<div className="svg-container flex">
+					<div className="svg-container flex" onClick={profileClick}>
 						<MoreIcon />
 					</div>
 					<div className="svg-container flex" onClick={NewClick}>
 						<NewIcon />
 					</div>
 				</div>
+				{profileOpen ? <ProfileCard /> : ""}
 			</div>
 			<form onSubmit={createNewChat} className="flex">
 				<input

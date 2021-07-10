@@ -141,7 +141,11 @@ function Chat() {
 
 	return (
 		<div className={styles.chat}>
-			<div className={styles.header}>To: {chat}</div>
+			<div className={styles.header}>
+				<p>
+					To: <span>{chat}</span>
+				</p>
+			</div>
 			<div className={styles.body}>
 				<p>DheraGram with {chat}</p>
 				<div className={styles.message}>

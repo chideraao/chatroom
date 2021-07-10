@@ -1,16 +1,40 @@
 .chat {
 	background-color: #212124;
+	position: relative;
 }
 
 .body {
 	width: 100%;
+	margin-top: 3rem;
 	height: 90vh;
 	overflow-y: scroll;
 }
 
+.header {
+	height: 3rem;
+	padding: 0.5rem 1rem;
+	width: 100%;
+	background-color: rgba(58, 59, 60, 0.5);
+	position: absolute;
+	top: 0rem;
+	border-bottom: 1px solid #282c34;
+}
+
+.header p {
+	padding-top: 0.5rem;
+	color: #7f8285;
+	font-size: 0.9rem;
+}
+
+.header p span {
+	color: var(--text-color);
+}
+
 .body > p {
 	color: #86888a;
+	font-size: 0.9rem;
 	text-align: center;
+	line-height: 2;
 }
 
 .message {

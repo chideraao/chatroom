@@ -13,14 +13,6 @@ function ChatList({ id, chats }) {
 	const [screen, setScreen] = useContext(ScreenContext);
 	const [content, setContent] = useContext(ContentContext);
 
-	// user.providerData.forEach((profile) => {
-	// 	console.log("sign-in provider", profile.providerId);
-	// 	console.log("uid", profile.uid);
-	// 	console.log(" displayname", profile.displayName);
-	// 	console.log("email", profile.email);
-	// 	console.log("photourl", profile.photoURL);
-	// });
-
 	const handleClick = () => {
 		if (chat !== id) {
 			setContent("");

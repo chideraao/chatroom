@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { ChatContext, EmojiContext } from "../context/ChatsContext";
-import { auth, db } from "../services/firebase";
+import { auth, db, store } from "../services/firebase";
 import Emoji from "./Emoji";
 import styles from "../styles/chatroom.module.css";
 import { ReactComponent as Emoticon } from "../assets/logo/insert_emoticon_black_24dp.svg";
 import { ChatroomContentContext } from "../context/ChatRoomContext";
+import UserIcon from "../assets/logo/usericon.png";
 
 function ChatRoom() {
 	const [messages, setMessages] = useState([]);
@@ -15,9 +16,13 @@ function ChatRoom() {
 	const [chats, setChats] = useContext(ChatContext);
 	const [emojiOpen, setEmojiOpen] = useContext(EmojiContext);
 	const [inputClass, setInputClass] = useState("");
+	const [allUsers, setAllUsers] = useState([]);
+	const [providerURL, setProviderURL] = useState("");
 
 	const dummyDiv = useRef();
 	let chatInput = useRef();
+
+	console.log(providerURL);
 
 	/** handler for sending messages, updating db */
 	const sendMessage = async (e) => {
@@ -30,6 +35,7 @@ function ChatRoom() {
 					content,
 					timestamp: Date.now(),
 					uid: user.uid,
+					providerURL,
 				});
 				setContent("");
 				dummyDiv.current.scrollIntoView({ behaviour: "smooth" });
@@ -44,10 +50,6 @@ function ChatRoom() {
 		return regex.test(str);
 	};
 
-	const handleSignOut = () => {
-		auth().signOut();
-	};
-
 	/** handle form change and trim start to ensure no whitespace can be written to db */
 	const handleChange = (e) => {
 		setContent(e.target.value.trimStart());
@@ -60,6 +62,22 @@ function ChatRoom() {
 	useEffect(() => {
 		chatInput.focus();
 		setReadError(null);
+
+		user.providerData.forEach((profile) => {
+			setProviderURL(profile.photoURL);
+		});
+
+		/**get all users */
+		store
+			.collection("users")
+			.get()
+			.then((snapshot) => {
+				let users = [];
+				snapshot.forEach((doc) => {
+					users.push(doc.data().email);
+				});
+				setAllUsers(users);
+			});
 
 		/**function to check uid of the next message in collection and add a style accordingly */
 		function nextCheck(arr) {
@@ -106,23 +124,42 @@ function ChatRoom() {
 			}
 		}
 		getSnapshot();
-	}, [content]);
+	}, [content, user]);
 
 	return (
 		<div>
 			<div className={styles.chat}>
+				<div className={styles.header}>
+					<p>
+						To:{" "}
+						<span>{`${allUsers[0]}, ${allUsers[1]} and ${
+							allUsers.length + 4
+						} others`}</span>
+					</p>
+				</div>
+
 				<div className={styles.message}>
+					<span>DheraGram</span>
 					{messages.map((text) => {
 						/** check to see if message bubble was sent or received */
 						let messageClass =
 							text.uid === user.uid ? styles.sent : styles.received;
 						return (
-							<p
+							<div
 								key={text.timestamp}
-								className={`${messageClass} ${text.style}`}
+								className={`${messageClass} ${text.style} flex`}
 							>
-								{text.content}
-							</p>
+								{messageClass !== styles.sent ? (
+									<div className="user-photo">
+										<img src={providerURL || UserIcon} alt="user avatar" />
+									</div>
+								) : (
+									""
+								)}
+								<p className={`${messageClass} ${text.style}`}>
+									{text.content}
+								</p>
+							</div>
 						);
 					})}
 					<span ref={dummyDiv}></span>
@@ -142,10 +179,6 @@ function ChatRoom() {
 					></input>
 				</form>
 			</div>
-			{/* <div>
-				ChatRoom Logged in as: <strong>{user.email}</strong>
-				<button onClick={handleSignOut}>Sign out</button>
-			</div> */}
 		</div>
 	);
 }

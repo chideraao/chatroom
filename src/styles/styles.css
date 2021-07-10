@@ -10,7 +10,7 @@
 	box-sizing: border-box;
 	padding: 0;
 	margin: 0;
-	overflow: hidden;
+	/* overflow: hidden; */
 }
 
 * body {
@@ -152,6 +152,8 @@ button {
 	border-right: 1px solid #282c34;
 	margin: 1rem;
 	margin-left: 0.5rem;
+	margin-right: 0;
+	padding-right: 0.3rem;
 	overflow: visible;
 }
 
