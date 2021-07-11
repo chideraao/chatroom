@@ -224,7 +224,7 @@ function Emoji() {
 				) : (
 					<div className="emojis">
 						<div className="RECENT" id="recent">
-							<p></p> RECENT
+							<p>RECENT</p>
 							<div className="flex">
 								{recent.map((emoji) => {
 									return (

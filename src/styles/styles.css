@@ -106,6 +106,9 @@ button {
 	margin-top: 0;
 	background-color: #212124;
 	width: 85.5%;
+	font-size: 0.7rem;
+	letter-spacing: 2px;
+	color: #adb2b6;
 }
 
 .flex {
@@ -122,11 +125,17 @@ button {
 	position: absolute;
 	width: 90%;
 	top: 19.68rem;
-	background-color: rgba(33, 33, 36, 0.9);
+	background-color: rgb(33, 33, 36);
 }
 
 .card .emojis {
 	margin-top: 1rem;
+}
+
+.card .emojis > div > p {
+	font-size: 0.8rem;
+	color: #adb2b6;
+	letter-spacing: 2px;
 }
 
 .emoticons a {

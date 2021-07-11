@@ -43,8 +43,8 @@
 	display: flex;
 	flex-direction: column;
 	font-size: 0.9rem;
-	margin: 1rem;
-	padding: 0.5rem 1.5rem;
+	margin: 1rem 0.5rem;
+	padding: 0.5rem;
 }
 
 .message p {

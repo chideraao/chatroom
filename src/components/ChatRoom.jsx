@@ -22,8 +22,6 @@ function ChatRoom() {
 	const dummyDiv = useRef();
 	let chatInput = useRef();
 
-	console.log(providerURL);
-
 	/** handler for sending messages, updating db */
 	const sendMessage = async (e) => {
 		e.preventDefault();
@@ -149,13 +147,17 @@ function ChatRoom() {
 								key={text.timestamp}
 								className={`${messageClass} ${text.style} flex`}
 							>
-								{messageClass !== styles.sent ? (
-									<div className="user-photo">
+								<div className={styles.userPhoto}>
+									{messageClass !== styles.sent &&
+									text.style !== styles.pasDernier &&
+									text.style !== ` ${styles.emoji}` &&
+									text.style !== `${styles.pasDernier} ${styles.emoji}` ? (
 										<img src={providerURL || UserIcon} alt="user avatar" />
-									</div>
-								) : (
-									""
-								)}
+									) : (
+										""
+									)}
+								</div>
+
 								<p className={`${messageClass} ${text.style}`}>
 									{text.content}
 								</p>

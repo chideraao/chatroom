@@ -34,9 +34,10 @@
 	display: flex;
 	flex-direction: column;
 	font-size: 0.9rem;
-	margin: 1rem;
+	margin: 1rem 0.5rem;
 	margin-top: 3rem;
-	padding: 0.5rem 1.5rem;
+	padding: 0.5rem;
+	padding-right: 1.5rem;
 }
 
 .message > span:first-child {
@@ -49,7 +50,6 @@
 .message p {
 	border-radius: 0.75rem;
 	line-height: 1.2;
-	max-width: 65%;
 	padding: 0.25rem 0.675rem;
 	position: relative;
 	word-wrap: break-word;
@@ -66,18 +66,30 @@
 
 .message div.sent {
 	align-self: flex-end;
+	max-width: 65%;
+	overflow: visible;
+	margin-bottom: 0.2rem;
 }
 
 .message div.received {
 	align-items: flex-start;
+	max-width: 65%;
+	overflow: visible;
 }
 
-.message div.received .user-photo {
-	margin-right: 1rem;
+.message div.received .userPhoto {
+	width: 2rem;
+	margin-right: 0.2rem;
+}
+
+.message div.received .userPhoto img {
+	background-color: #b0b3b8;
+	border-radius: 50%;
 }
 
 .message div img {
-	height: 2rem;
+	margin-top: 0.2rem;
+	height: 1.5rem;
 }
 
 p.sent {
