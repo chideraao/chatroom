@@ -3,12 +3,12 @@ import {
 	ChatContext,
 	ContentContext,
 	EmojiContext,
-	ScreenContext,
 } from "../context/ChatsContext";
 import { auth, store } from "../services/firebase";
 import styles from "../styles/chats.module.css";
 import Emoji from "./Emoji";
 import { ReactComponent as Emoticon } from "../assets/logo/insert_emoticon_black_24dp.svg";
+import audio from "../assets/trial.mp3";
 
 function Chat() {
 	const [messages, setMessages] = useState([]);
@@ -39,6 +39,7 @@ function Chat() {
 						timestamp: Date.now(),
 						uid: user.uid,
 					});
+
 				setContent("");
 				dummy.current.scrollIntoView({ behavior: "smooth" });
 			} catch (err) {
@@ -62,10 +63,11 @@ function Chat() {
 				setWriteError(err.message);
 			}
 		}
-	};
-
-	const handleSignOut = () => {
-		auth().signOut();
+		let alert = new Audio(audio);
+		alert.volume = 0.2;
+		alert.play().catch((err) => {
+			console.log(err);
+		});
 	};
 
 	const emojiCheck = (str) => {
@@ -185,9 +187,6 @@ function Chat() {
 					/>
 				</form>
 			</div>
-			{/* <div>
-				<button onClick={handleSignOut}>Sign out</button>
-			</div> */}
 		</div>
 	);
 }

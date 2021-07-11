@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { ChatContext, EmojiContext } from "../context/ChatsContext";
+import { EmojiContext } from "../context/ChatsContext";
 import { auth, db, store } from "../services/firebase";
 import Emoji from "./Emoji";
 import styles from "../styles/chatroom.module.css";
 import { ReactComponent as Emoticon } from "../assets/logo/insert_emoticon_black_24dp.svg";
 import { ChatroomContentContext } from "../context/ChatRoomContext";
 import UserIcon from "../assets/logo/usericon.png";
+import audio from "../assets/trial.mp3";
 
 function ChatRoom() {
 	const [messages, setMessages] = useState([]);
@@ -13,7 +14,6 @@ function ChatRoom() {
 	const [content, setContent] = useContext(ChatroomContentContext);
 	const [readError, setReadError] = useState(null);
 	const [writeError, setWriteError] = useState(null);
-	const [chats, setChats] = useContext(ChatContext);
 	const [emojiOpen, setEmojiOpen] = useContext(EmojiContext);
 	const [inputClass, setInputClass] = useState("");
 	const [allUsers, setAllUsers] = useState([]);
@@ -41,6 +41,11 @@ function ChatRoom() {
 				setWriteError(err.message);
 			}
 		}
+		let alert = new Audio(audio);
+		alert.volume = 0.2;
+		alert.play().catch((err) => {
+			console.log(err);
+		});
 	};
 
 	const emojiCheck = (str) => {
@@ -103,7 +108,7 @@ function ChatRoom() {
 		async function getSnapshot() {
 			try {
 				db.ref("chats")
-					.limitToLast(70)
+					.limitToLast(500)
 					.on("value", (snapshot) => {
 						let message = [];
 						snapshot.forEach((snap) => {
@@ -135,36 +140,37 @@ function ChatRoom() {
 						} others`}</span>
 					</p>
 				</div>
+				<div className={styles.body}>
+					<div className={styles.message}>
+						<span>DheraGram</span>
+						{messages.map((text) => {
+							/** check to see if message bubble was sent or received */
+							let messageClass =
+								text.uid === user.uid ? styles.sent : styles.received;
+							return (
+								<div
+									key={text.timestamp}
+									className={`${messageClass} ${text.style} flex`}
+								>
+									<div className={styles.userPhoto}>
+										{messageClass !== styles.sent &&
+										text.style !== styles.pasDernier &&
+										text.style !== ` ${styles.emoji}` &&
+										text.style !== `${styles.pasDernier} ${styles.emoji}` ? (
+											<img src={providerURL || UserIcon} alt="user avatar" />
+										) : (
+											""
+										)}
+									</div>
 
-				<div className={styles.message}>
-					<span>DheraGram</span>
-					{messages.map((text) => {
-						/** check to see if message bubble was sent or received */
-						let messageClass =
-							text.uid === user.uid ? styles.sent : styles.received;
-						return (
-							<div
-								key={text.timestamp}
-								className={`${messageClass} ${text.style} flex`}
-							>
-								<div className={styles.userPhoto}>
-									{messageClass !== styles.sent &&
-									text.style !== styles.pasDernier &&
-									text.style !== ` ${styles.emoji}` &&
-									text.style !== `${styles.pasDernier} ${styles.emoji}` ? (
-										<img src={providerURL || UserIcon} alt="user avatar" />
-									) : (
-										""
-									)}
+									<p className={`${messageClass} ${text.style}`}>
+										{text.content}
+									</p>
 								</div>
-
-								<p className={`${messageClass} ${text.style}`}>
-									{text.content}
-								</p>
-							</div>
-						);
-					})}
-					<span ref={dummyDiv}></span>
+							);
+						})}
+						<span ref={dummyDiv}></span>
+					</div>
 				</div>
 			</div>
 			<div className="input-container flex">

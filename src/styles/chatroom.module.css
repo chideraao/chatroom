@@ -1,6 +1,6 @@
 .chat {
 	background-color: #212124;
-	overflow-y: scroll;
+	height: 95vh;
 	position: relative;
 }
 
@@ -25,17 +25,22 @@
 	color: var(--text-color);
 }
 
+.body {
+	width: 100%;
+	margin-top: 3rem;
+	height: 90vh;
+	overflow-y: scroll;
+}
+
 .message {
 	width: 100%;
-	height: 88vh;
-	overflow-y: scroll;
 	background-color: #212124;
 	border-radius: 0.2rem;
 	display: flex;
 	flex-direction: column;
 	font-size: 0.9rem;
 	margin: 1rem 0.5rem;
-	margin-top: 3rem;
+	margin-top: 0;
 	padding: 0.5rem;
 	padding-right: 1.5rem;
 }

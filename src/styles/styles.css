@@ -10,7 +10,7 @@
 	box-sizing: border-box;
 	padding: 0;
 	margin: 0;
-	/* overflow: hidden; */
+	overflow: hidden;
 }
 
 * body {
@@ -73,6 +73,11 @@ button {
 
 .searchbox:focus {
 	box-shadow: 0px 0px 8px 3px #4484c4;
+}
+
+.emoji-container {
+	position: absolute;
+	bottom: 2rem;
 }
 
 .card {
@@ -150,6 +155,7 @@ button {
 .card .flex p {
 	font-size: 1.5rem;
 	cursor: pointer;
+	padding: 0.3rem;
 }
 
 .flex p {
@@ -203,7 +209,17 @@ button {
 	margin-left: 0;
 }
 
-.input-container svg {
+.input-container {
+	position: relative;
+	overflow: visible;
+}
+
+.input-container > svg {
+	margin: 1rem;
+	margin-top: 0.1rem;
+}
+
+.input-container .emoticons svg {
 	margin: 1rem 0.25rem;
 	margin-top: 0.1rem;
 }
