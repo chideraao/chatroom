@@ -40,16 +40,16 @@ function ChatRoom() {
 					providerURL,
 				});
 				setContent("");
+				let alert = new Audio(audio);
+				alert.volume = 0.2;
+				alert.play().catch((err) => {
+					console.log(err);
+				});
 				dummyDiv.current.scrollIntoView({ behaviour: "smooth" });
 			} catch (err) {
 				setWriteError(err.message);
 			}
 		}
-		let alert = new Audio(audio);
-		alert.volume = 0.2;
-		alert.play().catch((err) => {
-			console.log(err);
-		});
 	};
 
 	const emojiCheck = (str) => {
@@ -126,7 +126,10 @@ function ChatRoom() {
 				setReadError(err.message);
 			}
 		}
-		getSnapshot();
+
+		getSnapshot().then(() => {
+			dummyDiv.current.scrollIntoView({ behaviour: "smooth" });
+		});
 	}, [content, user]);
 
 	return (
@@ -176,7 +179,7 @@ function ChatRoom() {
 			<div className="input-container flex">
 				{emojiOpen ? <Emoji /> : ""}
 				<Emoticon onClick={handleClick} />
-				<form onSubmit={sendMessage} autoComplete="off">
+				<form onSubmit={sendMessage} autoComplete="off" className="flex">
 					<input
 						onChange={handleChange}
 						value={content}

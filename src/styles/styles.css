@@ -21,6 +21,13 @@
 	font-size: 1rem;
 }
 
+/* .container {
+	max-width: 1250px;
+	margin: 0 auto;
+	overflow: auto;
+	padding: 0 40px;
+} */
+
 input {
 	line-height: 0.8;
 	width: 65vw;
@@ -34,7 +41,8 @@ input {
 }
 
 input.emoji {
-	line-height: 1;
+	height: 3.75rem;
+	padding: 1.5rem 0.5rem;
 	font-size: 3rem;
 }
 
@@ -184,6 +192,7 @@ button {
 
 .contact-header {
 	justify-content: space-between;
+	margin-top: 1rem;
 }
 
 .contact-header img {
@@ -257,25 +266,38 @@ button {
 }
 
 .input-container {
+	background-color: rgb(42, 42, 45);
 	position: relative;
 	overflow: visible;
-	align-items: flex-end;
+	align-items: flex-start;
 	justify-content: space-evenly;
+	flex-wrap: nowrap;
+	padding-top: 0.2rem;
+	border-top: 1px solid #4b4e50;
+}
+
+.input-container form.flex {
+	flex-wrap: nowrap;
+	align-items: flex-start;
+	margin-top: 0.2rem;
+}
+
+.input-container form.flex button {
+	background-color: transparent;
+	border: none;
+	padding: 1rem;
+	padding-top: 0.3rem;
 }
 
 .input-container > svg {
 	margin: 1rem;
-	margin-top: 0.1rem;
+	margin-top: 0.4rem;
+	margin-right: 0;
 }
 
 .input-container .emoticons svg {
 	margin: 1rem 0.25rem;
 	margin-top: 0.1rem;
-}
-
-.input-container button {
-	background-color: var(--primary-color);
-	border: none;
 }
 
 .message-list {
@@ -328,4 +350,8 @@ button {
 .contacts .onChat {
 	background-color: #282c34;
 	border-radius: 7px;
+}
+
+.contacts .onChat p {
+	font-weight: 500 !important;
 }

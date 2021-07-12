@@ -12,6 +12,7 @@ import { ReactComponent as NewIcon } from "../assets/logo/open_in_new_black_24dp
 import { ReactComponent as MoreIcon } from "../assets/logo/more_horiz_black_24dp.svg";
 import ProfileCard from "./ProfileCard";
 import { PhotoURLContext } from "../context/ChatRoomContext";
+import { ProfileCardContext } from "../context/ContactsContext";
 
 function Contacts() {
 	const [user, setUser] = useState(auth().currentUser);
@@ -21,7 +22,7 @@ function Contacts() {
 	const [screen, setScreen] = useContext(ScreenContext);
 	const [input, setInput] = useState({ email: "" });
 	const [content, setContent] = useContext(ContentContext);
-	const [profileOpen, setProfileOpen] = useState(false);
+	const [profileOpen, setProfileOpen] = useContext(ProfileCardContext);
 	const [providerURL, setProviderURL] = useContext(PhotoURLContext);
 
 	const { email } = input;

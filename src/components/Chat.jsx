@@ -63,12 +63,12 @@ function Chat() {
 			} catch (err) {
 				setWriteError(err.message);
 			}
+			let alert = new Audio(audio);
+			alert.volume = 0.2;
+			alert.play().catch((err) => {
+				console.log(err);
+			});
 		}
-		let alert = new Audio(audio);
-		alert.volume = 0.2;
-		alert.play().catch((err) => {
-			console.log(err);
-		});
 	};
 
 	const emojiCheck = (str) => {
@@ -86,8 +86,6 @@ function Chat() {
 	};
 
 	useEffect(() => {
-		// console.log(dummy);
-		// console.log(dummy.current.scrollHeight);
 		chatInput.focus();
 		setReadError(null);
 
@@ -139,7 +137,11 @@ function Chat() {
 			}
 		}
 
-		getSnapshot();
+		getSnapshot().then(() => {
+			setTimeout(() => {
+				dummy.current.scrollIntoView({ behaviour: "smooth" });
+			}, 1000);
+		});
 	}, [user, chat, content]);
 
 	return (
@@ -172,11 +174,7 @@ function Chat() {
 			<div className="input-container flex">
 				<Emoticon onClick={handleClick} />
 				{emojiOpen ? <Emoji /> : ""}
-				<form
-					className="message-send"
-					onSubmit={sendMessage}
-					autoComplete="off"
-				>
+				<form className="flex" onSubmit={sendMessage} autoComplete="off">
 					<input
 						onChange={handleChange}
 						value={content}

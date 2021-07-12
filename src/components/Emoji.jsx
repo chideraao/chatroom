@@ -74,7 +74,21 @@ function Emoji() {
 		} catch (err) {
 			console.log(err.message);
 		}
-	}, [handleScroll, user]);
+
+		/** handle click outside emoji div */
+		const handleClickOutside = (event) => {
+			if (iconRef.current && !iconRef.current.contains(event.target)) {
+				setEmojiOpen(false);
+			}
+		};
+
+		// Bind the event listener
+		document.addEventListener("mousedown", handleClickOutside);
+
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside);
+		};
+	}, [handleScroll, user, setEmojiOpen]);
 
 	let smileys = emojis.filter((emoji) => {
 		return (
