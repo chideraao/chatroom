@@ -1,28 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
+import { PhotoURLContext } from "../context/ChatRoomContext";
+import UserIcon from "../assets/logo/usericon.png";
+import { ReactComponent as Logout } from "../assets/logo/logout_black_24dp.svg";
+
 import { auth } from "../services/firebase";
 
 function ProfileCard() {
 	const [user, setUser] = useState(auth().currentUser);
+	const [providerURL, setProviderURL] = useContext(PhotoURLContext);
 
 	const handleSignOut = () => {
 		auth().signOut();
 	};
 
-	let photoURL;
-
-	useEffect(() => {
-		user.providerData.forEach((profile) => {
-			photoURL = profile.photoURL;
-		});
-	}, []);
-
 	return (
-		<div className="card">
+		<div className="card profile-card">
 			<div className="profile-head flex">
-				<img src={photoURL} alt="" />
+				<img src={providerURL || UserIcon} alt="user avatar" />
 				<p>{user.email}</p>
 			</div>
-			<div className="" onClick={handleSignOut}>
+			<div className="signout flex" onClick={handleSignOut}>
+				<Logout />
 				<p>Signout</p>
 			</div>
 		</div>

@@ -8,6 +8,7 @@ import { auth, store } from "../services/firebase";
 import styles from "../styles/chats.module.css";
 import Emoji from "./Emoji";
 import { ReactComponent as Emoticon } from "../assets/logo/insert_emoticon_black_24dp.svg";
+import { ReactComponent as Send } from "../assets/logo/send_black_24dp.svg";
 import audio from "../assets/trial.mp3";
 
 function Chat() {
@@ -185,6 +186,11 @@ function Chat() {
 						autoFocus
 						ref={(input) => (chatInput = input)}
 					/>
+					<label htmlFor="submit">
+						<button type="submit">
+							<Send />
+						</button>
+					</label>
 				</form>
 			</div>
 		</div>

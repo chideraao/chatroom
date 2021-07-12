@@ -11,6 +11,7 @@ import GroupIcon from "../assets/logo/group_icon.svg";
 import { ReactComponent as NewIcon } from "../assets/logo/open_in_new_black_24dp.svg";
 import { ReactComponent as MoreIcon } from "../assets/logo/more_horiz_black_24dp.svg";
 import ProfileCard from "./ProfileCard";
+import { PhotoURLContext } from "../context/ChatRoomContext";
 
 function Contacts() {
 	const [user, setUser] = useState(auth().currentUser);
@@ -21,6 +22,7 @@ function Contacts() {
 	const [input, setInput] = useState({ email: "" });
 	const [content, setContent] = useContext(ContentContext);
 	const [profileOpen, setProfileOpen] = useState(false);
+	const [providerURL, setProviderURL] = useContext(PhotoURLContext);
 
 	const { email } = input;
 	const searchRef = useRef();
@@ -40,7 +42,10 @@ function Contacts() {
 			.catch((err) => {
 				alert(err.message);
 			});
-	}, [user, chat, screen]);
+		user.providerData.forEach((profile) => {
+			setProviderURL(profile.photoURL);
+		});
+	}, [user, chat, screen, setProviderURL]);
 
 	/** https callable function to send emails  */
 	const emailInvite = () => {

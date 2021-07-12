@@ -148,7 +148,7 @@ function Emoji() {
 	return (
 		<div className="emoji-container">
 			<div className="card-container">
-				<div className="card" ref={iconRef}>
+				<div className="card emoji-card" ref={iconRef}>
 					{scrollText === undefined || scrollText === "RECENT" ? null : (
 						<p className="scroll-text">{scrollText}</p>
 					)}

@@ -4,7 +4,11 @@ import { auth, db, store } from "../services/firebase";
 import Emoji from "./Emoji";
 import styles from "../styles/chatroom.module.css";
 import { ReactComponent as Emoticon } from "../assets/logo/insert_emoticon_black_24dp.svg";
-import { ChatroomContentContext } from "../context/ChatRoomContext";
+import { ReactComponent as Send } from "../assets/logo/send_black_24dp.svg";
+import {
+	ChatroomContentContext,
+	PhotoURLContext,
+} from "../context/ChatRoomContext";
 import UserIcon from "../assets/logo/usericon.png";
 import audio from "../assets/trial.mp3";
 
@@ -17,7 +21,7 @@ function ChatRoom() {
 	const [emojiOpen, setEmojiOpen] = useContext(EmojiContext);
 	const [inputClass, setInputClass] = useState("");
 	const [allUsers, setAllUsers] = useState([]);
-	const [providerURL, setProviderURL] = useState("");
+	const [providerURL, setProviderURL] = useContext(PhotoURLContext);
 
 	const dummyDiv = useRef();
 	let chatInput = useRef();
@@ -65,10 +69,6 @@ function ChatRoom() {
 	useEffect(() => {
 		chatInput.focus();
 		setReadError(null);
-
-		user.providerData.forEach((profile) => {
-			setProviderURL(profile.photoURL);
-		});
 
 		/**get all users */
 		store
@@ -184,7 +184,12 @@ function ChatRoom() {
 						placeholder="DheraGram"
 						className={`${inputClass} ${styles.message_input}`}
 						ref={(input) => (chatInput = input)}
-					></input>
+					/>
+					<label htmlFor="submit">
+						<button type="submit">
+							<Send />
+						</button>
+					</label>
 				</form>
 			</div>
 		</div>

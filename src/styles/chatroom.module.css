@@ -1,6 +1,6 @@
 .chat {
 	background-color: #212124;
-	height: 95vh;
+	height: 93vh;
 	position: relative;
 }
 
@@ -174,7 +174,11 @@ p.received.emoji::before {
 }
 
 .message_input {
-	width: 63vw;
+	width: 62vw;
 	background-color: #3a3b3c;
-	border-radius: 1rem;
+	height: 1.7rem;
+	font-size: 1rem;
+	font-weight: 100;
+	padding: 1rem 0.5rem;
+	border-radius: 5rem;
 }
