@@ -19,6 +19,7 @@
 	color: var(--text-color);
 	line-height: 1.6;
 	font-size: 1rem;
+	position: relative;
 }
 
 /* .container {
@@ -86,7 +87,7 @@ button {
 .emoji-container {
 	position: absolute;
 	bottom: 1rem;
-	left: 3rem;
+	left: 4rem;
 }
 
 .card {
@@ -186,7 +187,8 @@ button {
 	margin-left: 0.5rem;
 	margin-right: 0;
 	padding-right: 0.3rem;
-	overflow: visible;
+	height: 98vh;
+	overflow-y: scroll;
 	position: relative;
 }
 
@@ -216,10 +218,11 @@ button {
 .contacts .profile-card {
 	position: absolute;
 	z-index: 1;
-	top: 3rem;
+	top: 4rem;
 	right: 1.5rem;
 	color: #adb2b6;
 	width: fit-content;
+	background-color: rgb(41, 41, 44);
 	height: auto;
 	padding: 0 0.5rem;
 	cursor: text;
@@ -240,6 +243,7 @@ button {
 	padding: 1rem;
 	width: fit-content;
 	align-items: center;
+	flex-wrap: nowrap;
 	padding-bottom: 0.2rem;
 }
 
@@ -254,8 +258,100 @@ button {
 	margin-right: 1.5rem;
 }
 
+.new-card {
+	position: absolute;
+	top: 30%;
+	left: 40%;
+	width: 30rem;
+	background-color: rgb(41, 41, 44);
+	text-align: center;
+	color: #adb2b6;
+	height: auto;
+	padding: 0.5rem 0.5rem;
+	padding-left: 1.5rem;
+	padding-bottom: 1.5rem;
+	margin-bottom: 0;
+	cursor: text;
+	z-index: 1;
+}
+
+.new-card form {
+	padding-left: 0.5rem;
+}
+
+.new-card .error-container {
+	width: 100%;
+}
+
+.new-card form #search-error {
+	font-size: 0.9rem;
+	display: flex;
+	flex-direction: column;
+}
+
+.new-card form #search-error {
+	text-align: start;
+}
+
+.new-card .modal-btn {
+	margin-top: 1rem;
+	margin-right: 0.6rem;
+	display: flex;
+	align-self: flex-end;
+}
+
+.new-card form #search-error #mail-btn {
+	font-size: 0.9rem;
+	padding: 0.5rem 1rem;
+	background-color: #4484c4;
+	border-radius: 0.4rem;
+	margin: 0.5rem;
+	margin-bottom: 0;
+	align-self: center;
+}
+
+.new-card form #search-error #mail-btn:hover {
+	background-color: #1982fc;
+}
+
+.new-card form #search-error #cancel-btn {
+	font-size: 0.9rem;
+	padding: 0.5rem 1rem;
+	background-color: transparent;
+	color: #1982fc;
+	border-radius: 0.4rem;
+	margin: 0.5rem;
+	margin-bottom: 0;
+	align-self: center;
+}
+
+.new-card form #search-error #cancel-btn:hover {
+	background-color: #282c34;
+}
+
 .contacts form {
 	padding-left: 0.2rem;
+}
+
+.contacts form #search-error {
+	font-size: 0.9rem;
+	display: flex;
+	text-align: center;
+	flex-direction: column;
+}
+
+.contacts form #search-error button {
+	font-size: 0.9rem;
+	padding: 0.5rem 1rem;
+	background-color: #4484c4;
+	border-radius: 0.4rem;
+	margin: 0.5rem;
+	margin-bottom: 0;
+	align-self: center;
+}
+
+.contacts form #search-error button:hover {
+	background-color: #1982fc;
 }
 
 .contacts .searchbox {
@@ -266,7 +362,7 @@ button {
 }
 
 .input-container {
-	background-color: rgb(42, 42, 45);
+	background-color: rgb(41, 41, 44);
 	position: relative;
 	overflow: visible;
 	align-items: flex-start;
@@ -287,6 +383,7 @@ button {
 	border: none;
 	padding: 1rem;
 	padding-top: 0.3rem;
+	margin-left: 0.5rem;
 }
 
 .input-container > svg {
@@ -306,7 +403,8 @@ button {
 	margin-left: 0;
 }
 
-.contacts img {
+.contacts img,
+.users-list img {
 	background-color: #b0b3b8;
 	height: 3rem;
 	width: auto;
@@ -314,44 +412,52 @@ button {
 }
 
 .contacts .group-chat,
+.users-list,
 .contacts .single-chat {
 	margin-bottom: 0.1rem;
 	border-bottom: 1px solid #282c34;
 }
 
 .contacts .group-chat .flex,
+.users-list .flex,
 .contacts .single-chat .flex {
 	flex-wrap: nowrap;
 }
 
-.contacts .chat-img {
+.contacts .chat-img,
+.users-list .chat-img {
 	margin: 0.5rem;
 	margin-top: 0.6rem;
 }
 
 .group-chat:hover,
+.users-list:hover,
 .single-chat:hover {
 	background-color: var(--secondary-color);
 	border-radius: 7px;
 }
 
 .contacts .group-chat .group-title,
+.users-list .chat-email,
 .contacts .single-chat .chat-email {
 	display: flex;
 	align-items: center;
 }
 
 .contacts .group-chat .group-title p,
+.users-list .chat-email p,
 .contacts .single-chat .chat-email p {
 	font-size: 1rem;
 	font-weight: 300;
 }
 
-.contacts .onChat {
+.contacts .group-chat .onChat,
+.contacts .single-chat .onChat {
 	background-color: #282c34;
 	border-radius: 7px;
 }
 
-.contacts .onChat p {
+.contacts .group-chat .onChat p,
+.contacts .single-chat .onChat p {
 	font-weight: 500 !important;
 }

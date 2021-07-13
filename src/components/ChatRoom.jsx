@@ -11,6 +11,7 @@ import {
 } from "../context/ChatRoomContext";
 import UserIcon from "../assets/logo/usericon.png";
 import audio from "../assets/trial.mp3";
+import { UsersContext } from "../context/ContactsContext";
 
 function ChatRoom() {
 	const [messages, setMessages] = useState([]);
@@ -20,7 +21,7 @@ function ChatRoom() {
 	const [writeError, setWriteError] = useState(null);
 	const [emojiOpen, setEmojiOpen] = useContext(EmojiContext);
 	const [inputClass, setInputClass] = useState("");
-	const [allUsers, setAllUsers] = useState([]);
+	const [allUsers, setAllUsers] = useContext(UsersContext);
 	const [providerURL, setProviderURL] = useContext(PhotoURLContext);
 
 	const dummyDiv = useRef();
@@ -70,18 +71,6 @@ function ChatRoom() {
 		chatInput.focus();
 		setReadError(null);
 
-		/**get all users */
-		store
-			.collection("users")
-			.get()
-			.then((snapshot) => {
-				let users = [];
-				snapshot.forEach((doc) => {
-					users.push(doc.data().email);
-				});
-				setAllUsers(users);
-			});
-
 		/**function to check uid of the next message in collection and add a style accordingly */
 		function nextCheck(arr) {
 			for (var i = 0; i < arr.length - 1; i++) {
@@ -128,7 +117,9 @@ function ChatRoom() {
 		}
 
 		getSnapshot().then(() => {
-			dummyDiv.current.scrollIntoView({ behaviour: "smooth" });
+			if (dummyDiv.current) {
+				dummyDiv.current.scrollIntoView({ behaviour: "smooth" });
+			}
 		});
 	}, [content, user]);
 
@@ -138,7 +129,7 @@ function ChatRoom() {
 				<div className={styles.header}>
 					<p>
 						To:{" "}
-						<span>{`${allUsers[0]}, ${allUsers[1]} and ${
+						<span>{`${allUsers[0].email}, ${allUsers[1].email} and ${
 							allUsers.length + 4
 						} others`}</span>
 					</p>

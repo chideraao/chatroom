@@ -43,7 +43,7 @@
 	display: flex;
 	flex-direction: column;
 	font-size: 0.9rem;
-	margin: 1rem 0.5rem;
+	margin: 0 0.5rem;
 	padding: 0.5rem;
 }
 
@@ -144,7 +144,7 @@ p.received.emoji::before {
 }
 
 .message_input {
-	width: 60vw;
+	width: 63vw;
 	background-color: #3a3b3c;
 	height: 1.7rem;
 	font-size: 1rem;

@@ -30,7 +30,7 @@ function ProfileCard() {
 		return () => {
 			document.removeEventListener("mousedown", handleClickOutside);
 		};
-	}, []);
+	}, [setProfileOpen]);
 
 	return (
 		<div className="card profile-card" ref={profileRef}>

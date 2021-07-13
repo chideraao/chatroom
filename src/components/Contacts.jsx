@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import firebase from "firebase";
-import { auth, store, db } from "../services/firebase";
+import { auth, store } from "../services/firebase";
 import {
 	ChatContext,
 	ContentContext,
@@ -12,7 +12,12 @@ import { ReactComponent as NewIcon } from "../assets/logo/open_in_new_black_24dp
 import { ReactComponent as MoreIcon } from "../assets/logo/more_horiz_black_24dp.svg";
 import ProfileCard from "./ProfileCard";
 import { PhotoURLContext } from "../context/ChatRoomContext";
-import { ProfileCardContext } from "../context/ContactsContext";
+import {
+	ModalContext,
+	ProfileCardContext,
+	UsersContext,
+} from "../context/ContactsContext";
+import NewCard from "./NewCard";
 
 function Contacts() {
 	const [user, setUser] = useState(auth().currentUser);
@@ -24,10 +29,11 @@ function Contacts() {
 	const [content, setContent] = useContext(ContentContext);
 	const [profileOpen, setProfileOpen] = useContext(ProfileCardContext);
 	const [providerURL, setProviderURL] = useContext(PhotoURLContext);
+	const [modalOpen, setModalOpen] = useContext(ModalContext);
+	const [allUsers, setAllUsers] = useContext(UsersContext);
 
 	const { email } = input;
 	const searchRef = useRef();
-	let searchInput = useRef();
 
 	useEffect(() => {
 		/** initialise and call cloud function to list chats */
@@ -46,7 +52,19 @@ function Contacts() {
 		user.providerData.forEach((profile) => {
 			setProviderURL(profile.photoURL);
 		});
-	}, [user, chat, screen, setProviderURL]);
+
+		/**get all users */
+		store
+			.collection("users")
+			.get()
+			.then((snapshot) => {
+				let users = [];
+				snapshot.forEach((doc) => {
+					users.push(doc.data());
+				});
+				setAllUsers(users);
+			});
+	}, [user, chat, screen, setProviderURL, setAllUsers]);
 
 	/** https callable function to send emails  */
 	const emailInvite = () => {
@@ -114,10 +132,6 @@ function Contacts() {
 		}
 	};
 
-	const NewClick = () => {
-		searchInput.focus();
-	};
-
 	const handleClick = () => {
 		setScreen("chatroom");
 		setChat(null);
@@ -133,6 +147,10 @@ function Contacts() {
 
 	const profileClick = () => {
 		setProfileOpen(true);
+	};
+
+	const modalClick = () => {
+		setModalOpen(true);
 	};
 
 	const filteredChats = !email
@@ -152,7 +170,7 @@ function Contacts() {
 					<div className="svg-container flex" onClick={profileClick}>
 						<MoreIcon />
 					</div>
-					<div className="svg-container flex" onClick={NewClick}>
+					<div className="svg-container flex" onClick={modalClick}>
 						<NewIcon />
 					</div>
 				</div>
@@ -168,10 +186,9 @@ function Contacts() {
 					name="email"
 					autoComplete="off"
 					placeholder="Search Dheragram"
-					ref={(input) => (searchInput = input)}
 				/>
 
-				<div>
+				<div style={{ width: "100%" }}>
 					<p id="search-error" ref={searchRef}>
 						{searchError ? `${searchError}` : ""}
 					</p>

@@ -46,6 +46,11 @@ function Chat() {
 			} catch (err) {
 				setWriteError(err.message);
 			}
+			let alert = new Audio(audio);
+			alert.volume = 0.2;
+			alert.play().catch((err) => {
+				console.log(err);
+			});
 		}
 
 		if (chat !== user.email && content !== "") {
@@ -63,11 +68,6 @@ function Chat() {
 			} catch (err) {
 				setWriteError(err.message);
 			}
-			let alert = new Audio(audio);
-			alert.volume = 0.2;
-			alert.play().catch((err) => {
-				console.log(err);
-			});
 		}
 	};
 
@@ -139,7 +139,9 @@ function Chat() {
 
 		getSnapshot().then(() => {
 			setTimeout(() => {
-				dummy.current.scrollIntoView({ behaviour: "smooth" });
+				if (dummy.current) {
+					dummy.current.scrollIntoView({ behaviour: "smooth" });
+				}
 			}, 1000);
 		});
 	}, [user, chat, content]);

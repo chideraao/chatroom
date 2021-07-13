@@ -2,16 +2,20 @@ import React, { createContext, useState } from "react";
 
 export const ProfileCardContext = createContext();
 export const ModalContext = createContext();
+export const UsersContext = createContext();
 
 export const ContactsProvider = (props) => {
 	const [profileOpen, setProfileOpen] = useState(false);
-	const [providerURL, setProviderURL] = useState("");
+	const [modalOpen, setModalOpen] = useState(false);
+	const [allUsers, setAllUsers] = useState([]);
 
 	return (
 		<ProfileCardContext.Provider value={[profileOpen, setProfileOpen]}>
-			<ModalContext.Provider value={[providerURL, setProviderURL]}>
-				{props.children}
-			</ModalContext.Provider>
+			<UsersContext.Provider value={[allUsers, setAllUsers]}>
+				<ModalContext.Provider value={[modalOpen, setModalOpen]}>
+					{props.children}
+				</ModalContext.Provider>
+			</UsersContext.Provider>
 		</ProfileCardContext.Provider>
 	);
 };

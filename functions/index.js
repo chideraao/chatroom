@@ -38,6 +38,7 @@ exports.userSignUp = functions.auth.user().onCreate((user) => {
 			email: user.email,
 			uid: user.uid,
 			recentEmojis: [],
+			photoURL: user.photoURL,
 		})
 		.then(() => {
 			transporter.sendMail(mailOptions);

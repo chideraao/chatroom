@@ -68,7 +68,7 @@ function Emoji() {
 				.onSnapshot((doc) => {
 					let recents = [];
 					recents = doc.data().recentEmojis;
-					recents = recents.reverse().slice(0, 17);
+					recents = recents.reverse().slice(0, 35);
 					setRecent(recents);
 				});
 		} catch (err) {
@@ -179,24 +179,10 @@ function Emoji() {
 					/>
 
 					<div className="emoticons flex">
-						<a
-							href="#recent"
-							onClick={() => {
-								window.history.replaceState(null, null, " ");
-							}}
-						>
+						<a href="#recent">
 							<Recent />
 						</a>
-						<a
-							href="#emotion"
-							onClick={() => {
-								window.history.replaceState(
-									"",
-									document.title,
-									window.location.pathname + window.location.search
-								);
-							}}
-						>
+						<a href="#emotion">
 							<Emotion />
 						</a>
 						<a href="#nature">
