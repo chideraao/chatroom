@@ -42,7 +42,7 @@
 	border-radius: 0.2rem;
 	display: flex;
 	flex-direction: column;
-	font-size: 0.9rem;
+	font-size: 0.85rem;
 	margin: 0 0.5rem;
 	padding: 0.5rem;
 }
@@ -151,4 +151,47 @@ p.received.emoji::before {
 	font-weight: 100;
 	padding: 1rem 0.5rem;
 	border-radius: 1rem;
+}
+
+/*-----------------------------------------------------------------MEDIA QUERIES------------------------------------------------------------------*/
+/*Ipad Pro*/
+@media (max-width: 1100px) {
+	.message p.sent {
+		max-width: 70%;
+	}
+
+	.message p.received {
+		max-width: 70%;
+	}
+}
+/*Tablets and under*/
+@media (max-width: 960px) {
+	.message p.sent {
+		max-width: 73%;
+		margin-bottom: 0.3rem;
+	}
+
+	.message p.received {
+		max-width: 73%;
+		margin-bottom: 0.3rem;
+	}
+
+	.message .pasDernier {
+		margin-bottom: 0.2rem !important;
+	}
+
+	p.sent ~ p.sent:not(:last-child) {
+		margin-bottom: 0.3rem;
+	}
+}
+
+/*phones and under*/
+@media (max-width: 560px) {
+	.message p.sent {
+		max-width: 75%;
+	}
+
+	.message p.received {
+		max-width: 75%;
+	}
 }

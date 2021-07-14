@@ -149,9 +149,9 @@ function NewCard() {
 			</form>
 
 			<div className="">
-				{filteredUsers.map((user) => {
+				{filteredUsers.map((user, id) => {
 					return (
-						<div className="users-list" key={user.email}>
+						<div className="users-list" key={id}>
 							<ChatList
 								id={user.email}
 								chats={user.email}

@@ -117,9 +117,11 @@ function ChatRoom() {
 		}
 
 		getSnapshot().then(() => {
-			if (dummyDiv.current) {
-				dummyDiv.current.scrollIntoView({ behaviour: "smooth" });
-			}
+			setTimeout(() => {
+				if (dummyDiv.current) {
+					dummyDiv.current.scrollIntoView({ behaviour: "smooth" });
+				}
+			}, 500);
 		});
 	}, [content, user]);
 

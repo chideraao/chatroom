@@ -142,7 +142,7 @@ function Chat() {
 				if (dummy.current) {
 					dummy.current.scrollIntoView({ behaviour: "smooth" });
 				}
-			}, 1000);
+			}, 500);
 		});
 	}, [user, chat, content]);
 

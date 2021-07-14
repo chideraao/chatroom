@@ -207,9 +207,9 @@ function Contacts() {
 					</div>
 				</div>
 				<div className="">
-					{filteredChats.map((chat) => {
+					{filteredChats.map((chat, idx) => {
 						return (
-							<div className="single-chat" key={chat}>
+							<div className="single-chat" key={idx}>
 								<ChatList id={chat} chats={chat} />
 							</div>
 						);

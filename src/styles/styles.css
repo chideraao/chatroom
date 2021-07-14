@@ -86,8 +86,38 @@ button {
 
 .emoji-container {
 	position: absolute;
-	bottom: 1rem;
+	bottom: -0.3rem;
 	left: 4rem;
+}
+
+.card-container {
+	position: relative;
+}
+
+.card-container:before {
+	content: " ";
+	position: absolute;
+	width: 0;
+	height: 0;
+	left: -40px;
+	right: auto;
+	top: 30px;
+	bottom: auto;
+	border: 20px solid;
+	border-color: #fff #fff transparent transparent;
+}
+
+.card-container:after {
+	content: " ";
+	position: absolute;
+	width: 0;
+	height: 0;
+	left: -5px;
+	right: auto;
+	bottom: 19px;
+	top: auto;
+	border: 12px solid;
+	border-color: #212124 #212124 transparent transparent;
 }
 
 .card {
@@ -105,6 +135,7 @@ button {
 .emoji-card {
 	width: 23rem;
 	height: 21rem;
+	background-color: #212124;
 }
 
 .card .searchbox {
@@ -138,16 +169,12 @@ button {
 	flex-wrap: wrap;
 }
 
-.card-container {
-	position: relative;
-}
-
 .emoticons {
 	height: 2rem;
 	position: absolute;
 	width: 90%;
 	top: 19.68rem;
-	background-color: rgb(33, 33, 36);
+	background-color: #212124;
 }
 
 .card .emojis {
@@ -451,7 +478,7 @@ button {
 	font-weight: 300;
 }
 
-.contacts .group-chat .onChat,
+.contacts .group-chat.onChat,
 .contacts .single-chat .onChat {
 	background-color: #282c34;
 	border-radius: 7px;
@@ -460,4 +487,17 @@ button {
 .contacts .group-chat .onChat p,
 .contacts .single-chat .onChat p {
 	font-weight: 500 !important;
+}
+
+/*-----------------------------------------------------------------MEDIA QUERIES------------------------------------------------------------------*/
+/*Ipad Pro*/
+@media (max-width: 1100px) {
+}
+
+/*Tablets and under*/
+@media (max-width: 960px) {
+}
+
+/*phones and under*/
+@media (max-width: 560px) {
 }
