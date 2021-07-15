@@ -124,7 +124,7 @@ function NewCard() {
 				.filter((chat) => {
 					return chat.email.toLowerCase().includes(email.toLowerCase());
 				})
-				.slice(0, 9);
+				.slice(0, 3);
 
 	return (
 		<div className="card new-card" ref={modalRef}>

@@ -64,6 +64,11 @@ button {
 	grid-template-columns: 25% 75%;
 }
 
+.flex {
+	display: flex;
+	flex-wrap: wrap;
+}
+
 .searchbox {
 	display: block;
 	width: 100%;
@@ -87,14 +92,14 @@ button {
 .emoji-container {
 	position: absolute;
 	bottom: -0.3rem;
-	left: 4rem;
+	left: 3.5rem;
 }
 
-.card-container {
+.emoji-container .card-container {
 	position: relative;
 }
 
-.card-container:before {
+.emoji-container .card-container:before {
 	content: " ";
 	position: absolute;
 	width: 0;
@@ -107,7 +112,7 @@ button {
 	border-color: #fff #fff transparent transparent;
 }
 
-.card-container:after {
+.emoji-container .card-container:after {
 	content: " ";
 	position: absolute;
 	width: 0;
@@ -162,11 +167,6 @@ button {
 
 .emojis .FLAGS {
 	padding-bottom: 1.2rem;
-}
-
-.flex {
-	display: flex;
-	flex-wrap: wrap;
 }
 
 .emoticons {
@@ -236,6 +236,7 @@ button {
 	align-items: center;
 	justify-content: center;
 	margin: 0.5rem;
+	cursor: pointer;
 }
 
 .contact-header .svg-container:hover {
@@ -246,7 +247,7 @@ button {
 	position: absolute;
 	z-index: 1;
 	top: 4rem;
-	right: 1.5rem;
+	right: 3rem;
 	color: #adb2b6;
 	width: fit-content;
 	background-color: rgb(41, 41, 44);
@@ -287,7 +288,7 @@ button {
 
 .new-card {
 	position: absolute;
-	top: 30%;
+	top: 27%;
 	left: 40%;
 	width: 30rem;
 	background-color: rgb(41, 41, 44);
@@ -388,48 +389,6 @@ button {
 	margin-left: 0;
 }
 
-.input-container {
-	background-color: rgb(41, 41, 44);
-	position: relative;
-	overflow: visible;
-	align-items: flex-start;
-	justify-content: space-evenly;
-	flex-wrap: nowrap;
-	padding-top: 0.2rem;
-	border-top: 1px solid #4b4e50;
-}
-
-.input-container form.flex {
-	flex-wrap: nowrap;
-	align-items: flex-start;
-	margin-top: 0.2rem;
-}
-
-.input-container form.flex button {
-	background-color: transparent;
-	border: none;
-	padding: 1rem;
-	padding-top: 0.3rem;
-	margin-left: 0.5rem;
-}
-
-.input-container > svg {
-	margin: 1rem;
-	margin-top: 0.4rem;
-	margin-right: 0;
-}
-
-.input-container .emoticons svg {
-	margin: 1rem 0.25rem;
-	margin-top: 0.1rem;
-}
-
-.message-list {
-	cursor: pointer;
-	margin: 0.5rem;
-	margin-left: 0;
-}
-
 .contacts img,
 .users-list img {
 	background-color: #b0b3b8;
@@ -489,15 +448,215 @@ button {
 	font-weight: 500 !important;
 }
 
+.input-container {
+	background-color: rgb(41, 41, 44);
+	position: relative;
+	overflow: visible;
+	align-items: flex-start;
+	justify-content: space-evenly;
+	flex-wrap: nowrap;
+	padding-top: 0.2rem;
+	border-top: 1px solid #4b4e50;
+}
+
+.input-container form.flex {
+	flex-wrap: nowrap;
+	align-items: flex-start;
+	margin-top: 0.2rem;
+}
+
+.input-container form.flex button {
+	background-color: transparent;
+	border: none;
+	padding: 1rem;
+	padding-top: 0.3rem;
+	margin-left: 0.5rem;
+}
+
+.input-container > svg {
+	margin: 1rem;
+	margin-top: 0.4rem;
+	margin-right: 0;
+}
+
+.input-container .emoticons svg {
+	margin: 1rem 0.25rem;
+	margin-top: 0.1rem;
+}
+
+.message-list {
+	cursor: pointer;
+	margin: 0.5rem;
+	margin-left: 0;
+}
+
 /*-----------------------------------------------------------------MEDIA QUERIES------------------------------------------------------------------*/
 /*Ipad Pro*/
 @media (max-width: 1100px) {
+	.emoji-container {
+		left: 3.3rem;
+	}
+
+	.contacts .profile-card {
+		top: 4.2rem;
+		right: 0.5rem;
+	}
+
+	.new-card {
+		top: 35%;
+		left: 36.5%;
+		width: 50vw;
+	}
 }
 
 /*Tablets and under*/
 @media (max-width: 960px) {
+	.grid {
+		grid-template-columns: 13% 87%;
+	}
+
+	.emoji-container {
+		left: 4.5rem;
+	}
+
+	.contacts .profile-card {
+		position: fixed;
+		top: 6rem;
+		left: 4.5rem;
+	}
+
+	.card-container {
+		position: relative;
+	}
+
+	.new-card {
+		top: 30%;
+		left: 23%;
+		width: 65vw;
+	}
+
+	.card .scroll-text {
+		top: 0.5rem;
+	}
+
+	.contacts .contact-header {
+		border-bottom: 1px solid #282c34;
+		margin-bottom: 1.5rem;
+		text-align: center;
+	}
+
+	.contacts .contact-header.flex,
+	.contacts .contact-header > .flex {
+		display: block;
+	}
+
+	.contacts .contact-header *:first-child {
+		margin-bottom: 0.5rem;
+	}
+
+	.contact-header .svg-container {
+		margin: auto;
+		margin-bottom: 1rem;
+		align-items: flex-end;
+	}
+
+	.contacts form {
+		display: none;
+	}
+
+	.contacts .group-chat,
+	.contacts .single-chat > .flex {
+		justify-content: center;
+	}
+
+	.contacts .group-chat .group-title,
+	.contacts .single-chat .chat-email {
+		display: none;
+	}
 }
 
 /*phones and under*/
 @media (max-width: 560px) {
+	.grid {
+		grid-template-columns: 15% 85%;
+	}
+
+	.contacts img,
+	.users-list img {
+		height: 2rem;
+	}
+
+	.contacts .message-list {
+		margin-right: 0;
+	}
+
+	.contacts .chat-img {
+		margin: 0;
+		margin-top: 0.5rem;
+		padding: 0.2rem;
+	}
+
+	.contacts .profile-card {
+		position: fixed;
+		top: 4.5rem;
+		left: 2.7rem;
+	}
+
+	.contacts .profile-card .profile-head {
+		padding: 0.5rem;
+	}
+
+	.contacts .profile-card .profile-head img {
+		height: 2rem;
+	}
+
+	.contacts .profile-card .signout {
+		padding: 0.5rem;
+	}
+
+	.new-card {
+		top: 32%;
+		left: 19%;
+		width: 72vw;
+		padding-left: 0.6rem;
+	}
+
+	.emoji-container {
+		left: 0rem;
+	}
+
+	.emoji-container .emoji-card {
+		width: 18rem;
+		height: 15rem;
+		background-color: #212124;
+	}
+
+	.emoji-container .card .flex p {
+		font-size: 0.8rem;
+		padding: 0.4rem;
+	}
+
+	.card .scroll-text {
+		font-size: 0.65rem;
+	}
+
+	.card .emojis > div > p {
+		font-size: 0.6rem;
+		color: #adb2b6;
+		letter-spacing: 2px;
+	}
+
+	.emoji-container .emoji-card .emoticons {
+		top: 13.7rem;
+		width: 85%;
+	}
+
+	.emoji-container .emoji-card .emoticons a {
+		padding: 0.15rem;
+	}
+
+	.emoji-container .emoji-card .emoticons svg {
+		height: 1rem;
+		margin: 0;
+	}
 }

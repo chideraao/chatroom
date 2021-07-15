@@ -214,6 +214,10 @@ p.received.emoji::before {
 	.message div.pasDernier {
 		margin-bottom: 0.2rem !important;
 	}
+
+	p.sent ~ p.sent:not(:last-child) {
+		margin-bottom: 0.3rem;
+	}
 }
 
 /*phones and under*/

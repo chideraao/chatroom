@@ -33,14 +33,16 @@ function ProfileCard() {
 	}, [setProfileOpen]);
 
 	return (
-		<div className="card profile-card" ref={profileRef}>
-			<div className="profile-head flex">
-				<img src={providerURL || UserIcon} alt="user avatar" />
-				<p>{user.email}</p>
-			</div>
-			<div className="signout flex" onClick={handleSignOut}>
-				<Logout />
-				<p>Signout</p>
+		<div className="card-container">
+			<div className="card profile-card" ref={profileRef}>
+				<div className="profile-head flex">
+					<img src={providerURL || UserIcon} alt="user avatar" />
+					<p>{user.email}</p>
+				</div>
+				<div className="signout flex" onClick={handleSignOut}>
+					<Logout />
+					<p>Signout</p>
+				</div>
 			</div>
 		</div>
 	);

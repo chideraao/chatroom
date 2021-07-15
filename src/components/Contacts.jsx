@@ -17,7 +17,7 @@ import {
 	ProfileCardContext,
 	UsersContext,
 } from "../context/ContactsContext";
-import NewCard from "./NewCard";
+import { Link } from "react-router-dom";
 
 function Contacts() {
 	const [user, setUser] = useState(auth().currentUser);
@@ -163,18 +163,19 @@ function Contacts() {
 		<div className="contacts">
 			<div className="contact-header flex">
 				<div className="flex">
-					<img src={GroupIcon} alt="logo dhera" />
+					<Link to="/home">
+						<img src={GroupIcon} alt="logo dhera" />
+					</Link>
 				</div>
-
 				<div className="flex">
 					<div className="svg-container flex" onClick={profileClick}>
 						<MoreIcon />
 					</div>
 					<div className="svg-container flex" onClick={modalClick}>
 						<NewIcon />
+						{profileOpen ? <ProfileCard /> : ""}
 					</div>
 				</div>
-				{profileOpen ? <ProfileCard /> : ""}
 			</div>
 			<form onSubmit={createNewChat} className="flex">
 				<input
