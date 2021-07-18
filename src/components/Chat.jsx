@@ -10,6 +10,7 @@ import Emoji from "./Emoji";
 import { ReactComponent as Emoticon } from "../assets/logo/insert_emoticon_black_24dp.svg";
 import { ReactComponent as Send } from "../assets/logo/send_black_24dp.svg";
 import audio from "../assets/trial.mp3";
+import { PhotoURLContext } from "../context/ChatRoomContext";
 
 function Chat() {
 	const [messages, setMessages] = useState([]);
@@ -19,6 +20,7 @@ function Chat() {
 	const [writeError, setWriteError] = useState(null);
 	const [chat, setChat] = useContext(ChatContext);
 	const [emojiOpen, setEmojiOpen] = useContext(EmojiContext);
+	const [providerURL, setProviderURL] = useContext(PhotoURLContext);
 	const [inputClass, setInputClass] = useState("");
 
 	const dummy = useRef();
@@ -46,6 +48,17 @@ function Chat() {
 			} catch (err) {
 				setWriteError(err.message);
 			}
+
+			try {
+				await store.collection(`${user.email}`).doc(chat).update({
+					content: content.trim(),
+					email: chat,
+					timestamp: Date.now(),
+				});
+			} catch (err) {
+				console.log(err);
+			}
+
 			let alert = new Audio(audio);
 			alert.volume = 0.2;
 			alert.play().catch((err) => {
@@ -67,6 +80,17 @@ function Chat() {
 				dummy.current.scrollIntoView({ behavior: "smooth" });
 			} catch (err) {
 				setWriteError(err.message);
+			}
+
+			try {
+				await store.collection(chat).doc(`${user.email}`).update({
+					content: content.trim(),
+					email: user.email,
+					providerURL,
+					timestamp: Date.now(),
+				});
+			} catch (err) {
+				console.log(err);
 			}
 		}
 	};

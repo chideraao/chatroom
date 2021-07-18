@@ -154,7 +154,7 @@ function NewCard() {
 						<div className="users-list" key={id}>
 							<ChatList
 								id={user.email}
-								chats={user.email}
+								email={user.email}
 								photoURL={user.photoURL}
 							/>
 						</div>

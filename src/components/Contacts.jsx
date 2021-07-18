@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import firebase from "firebase";
-import { auth, store } from "../services/firebase";
+import { auth, db, store } from "../services/firebase";
 import {
 	ChatContext,
 	ContentContext,
@@ -10,6 +10,7 @@ import ChatList from "./ChatList";
 import GroupIcon from "../assets/logo/group_icon.svg";
 import { ReactComponent as NewIcon } from "../assets/logo/open_in_new_black_24dp.svg";
 import { ReactComponent as MoreIcon } from "../assets/logo/more_horiz_black_24dp.svg";
+import { ReactComponent as PushPin } from "../assets/logo/push_pin_black_24dp (1).svg";
 import ProfileCard from "./ProfileCard";
 import { PhotoURLContext } from "../context/ChatRoomContext";
 import {
@@ -31,24 +32,50 @@ function Contacts() {
 	const [providerURL, setProviderURL] = useContext(PhotoURLContext);
 	const [modalOpen, setModalOpen] = useContext(ModalContext);
 	const [allUsers, setAllUsers] = useContext(UsersContext);
+	const [groupMsg, setGroupMsg] = useState([]);
 
 	const { email } = input;
 	const searchRef = useRef();
 
 	useEffect(() => {
-		/** initialise and call cloud function to list chats */
-		const listActiveChats = firebase
-			.functions()
-			.httpsCallable("listActiveChats");
-
-		listActiveChats({ docPath: `${user.email}/chats` })
-			.then((res) => {
-				let collections = res.data.collections;
-				setActiveChats(collections);
-			})
-			.catch((err) => {
+		async function getSnapshot() {
+			try {
+				store
+					.collection(`${user.email}`)
+					.orderBy("timestamp", "desc")
+					.onSnapshot((docs) => {
+						let message = [];
+						docs.forEach((doc) => {
+							message.push(doc.data());
+						});
+						setActiveChats(message);
+					});
+			} catch (err) {
 				alert(err.message);
-			});
+			}
+		}
+
+		getSnapshot();
+
+		/** get existing messages in doc on page load. setting a limit to it */
+		async function groupSnapshot() {
+			try {
+				db.ref("chats")
+					.limitToLast(1)
+					.on("value", (snapshot) => {
+						let message = [];
+						snapshot.forEach((snap) => {
+							message.push(snap.val());
+						});
+						setGroupMsg(message);
+					});
+			} catch (err) {
+				console.log(err);
+			}
+		}
+
+		groupSnapshot();
+
 		user.providerData.forEach((profile) => {
 			setProviderURL(profile.photoURL);
 		});
@@ -156,7 +183,7 @@ function Contacts() {
 	const filteredChats = !email
 		? activeChats
 		: activeChats.filter((chat) => {
-				return chat.toLowerCase().includes(email.toLowerCase());
+				return chat.email.toLowerCase().includes(email.toLowerCase());
 		  });
 
 	return (
@@ -197,21 +224,30 @@ function Contacts() {
 			</form>
 			<div className="message-list">
 				<div
-					className={`group-chat flex ${screen === "chatroom" ? "onChat" : ""}`}
+					className={`group-chat ${screen === "chatroom" ? "onChat" : ""}`}
 					onClick={handleClick}
 				>
 					<div className="chat-img">
 						<img src={GroupIcon} alt="group avatar" />
 					</div>
-					<div className="group-title flex">
-						<p>Megachat</p>
+					<div className="group-title">
+						<div className="">
+							<p>Megachat</p>
+							{groupMsg[0] !== undefined ? <p>{groupMsg[0].content}</p> : ""}
+						</div>
+						<PushPin />
 					</div>
 				</div>
 				<div className="">
 					{filteredChats.map((chat, idx) => {
 						return (
 							<div className="single-chat" key={idx}>
-								<ChatList id={chat} chats={chat} />
+								<ChatList
+									id={chat.email}
+									email={chat.email}
+									msg={chat.content}
+									photoURL={chat.providerURL}
+								/>
 							</div>
 						);
 					})}

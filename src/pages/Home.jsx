@@ -11,7 +11,7 @@ function Home() {
 	const [modalOpen, setModalOpen] = useContext(ModalContext);
 
 	return (
-		<div className="grid">
+		<div className="home grid">
 			<Contacts />
 			{screen === "chatroom" ? <ChatRoom /> : <Chat />}
 			{modalOpen ? <NewCard /> : ""}

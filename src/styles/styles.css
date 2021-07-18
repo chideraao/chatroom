@@ -385,6 +385,7 @@ button {
 .contacts .searchbox {
 	height: 2rem;
 	width: 95%;
+	font-size: 1rem;
 	margin: 1rem;
 	margin-left: 0;
 }
@@ -404,9 +405,7 @@ button {
 	border-bottom: 1px solid #282c34;
 }
 
-.contacts .group-chat .flex,
-.users-list .flex,
-.contacts .single-chat .flex {
+.users-list .flex {
 	flex-wrap: nowrap;
 }
 
@@ -435,6 +434,35 @@ button {
 .contacts .single-chat .chat-email p {
 	font-size: 1rem;
 	font-weight: 300;
+}
+
+.contacts .group-chat,
+.contacts .single-chat .grid {
+	display: grid;
+	grid-template-columns: 1fr 4fr;
+}
+
+.contacts .group-chat .group-title {
+	justify-content: space-between;
+}
+
+.contacts .group-chat .group-title svg {
+	transform: rotate(55deg);
+	margin-right: 0.5rem;
+}
+
+.contacts .single-chat .chat-email {
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+}
+
+.contacts .single-chat .chat-email *:first-child {
+	padding-bottom: 0;
+}
+
+.contacts .single-chat .chat-email *:nth-child(2) {
+	padding-top: 0;
 }
 
 .contacts .group-chat.onChat,
@@ -491,6 +519,14 @@ button {
 }
 
 /*-----------------------------------------------------------------MEDIA QUERIES------------------------------------------------------------------*/
+/**contingency*/
+@media (max-width: 1200px) {
+	.contacts .group-chat,
+	.contacts .single-chat .grid {
+		grid-template-columns: 1fr 3fr;
+	}
+}
+
 /*Ipad Pro*/
 @media (max-width: 1100px) {
 	.emoji-container {
@@ -507,11 +543,21 @@ button {
 		left: 36.5%;
 		width: 50vw;
 	}
+
+	.contacts .group-chat,
+	.contacts .single-chat .grid {
+		grid-template-columns: 1fr 2.6fr;
+	}
+
+	.contacts .group-chat img,
+	.contacts .single-chat .grid img {
+		margin-right: 0.5rem;
+	}
 }
 
 /*Tablets and under*/
 @media (max-width: 960px) {
-	.grid {
+	.home.grid {
 		grid-template-columns: 13% 87%;
 	}
 
@@ -533,6 +579,11 @@ button {
 		top: 30%;
 		left: 23%;
 		width: 65vw;
+	}
+
+	input.emoji {
+		height: 3.25rem;
+		font-size: 2.5rem;
 	}
 
 	.card .scroll-text {
@@ -565,7 +616,8 @@ button {
 	}
 
 	.contacts .group-chat,
-	.contacts .single-chat > .flex {
+	.contacts .single-chat > .grid {
+		display: flex;
 		justify-content: center;
 	}
 
@@ -577,7 +629,7 @@ button {
 
 /*phones and under*/
 @media (max-width: 560px) {
-	.grid {
+	.home.grid {
 		grid-template-columns: 15% 85%;
 	}
 
@@ -600,6 +652,11 @@ button {
 		position: fixed;
 		top: 4.5rem;
 		left: 2.7rem;
+	}
+
+	input.emoji {
+		height: 2.75rem;
+		font-size: 2rem;
 	}
 
 	.contacts .profile-card .profile-head {

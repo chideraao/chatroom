@@ -176,6 +176,11 @@ p.received.emoji::before {
 		margin-bottom: 0.3rem;
 	}
 
+	p.sent.emoji,
+	p.received.emoji {
+		font-size: 2.5rem;
+	}
+
 	.message .pasDernier {
 		margin-bottom: 0.2rem !important;
 	}
