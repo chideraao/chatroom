@@ -1,7 +1,6 @@
 .chat {
 	background-color: #212124;
 	position: relative;
-	height: 95vh;
 }
 
 .header {
@@ -19,6 +18,9 @@
 	padding-top: 0.5rem;
 	color: #7f8285;
 	font-size: 0.9rem;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
 }
 
 .header p span {
@@ -27,8 +29,8 @@
 
 .body {
 	width: 100%;
-	margin-top: 3rem;
-	height: 89vh;
+	margin-top: 2rem;
+	height: 91vh;
 	overflow-y: scroll;
 }
 
@@ -167,6 +169,8 @@ p.received.emoji {
 	font-size: 3rem;
 	padding-right: 0;
 	padding-left: 0;
+	padding-bottom: 0;
+	margin-bottom: 0;
 }
 
 p.sent.emoji::before,
@@ -191,12 +195,20 @@ p.received.emoji::before {
 		max-width: 70%;
 	}
 
+	.body {
+		height: 93.5vh;
+	}
+
 	.message div.received {
 		max-width: 70%;
 	}
 }
 /*Tablets and under*/
 @media (max-width: 960px) {
+	.body {
+		height: 91.5vh;
+	}
+
 	.message div.sent {
 		max-width: 73%;
 	}
@@ -209,6 +221,11 @@ p.received.emoji::before {
 		margin: 0 0.5rem;
 		padding: 0.5rem 0;
 		padding-right: 1.5rem;
+	}
+
+	.message_input {
+		width: 70vw;
+		margin: 0 0.5rem;
 	}
 
 	p.sent.emoji,
@@ -227,6 +244,10 @@ p.received.emoji::before {
 
 /*phones and under*/
 @media (max-width: 560px) {
+	.body {
+		height: 90vh;
+	}
+
 	.message div.sent {
 		max-width: 75%;
 		margin-bottom: 0.3rem;
@@ -235,6 +256,11 @@ p.received.emoji::before {
 	.message div.received {
 		max-width: 75%;
 		margin-bottom: 0.3rem;
+	}
+
+	.message_input {
+		width: 70vw;
+		margin: 0 0.5rem;
 	}
 
 	.message div.received .userPhoto {

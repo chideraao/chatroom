@@ -30,6 +30,7 @@ function Chat() {
 	const sendMessage = async (e) => {
 		e.preventDefault();
 		setWriteError(null);
+		setContent("");
 
 		if (content !== "") {
 			try {
@@ -43,18 +44,20 @@ function Chat() {
 						uid: user.uid,
 					});
 
-				setContent("");
 				dummy.current.scrollIntoView({ behavior: "smooth" });
 			} catch (err) {
 				setWriteError(err.message);
 			}
 
 			try {
-				await store.collection(`${user.email}`).doc(chat).update({
-					content: content.trim(),
-					email: chat,
-					timestamp: Date.now(),
-				});
+				await store.collection(`${user.email}`).doc(chat).set(
+					{
+						content: content.trim(),
+						email: chat,
+						timestamp: Date.now(),
+					},
+					{ merge: true }
+				);
 			} catch (err) {
 				console.log(err);
 			}
@@ -83,12 +86,15 @@ function Chat() {
 			}
 
 			try {
-				await store.collection(chat).doc(`${user.email}`).update({
-					content: content.trim(),
-					email: user.email,
-					providerURL,
-					timestamp: Date.now(),
-				});
+				await store.collection(chat).doc(`${user.email}`).set(
+					{
+						content: content.trim(),
+						email: user.email,
+						providerURL,
+						timestamp: Date.now(),
+					},
+					{ merge: true }
+				);
 			} catch (err) {
 				console.log(err);
 			}
@@ -166,7 +172,7 @@ function Chat() {
 				if (dummy.current) {
 					dummy.current.scrollIntoView({ behaviour: "smooth" });
 				}
-			}, 500);
+			}, 1200);
 		});
 	}, [user, chat, content]);
 

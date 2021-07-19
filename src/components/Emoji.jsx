@@ -67,8 +67,10 @@ function Emoji() {
 				.doc(user.uid)
 				.onSnapshot((doc) => {
 					let recents = [];
-					recents = doc.data().recentEmojis;
-					recents = recents.reverse().slice(0, 35);
+					if (doc.data() !== undefined) {
+						recents = doc.data().recentEmojis;
+						recents = recents.reverse().slice(0, 35);
+					}
 					setRecent(recents);
 				});
 		} catch (err) {
@@ -226,20 +228,24 @@ function Emoji() {
 						<div className="emojis">
 							<div className="RECENT" id="recent">
 								<p>RECENT</p>
-								<div className="flex">
-									{recent.map((emoji) => {
-										return (
-											<p
-												key={emoji}
-												onClick={handleClick}
-												value={content}
-												name="content"
-											>
-												{emoji}
-											</p>
-										);
-									})}
-								</div>
+								{recent !== [] ? (
+									<div className="flex">
+										{recent.map((emoji) => {
+											return (
+												<p
+													key={emoji}
+													onClick={handleClick}
+													value={content}
+													name="content"
+												>
+													{emoji}
+												</p>
+											);
+										})}
+									</div>
+								) : (
+									""
+								)}
 							</div>
 							<div className="SMILEYS & PEOPLE" id="emotion">
 								<p>SMILEYS & PEOPLE</p>

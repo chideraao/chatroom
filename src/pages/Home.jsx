@@ -3,17 +3,25 @@ import Chat from "../components/Chat";
 import ChatRoom from "../components/ChatRoom";
 import Contacts from "../components/Contacts";
 import NewCard from "../components/NewCard";
-import { ScreenContext } from "../context/ChatsContext";
+import NullScreen from "../components/NullScreen";
+import { ChatContext, ScreenContext } from "../context/ChatsContext";
 import { ModalContext } from "../context/ContactsContext";
 
 function Home() {
 	const [screen, setScreen] = useContext(ScreenContext);
 	const [modalOpen, setModalOpen] = useContext(ModalContext);
+	const [chat, setChat] = useContext(ChatContext);
 
 	return (
 		<div className="home grid">
 			<Contacts />
-			{screen === "chatroom" ? <ChatRoom /> : <Chat />}
+			{screen === "chatroom" ? (
+				<ChatRoom />
+			) : chat === null ? (
+				<NullScreen />
+			) : (
+				<Chat />
+			)}
 			{modalOpen ? <NewCard /> : ""}
 		</div>
 	);

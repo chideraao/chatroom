@@ -91,7 +91,7 @@ function Contacts() {
 				});
 				setAllUsers(users);
 			});
-	}, [user, chat, screen, setProviderURL, setAllUsers]);
+	}, [user, setProviderURL, setAllUsers]);
 
 	/** https callable function to send emails  */
 	const emailInvite = () => {
@@ -186,6 +186,11 @@ function Contacts() {
 				return chat.email.toLowerCase().includes(email.toLowerCase());
 		  });
 
+	/**remove characters after '@' */
+	const emailExtension = (str) => {
+		return str.split("@")[0];
+	};
+
 	return (
 		<div className="contacts">
 			<div className="contact-header flex">
@@ -195,11 +200,11 @@ function Contacts() {
 					</Link>
 				</div>
 				<div className="flex">
-					<div className="svg-container flex" onClick={profileClick}>
-						<MoreIcon />
-					</div>
 					<div className="svg-container flex" onClick={modalClick}>
 						<NewIcon />
+					</div>
+					<div className="svg-container flex" onClick={profileClick}>
+						<MoreIcon />
 						{profileOpen ? <ProfileCard /> : ""}
 					</div>
 				</div>
@@ -233,7 +238,13 @@ function Contacts() {
 					<div className="group-title">
 						<div className="">
 							<p>Megachat</p>
-							{groupMsg[0] !== undefined ? <p>{groupMsg[0].content}</p> : ""}
+							{groupMsg[0] !== undefined ? (
+								<p>
+									{emailExtension(groupMsg[0].email)}: {groupMsg[0].content}
+								</p>
+							) : (
+								""
+							)}
 						</div>
 						<PushPin />
 					</div>

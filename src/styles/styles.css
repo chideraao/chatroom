@@ -29,6 +29,19 @@
 	padding: 0 40px;
 } */
 
+.null-screen {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	color: #b0b3b8;
+	text-align: center;
+}
+
+.null-screen .logo img {
+	height: 10rem;
+}
+
 input {
 	line-height: 0.8;
 	width: 65vw;
@@ -92,7 +105,7 @@ button {
 .emoji-container {
 	position: absolute;
 	bottom: -0.3rem;
-	left: 3.5rem;
+	left: 4.3rem;
 }
 
 .emoji-container .card-container {
@@ -244,10 +257,10 @@ button {
 }
 
 .contacts .profile-card {
-	position: absolute;
+	position: fixed;
 	z-index: 1;
-	top: 4rem;
-	right: 3rem;
+	top: 4.5rem;
+	left: 20vw;
 	color: #adb2b6;
 	width: fit-content;
 	background-color: rgb(41, 41, 44);
@@ -278,12 +291,12 @@ button {
 .contacts .profile-card .signout {
 	padding: 1rem;
 	align-items: center;
-	justify-content: space-evenly;
+	justify-content: space-between;
 	cursor: pointer;
 }
 
 .contacts .profile-card .signout svg {
-	margin-right: 1.5rem;
+	margin: 0 1rem;
 }
 
 .new-card {
@@ -434,6 +447,9 @@ button {
 .contacts .single-chat .chat-email p {
 	font-size: 1rem;
 	font-weight: 300;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
 }
 
 .contacts .group-chat,
@@ -471,7 +487,7 @@ button {
 	border-radius: 7px;
 }
 
-.contacts .group-chat .onChat p,
+.contacts .group-chat.onChat p,
 .contacts .single-chat .onChat p {
 	font-weight: 500 !important;
 }
@@ -483,7 +499,8 @@ button {
 	align-items: flex-start;
 	justify-content: space-evenly;
 	flex-wrap: nowrap;
-	padding-top: 0.2rem;
+	height: 3.5rem;
+	padding-top: 0.5rem;
 	border-top: 1px solid #4b4e50;
 }
 
@@ -525,6 +542,11 @@ button {
 	.contacts .single-chat .grid {
 		grid-template-columns: 1fr 3fr;
 	}
+
+	.emoji-container {
+		bottom: -0.3rem;
+		left: 3.5rem;
+	}
 }
 
 /*Ipad Pro*/
@@ -534,8 +556,7 @@ button {
 	}
 
 	.contacts .profile-card {
-		top: 4.2rem;
-		right: 0.5rem;
+		top: 4.7rem;
 	}
 
 	.new-card {
@@ -562,12 +583,12 @@ button {
 	}
 
 	.emoji-container {
-		left: 4.5rem;
+		left: 3rem;
 	}
 
 	.contacts .profile-card {
 		position: fixed;
-		top: 6rem;
+		top: 9rem;
 		left: 4.5rem;
 	}
 
@@ -584,6 +605,12 @@ button {
 	input.emoji {
 		height: 3.25rem;
 		font-size: 2.5rem;
+	}
+
+	.input-container form.flex button {
+		padding-left: 0rem;
+		margin-left: 0rem;
+		padding-right: 0.5rem;
 	}
 
 	.card .scroll-text {
@@ -650,8 +677,8 @@ button {
 
 	.contacts .profile-card {
 		position: fixed;
-		top: 4.5rem;
-		left: 2.7rem;
+		top: 7rem;
+		left: 2.9rem;
 	}
 
 	input.emoji {
@@ -679,7 +706,35 @@ button {
 	}
 
 	.emoji-container {
+		bottom: 3rem;
 		left: 0rem;
+	}
+
+	.emoji-container .card-container:before {
+		content: " ";
+		position: absolute;
+		width: 0;
+		height: 0;
+		left: -40px;
+		right: auto;
+		top: 30px;
+		bottom: auto;
+		border: 20px solid;
+		border-color: #fff #fff transparent transparent;
+	}
+
+	.emoji-container .card-container:after {
+		content: " ";
+		position: absolute;
+		width: 0;
+		height: 0;
+		left: 5px;
+		right: auto;
+		bottom: -9px;
+		top: auto;
+		border: 12px solid;
+		border-color: #212124 #212124 transparent transparent;
+		z-index: 1;
 	}
 
 	.emoji-container .emoji-card {
@@ -715,5 +770,27 @@ button {
 	.emoji-container .emoji-card .emoticons svg {
 		height: 1rem;
 		margin: 0;
+	}
+
+	.input-container form.flex button {
+		padding-left: 0rem;
+		margin-left: 0rem;
+		padding-right: 0.5rem;
+	}
+}
+
+@media (max-width: 400px) {
+	.contacts img,
+	.users-list img {
+		height: 1.7rem;
+	}
+
+	.contact-header .svg-container {
+		height: 2rem;
+		width: 2rem;
+	}
+
+	.contacts .contact-header svg {
+		margin-bottom: 0.2rem !important;
 	}
 }

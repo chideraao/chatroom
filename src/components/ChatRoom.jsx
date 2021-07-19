@@ -31,6 +31,7 @@ function ChatRoom() {
 	const sendMessage = async (e) => {
 		e.preventDefault();
 		setWriteError(null);
+		setContent("");
 
 		if (content !== "") {
 			try {
@@ -39,8 +40,8 @@ function ChatRoom() {
 					timestamp: Date.now(),
 					uid: user.uid,
 					providerURL,
+					email: user.email,
 				});
-				setContent("");
 				let alert = new Audio(audio);
 				alert.volume = 0.2;
 				alert.play().catch((err) => {
@@ -121,7 +122,7 @@ function ChatRoom() {
 				if (dummyDiv.current) {
 					dummyDiv.current.scrollIntoView({ behaviour: "smooth" });
 				}
-			}, 500);
+			}, 1500);
 		});
 	}, [content, user]);
 
@@ -131,9 +132,13 @@ function ChatRoom() {
 				<div className={styles.header}>
 					<p>
 						To:{" "}
-						<span>{`${allUsers[0].email}, ${allUsers[1].email} and ${
-							allUsers.length + 4
-						} others`}</span>
+						{allUsers[0] !== undefined ? (
+							<span>{`${allUsers[0].email}, ${allUsers[1].email} and ${
+								allUsers.length + 4
+							} others`}</span>
+						) : (
+							""
+						)}
 					</p>
 				</div>
 				<div className={styles.body}>
@@ -153,7 +158,10 @@ function ChatRoom() {
 										text.style !== styles.pasDernier &&
 										text.style !== ` ${styles.emoji}` &&
 										text.style !== `${styles.pasDernier} ${styles.emoji}` ? (
-											<img src={providerURL || UserIcon} alt="user avatar" />
+											<img
+												src={text.providerURL || UserIcon}
+												alt="user avatar"
+											/>
 										) : (
 											""
 										)}

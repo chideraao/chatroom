@@ -5,8 +5,8 @@
 
 .body {
 	width: 100%;
-	margin-top: 3rem;
-	height: 89vh;
+	padding-top: 2rem;
+	height: 95vh;
 	overflow-y: scroll;
 }
 
@@ -17,6 +17,7 @@
 	background-color: rgba(58, 59, 60, 0.9);
 	position: absolute;
 	top: 0rem;
+	z-index: 1;
 	border-bottom: 1px solid #282c34;
 }
 
@@ -31,6 +32,7 @@
 }
 
 .body > p {
+	margin-top: 1rem;
 	color: #86888a;
 	font-size: 0.9rem;
 	text-align: center;
@@ -163,6 +165,10 @@ p.received.emoji::before {
 	.message p.received {
 		max-width: 70%;
 	}
+
+	.body {
+		height: 96vh;
+	}
 }
 /*Tablets and under*/
 @media (max-width: 960px) {
@@ -174,6 +180,10 @@ p.received.emoji::before {
 	.message p.received {
 		max-width: 73%;
 		margin-bottom: 0.3rem;
+	}
+
+	.body {
+		height: 94.5vh;
 	}
 
 	p.sent.emoji,
@@ -194,6 +204,11 @@ p.received.emoji::before {
 @media (max-width: 560px) {
 	.message p.sent {
 		max-width: 75%;
+	}
+
+	.message_input {
+		width: 70vw;
+		margin: 0 0.5rem;
 	}
 
 	.message p.received {
