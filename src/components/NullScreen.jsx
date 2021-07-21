@@ -9,10 +9,7 @@ function NullScreen() {
 			</div>
 			<div className="showcase">
 				<h2>Welcome to DheraGram</h2>
-				<p>
-					&copy; {new Date().getFullYear()} Made with &#x2764;&#xfe0f; &nbsp;by
-					Okeke Chidera{" "}
-				</p>
+				<p>&copy; 2021 Made with &#x2764;&#xfe0f; &nbsp;by Okeke Chidera </p>
 			</div>
 		</div>
 	);

@@ -174,7 +174,11 @@ function Chat() {
 				}
 			}, 1200);
 		});
-	}, [user, chat, content]);
+
+		return () => {
+			setEmojiOpen(false);
+		};
+	}, [user, chat, content, setEmojiOpen]);
 
 	return (
 		<div className={styles.chat}>

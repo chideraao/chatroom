@@ -85,6 +85,7 @@ function App() {
 									component={Signup}
 									authenticated={authenticated}
 								/>
+								<Redirect from="*" to="/signup" />
 							</Switch>
 						</ChatRoomProvider>
 					</ContactsProvider>

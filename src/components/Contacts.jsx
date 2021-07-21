@@ -91,7 +91,12 @@ function Contacts() {
 				});
 				setAllUsers(users);
 			});
-	}, [user, setProviderURL, setAllUsers]);
+
+		return () => {
+			setModalOpen(false);
+			setProfileOpen(false);
+		};
+	}, [user, setProviderURL, setAllUsers, setModalOpen, setProfileOpen]);
 
 	/** https callable function to send emails  */
 	const emailInvite = () => {
@@ -246,7 +251,10 @@ function Contacts() {
 								""
 							)}
 						</div>
-						<PushPin />
+						<div className="">
+							<PushPin />
+							<p id="timestamp">17h</p>
+						</div>
 					</div>
 				</div>
 				<div className="">
@@ -258,6 +266,7 @@ function Contacts() {
 									email={chat.email}
 									msg={chat.content}
 									photoURL={chat.providerURL}
+									timestamp={chat.timestamp}
 								/>
 							</div>
 						);

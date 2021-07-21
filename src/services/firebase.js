@@ -19,20 +19,20 @@ export const auth = firebase.auth;
 export const db = firebase.database();
 export const store = firebase.firestore();
 
-// // eslint-disable-next-line no-restricted-globals
-// if (location.hostname === "localhost") {
-// 	store.useEmulator("localhost", 8080);
-// }
+// eslint-disable-next-line no-restricted-globals
+if (location.hostname === "localhost") {
+	store.useEmulator("localhost", 8080);
+}
 
-// // eslint-disable-next-line no-restricted-globals
-// if (location.hostname === "localhost") {
-// 	db.useEmulator("localhost", 9000);
-// }
-// // eslint-disable-next-line no-restricted-globals
-// if (location.hostname === "localhost") {
-// 	auth().useEmulator("http://localhost:9099");
-// }
+// eslint-disable-next-line no-restricted-globals
+if (location.hostname === "localhost") {
+	db.useEmulator("localhost", 9000);
+}
+// eslint-disable-next-line no-restricted-globals
+if (location.hostname === "localhost") {
+	auth().useEmulator("http://localhost:9099");
+}
 
-// if (window.location.hostname === "localhost") {
-// 	firebase.functions().useEmulator("localhost", 5001);
-// }
+if (window.location.hostname === "localhost") {
+	firebase.functions().useEmulator("localhost", 5001);
+}

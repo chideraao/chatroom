@@ -6,8 +6,9 @@ import {
 } from "../context/ChatsContext";
 import UserIcon from "../assets/logo/usericon.png";
 import { ModalContext } from "../context/ContactsContext";
+import { db } from "../services/firebase";
 
-function ChatList({ id, email, photoURL, msg }) {
+function ChatList({ id, email, photoURL, msg, timestamp }) {
 	const [chat, setChat] = useContext(ChatContext);
 	const [screen, setScreen] = useContext(ScreenContext);
 	const [content, setContent] = useContext(ContentContext);
@@ -22,6 +23,11 @@ function ChatList({ id, email, photoURL, msg }) {
 		setModalOpen(false);
 	};
 
+	let timeSent = new Date(timestamp);
+
+	let minutes = timeSent.getMinutes();
+	let hours = timeSent.getHours();
+
 	let active = chat === id ? "onChat" : "";
 
 	return (
@@ -29,9 +35,19 @@ function ChatList({ id, email, photoURL, msg }) {
 			<div className="chat-img">
 				<img src={photoURL || UserIcon} alt={`${email} img`} />
 			</div>
-			<div className="chat-email">
-				<p>{email}</p>
-				<p>{msg}</p>
+			<div className="chat-email flex">
+				<div className="">
+					<p>{email}</p>
+					<p>{msg}</p>
+				</div>
+
+				{timestamp ? (
+					<p id="timestamp">{`${hours}:${
+						minutes < 10 ? `0${minutes}` : minutes
+					}`}</p>
+				) : (
+					""
+				)}
 			</div>
 		</div>
 	);

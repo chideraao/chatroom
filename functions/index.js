@@ -27,7 +27,88 @@ exports.userSignUp = functions.auth.user().onCreate((user) => {
 		from: "okekechidera97@gmail.com",
 		to: user.email,
 		subject: "Thanks for Signing up",
-		html: "<b>common bitch!!</b>",
+		html: `
+		<div
+		style="
+			background-color: rgb(233, 230, 230);
+			display: flex;
+			justify-content: center;
+			font-family: Arial, Helvetica, sans-serif;
+		"
+	>
+		<div
+			role="presentation"
+			style="
+				background-color: #fff;
+				border-radius: 5px;
+				box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+				padding: 20px;
+				margin: auto;
+				color: #333;
+				height: 100%;
+				max-width: 35rem;
+			"
+		>
+			<table role="presentation" class="logo-img">
+				<tr>
+					<td>
+						<div style="max-width: 100%; max-height: 100%">
+							<a href="https://dhera-gram.firebaseapp.com"
+								><img height="56" src="cid:logo@dhera.com" alt="logo"/> </a>
+						</div>
+					</td>
+				</tr>
+			</table>
+			<table role="presentation" style="display: flex; align-items: center">
+				<tr>
+					<td align="center">
+						<h1 style="font-size: 2.5rem; margin: 0.5rem 0">
+							Welcome to DheraGram!
+						</h1>
+					</td>
+					<td>
+						<div style="height: 5.5rem; width: 5rem">
+							<img
+								height="80"
+								width="80"
+								src="https://pngimg.com/uploads/confetti/confetti_PNG86957.png"
+								alt="confetti"
+							/>
+						</div>
+					</td>
+				</tr>
+			</table>
+
+			<table role="presentation" class="">
+				<tr>
+					<td>
+						<p>Hey there,</p>
+						<p>
+							I’m Chidera, the creator/developer of DheraGram and I’d like to
+							personally thank you for taking time to sign up for my project.
+						</p>
+						<p>
+							DheraGram is a chat application I created as a side project to
+							blah blah blah. I’d love to hear what you think of project and if
+							there is anything I can improve on.
+						</p>
+						<p>
+							If you have any suggestions, please reply to this email. I look
+							forward to hearing from you!
+						</p>
+						<p>Chidera</p>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>`,
+		attachments: [
+			{
+				filename: "logo_true.jpeg",
+				path: "../src/assets/logo/logo_true.jpeg",
+				cid: "logo@dhera.com",
+			},
+		],
 	};
 
 	return admin

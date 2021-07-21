@@ -124,7 +124,11 @@ function ChatRoom() {
 				}
 			}, 1500);
 		});
-	}, [content, user]);
+
+		return () => {
+			setEmojiOpen(false);
+		};
+	}, [content, user, setEmojiOpen]);
 
 	return (
 		<div>
