@@ -16,6 +16,7 @@ import { PhotoURLContext } from "../context/ChatRoomContext";
 import {
 	ModalContext,
 	ProfileCardContext,
+	ProviderContext,
 	UsersContext,
 } from "../context/ContactsContext";
 import { Link } from "react-router-dom";
@@ -29,9 +30,10 @@ function Contacts() {
 	const [input, setInput] = useState({ email: "" });
 	const [content, setContent] = useContext(ContentContext);
 	const [profileOpen, setProfileOpen] = useContext(ProfileCardContext);
-	const [providerURL, setProviderURL] = useContext(PhotoURLContext);
+	const [photoURL, setPhotoURL] = useContext(PhotoURLContext);
 	const [modalOpen, setModalOpen] = useContext(ModalContext);
 	const [allUsers, setAllUsers] = useContext(UsersContext);
+	const [providerData, setProviderData] = useContext(ProviderContext);
 	const [groupMsg, setGroupMsg] = useState([]);
 
 	const { email } = input;
@@ -77,7 +79,8 @@ function Contacts() {
 		groupSnapshot();
 
 		user.providerData.forEach((profile) => {
-			setProviderURL(profile.photoURL);
+			setProviderData(profile);
+			setPhotoURL(profile.photoURL);
 		});
 
 		/**get all users */
@@ -95,8 +98,16 @@ function Contacts() {
 		return () => {
 			setModalOpen(false);
 			setProfileOpen(false);
+			setSearchError(null);
 		};
-	}, [user, setProviderURL, setAllUsers, setModalOpen, setProfileOpen]);
+	}, [
+		user,
+		setPhotoURL,
+		setAllUsers,
+		setModalOpen,
+		setProfileOpen,
+		setProviderData,
+	]);
 
 	/** https callable function to send emails  */
 	const emailInvite = () => {
@@ -107,9 +118,10 @@ function Contacts() {
 
 		inviteUser({
 			email: email.trim().toLowerCase(),
+			displayName: providerData.displayName,
+			photoURL: providerData.photoURL,
 		})
 			.then((res) => {
-				console.log(res.data);
 				setInput((prevState) => ({ ...prevState, email: "" }));
 				alert("Email invitation sent successfully");
 				setSearchError(contentReset);
@@ -265,7 +277,7 @@ function Contacts() {
 									id={chat.email}
 									email={chat.email}
 									msg={chat.content}
-									photoURL={chat.providerURL}
+									photoURL={chat.photoURL}
 									timestamp={chat.timestamp}
 								/>
 							</div>

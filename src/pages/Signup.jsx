@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { signInWithGoogle, signInWithGithub, signUp } from "../helpers/auth";
+import styles from "../styles/login.module.css";
 
 function Signup() {
 	const [user, setUser] = useState({ email: "", password: "" });
@@ -39,47 +40,56 @@ function Signup() {
 	};
 
 	return (
-		<div>
-			<form onSubmit={handleSubmit} autoComplete="off">
-				<h1>
-					Sign Up to
-					<Link to="/">DheraGram</Link>
-				</h1>
-				<p>Fill in the form below to create an account.</p>
-				<div>
+		<div className={styles.formBody}>
+			<form autoComplete="off" onSubmit={handleSubmit}>
+				<h1>Signup</h1>
+				<p>Fill in the form below to login to your account.</p>
+				<div className={styles.emailInput}>
 					<input
-						placeholder="Email"
 						name="email"
-						type="email"
+						type="text"
 						onChange={handleChange}
 						value={user.email}
-					></input>
+						required
+					/>
+					<label htmlFor="email" className={styles.labelName}>
+						<h1>boo</h1>
+						<span className={styles.contentName}>Email</span>
+					</label>
 				</div>
-				<div>
+				<div className={styles.passwordInput}>
 					<input
 						placeholder="Password"
 						name="password"
 						onChange={handleChange}
 						value={user.password}
 						type="password"
-					></input>
+						required
+					/>
+					<label htmlFor="password" className={styles.labelName}>
+						<h1>boo</h1>
+						<span className={styles.contentName}>Password</span>
+					</label>
 				</div>
 				<div>
 					{error ? <p>{error}</p> : null}
-					<button type="submit">Sign up</button>
+					<button type="submit">Signup</button>
 				</div>
-				<hr></hr>
-				<p>
-					Already have an account? <Link to="/login">Login</Link>
-				</p>
-				<p>Or</p>
+			</form>
+			<div className="">
 				<button onClick={googleSignIn} type="button">
 					Sign up with Google
 				</button>
 				<button onClick={githubSignIn} type="button">
 					Sign up with Github
 				</button>
-			</form>
+			</div>
+			<div className="">
+				{" "}
+				<p>
+					Already have an account? <Link to="/login">Login</Link>
+				</p>
+			</div>
 		</div>
 	);
 }

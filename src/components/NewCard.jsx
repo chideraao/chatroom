@@ -6,7 +6,11 @@ import {
 	ContentContext,
 	ScreenContext,
 } from "../context/ChatsContext";
-import { ModalContext, UsersContext } from "../context/ContactsContext";
+import {
+	ModalContext,
+	ProviderContext,
+	UsersContext,
+} from "../context/ContactsContext";
 import ChatList from "./ChatList";
 
 function NewCard() {
@@ -17,6 +21,7 @@ function NewCard() {
 	const [content, setContent] = useContext(ContentContext);
 	const [modalOpen, setModalOpen] = useContext(ModalContext);
 	const [allUsers, setAllUsers] = useContext(UsersContext);
+	const [providerData, setProviderData] = useContext(ProviderContext);
 
 	let searchInput = useRef();
 	const searchRef = useRef();
@@ -49,6 +54,8 @@ function NewCard() {
 
 		inviteUser({
 			email: email.trim().toLowerCase(),
+			displayName: providerData.displayName,
+			photoURL: providerData.photoURL,
 		})
 			.then((res) => {
 				setEmail("");

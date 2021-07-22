@@ -1,0 +1,79 @@
+* {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+
+.formBody {
+	height: 60vh;
+	width: 60vw;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	flex-direction: column;
+}
+
+.emailInput,
+.passwordInput {
+	width: 50%;
+	position: relative;
+	height: 4rem;
+	margin-bottom: 1rem;
+}
+
+.emailInput input,
+.passwordInput input {
+	font-size: 1rem;
+	width: 100%;
+	height: 100%;
+	color: #595f6e;
+	padding-top: 1.2rem;
+	border: none;
+	outline: none;
+}
+
+.emailInput label,
+.passwordInput label {
+	position: absolute;
+	bottom: 0px;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	pointer-events: none;
+	border-bottom: 1px solid black;
+}
+
+.emailInput label::after,
+.passwordInput label::after {
+	content: "";
+	position: absolute;
+	height: 100%;
+	left: 0;
+	bottom: -2px;
+	width: 100%;
+	border-bottom: 3px solid #5fa8d3;
+	transform: translateX(-100%);
+	transition: all 0.3s ease;
+}
+
+.contentName {
+	position: absolute;
+	bottom: 3px;
+	transition: all 0.3s ease;
+}
+
+.emailInput input:focus + .labelName .contentName,
+.emailInput input:valid + .labelName .contentName,
+.passwordInput input:focus + .labelName .contentName,
+.passwordInput input:valid + .labelName .contentName {
+	transform: translateY(-150%);
+	font-size: 0.8rem;
+	color: #5fa8d3;
+}
+
+.emailInput input:focus + .labelName::after,
+.emailInput input:valid + .labelName::after,
+.passwordInput input:focus + .labelName::after,
+.passwordInput input:valid + .labelName::after {
+	transform: translateX(0%);
+}

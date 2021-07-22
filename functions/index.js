@@ -53,7 +53,7 @@ exports.userSignUp = functions.auth.user().onCreate((user) => {
 				<tr>
 					<td>
 						<div style="max-width: 100%; max-height: 100%">
-							<a href="https://dhera-gram.firebaseapp.com"
+							<a href="https://dhera-gram.web.app"
 								><img height="56" src="cid:logo@dhera.com" alt="logo"/> </a>
 						</div>
 					</td>
@@ -136,13 +136,159 @@ exports.userDelete = functions.auth.user().onDelete((user) => {
 
 exports.inviteUser = functions.https.onCall((data, context) => {
 	let email = data.email;
+	let photoURL = data.photoURL;
+	let displayName = data.displayName;
 
 	//Defining mailOptions
 	const mailOptions = {
 		from: "okekechidera97@gmail.com",
 		to: email,
 		subject: `Email invitation from ${context.auth.token.email}`,
-		html: "<b>common bitch!!</b>",
+		html: `<div
+		style="
+			background-color: rgb(233, 230, 230);
+			display: flex;
+			justify-content: center;
+			font-family: Arial, Helvetica, sans-serif;
+		"
+	>
+		<div
+			role="presentation"
+			style="
+				background-color: #fff;
+				border-radius: 5px;
+				box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+				padding: 20px;
+				margin: auto;
+				color: #333;
+				height: 100%;
+				max-width: 35rem;
+			"
+		>
+			<table role="presentation" class="logo-img">
+				<tr>
+					<td>
+						<div style="max-width: 100%; max-height: 100%; margin-left: 16px">
+							<a href="https://dhera-gram.web.app"
+								><img height="56" src="cid:logo@dhera.com" alt="logo"/></a>
+						</div>
+					</td>
+				</tr>
+			</table>
+			<table role="presentation" style="align-items: center; margin: 0 auto">
+				<tr>
+					<td align="center">
+						<div style="height: 3.5rem; width: 5rem">
+							<img
+								height="50"
+								width="50"
+								style="height: 50px; width: 50px;border-radius: 50%"
+								src=${photoURL ? photoURL : "cid:usericon.com"}
+								alt="user-icon"
+							/>
+						</div>
+					</td>
+				</tr>
+			</table>
+			<table
+				role="presentation"
+				style="align-items: center; margin: 0 auto; height: 16px"
+			>
+				<tr>
+					<td>
+						<h2 style="margin: 8px; opacity: 0.8">${
+							displayName ? displayName : context.auth.token.email
+						}</h2>
+					</td>
+				</tr>
+			</table>
+
+			<table role="presentation" style="align-items: center; margin: 0 auto">
+				<tr>
+					<td style="align-items: center; margin: 0 auto; opacity: 0.8">
+						<p style="margin: 8px">has invited you to join DheraGram.</p>
+					</td>
+				</tr>
+			</table>
+			<table role="presentation" style="align-items: center; margin: 16px auto">
+				<tr>
+					<td style="align-items: center; margin: 0 auto">
+						<a
+							href="https://dhera-gram.web.app/signup"
+							style="
+								display: inline-block;
+								padding: 15px 24px;
+								cursor: pointer;
+								background-color: #1a508b;
+								color: #fff;
+								border: none;
+								text-decoration: none;
+								font-weight: 300;
+								border-radius: 5px;
+							"
+							>Check it out</a
+						>
+					</td>
+				</tr>
+			</table>
+			<table>
+				<tr>
+					<td>
+						<p
+							style="
+								margin: 0.5rem 1.5rem;
+								text-align: center;
+								opacity: 0.8;
+								color: grey;
+							"
+						>
+							DheraGram is a chat application I created as a side project to
+							blah blah blah. I’d love to hear what you think of project and if
+							there is anything I can improve on.
+						</p>
+					</td>
+				</tr>
+			</table>
+			<table style="margin: 0 auto">
+				<tr>
+					<td>
+						<p
+							style="
+								margin: 0.5rem 1.5rem;
+								text-align: center;
+								opacity: 0.8;
+								font-size: 0.9rem;
+							"
+						>
+							Cheers,
+						</p>
+						<p
+							style="
+								margin: 0.5rem 1.5rem;
+								text-align: center;
+								opacity: 0.8;
+								font-size: 0.9rem;
+							"
+						>
+							Chidera
+						</p>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>`,
+		attachments: [
+			{
+				filename: "logo_true.jpeg",
+				path: "../src/assets/logo/logo_true.jpeg",
+				cid: "logo@dhera.com",
+			},
+			{
+				filename: "usericon.png",
+				path: "../src/assets/logo/usericon.png",
+				cid: "usericon.com",
+			},
+		],
 	};
 
 	return transporter.sendMail(mailOptions);
