@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { signInWithGoogle, signInWithGithub, signUp } from "../helpers/auth";
+import { ReactComponent as Password } from "../assets/logo/lock_black_24dp.svg";
+import { ReactComponent as Person } from "../assets/logo/person_outline_black_24dp.svg";
+import { ReactComponent as Google } from "../assets/logo/google_brands.svg";
+import { ReactComponent as Github } from "../assets/logo/github_brands.svg";
 import styles from "../styles/login.module.css";
 
 function Signup() {
@@ -41,54 +45,64 @@ function Signup() {
 
 	return (
 		<div className={styles.formBody}>
-			<form autoComplete="off" onSubmit={handleSubmit}>
-				<h1>Signup</h1>
-				<p>Fill in the form below to login to your account.</p>
-				<div className={styles.emailInput}>
-					<input
-						name="email"
-						type="text"
-						onChange={handleChange}
-						value={user.email}
-						required
-					/>
-					<label htmlFor="email" className={styles.labelName}>
-						<h1>boo</h1>
-						<span className={styles.contentName}>Email</span>
-					</label>
+			<div className={styles.card}>
+				<form
+					autoComplete="off"
+					className={styles.form}
+					onSubmit={handleSubmit}
+				>
+					<h1>Sign Up</h1>
+					<p>Fill in the form below to sign up.</p>
+					<div className={styles.emailInput}>
+						<input
+							name="email"
+							type="text"
+							onChange={handleChange}
+							value={user.email}
+							required
+						/>
+						<label htmlFor="email" className={styles.labelName}>
+							<Person />
+							<span className={styles.contentName}>Email</span>
+						</label>
+					</div>
+					<div className={styles.passwordInput}>
+						<input
+							name="password"
+							onChange={handleChange}
+							value={user.password}
+							type="password"
+							required
+						/>
+						<label htmlFor="password" className={styles.labelName}>
+							<Password />
+							<span className={styles.contentName}>Password</span>
+						</label>
+					</div>
+					<div className={styles.bttn}>
+						{error ? <p className={styles.loginError}>{error}</p> : null}
+						<button type="submit">Sign Up</button>
+					</div>
+				</form>
+				<div className={styles.flex}>
+					<div className={styles.rule}></div>
+					<p>or</p>
+					<div className={styles.rule}></div>
 				</div>
-				<div className={styles.passwordInput}>
-					<input
-						placeholder="Password"
-						name="password"
-						onChange={handleChange}
-						value={user.password}
-						type="password"
-						required
-					/>
-					<label htmlFor="password" className={styles.labelName}>
-						<h1>boo</h1>
-						<span className={styles.contentName}>Password</span>
-					</label>
+				<div className={styles.svgContainer}>
+					<button onClick={googleSignIn} type="button">
+						<Google />
+					</button>
+					<button onClick={githubSignIn} type="button">
+						<Github />
+					</button>
 				</div>
-				<div>
-					{error ? <p>{error}</p> : null}
-					<button type="submit">Signup</button>
+				<div className={styles.option}>
+					{" "}
+					<p>
+						Already have an account? <Link to="/login">Login</Link>
+					</p>
 				</div>
-			</form>
-			<div className="">
-				<button onClick={googleSignIn} type="button">
-					Sign up with Google
-				</button>
-				<button onClick={githubSignIn} type="button">
-					Sign up with Github
-				</button>
-			</div>
-			<div className="">
-				{" "}
-				<p>
-					Already have an account? <Link to="/login">Login</Link>
-				</p>
 			</div>
 		</div>
 	);

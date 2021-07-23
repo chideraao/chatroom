@@ -203,6 +203,13 @@ p.received.emoji::before {
 		max-width: 70%;
 	}
 }
+
+@media (max-width: 1100px) and (max-height: 850px) {
+	.body {
+		height: 95vh;
+	}
+}
+
 /*Tablets and under*/
 @media (max-width: 960px) {
 	.body {
@@ -245,12 +252,17 @@ p.received.emoji::before {
 /*phones and under*/
 @media (max-width: 560px) {
 	.body {
-		height: 90vh;
+		height: 90.5vh;
 	}
 
 	.message div.sent {
 		max-width: 75%;
 		margin-bottom: 0.3rem;
+	}
+
+	p.sent.emoji,
+	p.received.emoji {
+		font-size: 2rem;
 	}
 
 	.message div.received {
@@ -267,5 +279,17 @@ p.received.emoji::before {
 		width: 1.7rem;
 		margin-right: 0.6rem;
 		padding-right: 0.7rem;
+	}
+}
+
+@media (max-width: 1100px) and (max-height: 770px) {
+	.body {
+		height: 89.5vh;
+	}
+}
+
+@media (max-width: 1100px) and (max-height: 705px) {
+	.body {
+		height: 88.5vh;
 	}
 }

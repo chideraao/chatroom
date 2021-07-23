@@ -48,6 +48,7 @@ input {
 	font-size: 1.5rem;
 	border-bottom-left-radius: 10px;
 	border-top-left-radius: 10px;
+	color: white;
 	outline: none;
 	border: none;
 	padding: 0 10px;
@@ -425,6 +426,7 @@ button {
 .users-list .chat-img {
 	margin: 0.5rem;
 	margin-top: 0.6rem;
+	position: relative;
 }
 
 .group-chat:hover,
@@ -439,6 +441,11 @@ button {
 .contacts .single-chat .chat-email {
 	display: flex;
 	align-items: center;
+}
+
+.contacts .group-chat .group-title > *:first-child,
+.contacts .single-chat .chat-email > *:first-child {
+	max-width: 87%;
 }
 
 .contacts .group-chat .group-title p,
@@ -469,6 +476,7 @@ button {
 .contacts .single-chat .chat-email {
 	align-items: flex-start;
 	justify-content: space-between;
+	flex-wrap: nowrap;
 }
 
 .contacts .single-chat .chat-email *:first-child {
@@ -486,6 +494,8 @@ button {
 
 .contacts p#timestamp {
 	font-size: 0.8rem;
+	text-overflow: unset;
+	padding-right: 0.5rem;
 }
 
 .contacts .group-chat.onChat,
@@ -538,8 +548,17 @@ button {
 
 .message-list {
 	cursor: pointer;
-	margin: 0.5rem;
-	margin-left: 0;
+	margin: 0.5rem 0;
+}
+
+.notification {
+	height: 0.65rem;
+	width: 0.65rem;
+	background-color: #da7979;
+	border-radius: 50%;
+	position: absolute;
+	left: 2.1rem;
+	top: 0.3rem;
 }
 
 /*-----------------------------------------------------------------MEDIA QUERIES------------------------------------------------------------------*/
@@ -557,6 +576,10 @@ button {
 
 	.group-chat #timestamp {
 		display: none;
+	}
+
+	.contacts .single-chat .chat-email > *:first-child {
+		max-width: 81%;
 	}
 }
 
@@ -686,10 +709,23 @@ button {
 		padding: 0.2rem;
 	}
 
+	.notification {
+		position: absolute;
+		height: 0.37rem;
+		width: 0.37rem;
+		left: 1.5rem;
+		top: 0.35rem;
+	}
+
 	.contacts .profile-card {
 		position: fixed;
 		top: 7rem;
 		left: 2.9rem;
+		max-width: 90%;
+	}
+
+	.contacts .profile-card p {
+		text-overflow: ellipsis;
 	}
 
 	input.emoji {

@@ -1,6 +1,7 @@
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const nodemailer = require("nodemailer");
+const path = require("path");
 
 admin.initializeApp();
 
@@ -105,7 +106,7 @@ exports.userSignUp = functions.auth.user().onCreate((user) => {
 		attachments: [
 			{
 				filename: "logo_true.jpeg",
-				path: "../src/assets/logo/logo_true.jpeg",
+				path: path.join(__dirname, "./images/logo_true.jpeg"),
 				cid: "logo@dhera.com",
 			},
 		],
@@ -280,12 +281,12 @@ exports.inviteUser = functions.https.onCall((data, context) => {
 		attachments: [
 			{
 				filename: "logo_true.jpeg",
-				path: "../src/assets/logo/logo_true.jpeg",
+				path: path.join(__dirname, "./images/logo_true.jpeg"),
 				cid: "logo@dhera.com",
 			},
 			{
 				filename: "usericon.png",
-				path: "../src/assets/logo/usericon.png",
+				path: path.join(__dirname, "./images/usericon.png"),
 				cid: "usericon.com",
 			},
 		],

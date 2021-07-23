@@ -6,7 +6,7 @@
 .body {
 	width: 100%;
 	padding-top: 2rem;
-	height: 95vh;
+	height: 94vh;
 	overflow-y: scroll;
 }
 
@@ -170,6 +170,13 @@ p.received.emoji::before {
 		height: 96vh;
 	}
 }
+
+@media (max-width: 1100px) and (max-height: 850px) {
+	.body {
+		height: 93vh;
+	}
+}
+
 /*Tablets and under*/
 @media (max-width: 960px) {
 	.message p.sent {
@@ -211,6 +218,15 @@ p.received.emoji::before {
 		max-width: 75%;
 	}
 
+	.body {
+		height: 94.5vh;
+	}
+
+	p.sent.emoji,
+	p.received.emoji {
+		font-size: 2rem;
+	}
+
 	.message_input {
 		width: 70vw;
 		margin: 0 0.5rem;
@@ -218,5 +234,17 @@ p.received.emoji::before {
 
 	.message p.received {
 		max-width: 75%;
+	}
+}
+
+@media (max-width: 1100px) and (max-height: 770px) {
+	.body {
+		height: 93.5vh;
+	}
+}
+
+@media (max-width: 1100px) and (max-height: 705px) {
+	.body {
+		height: 93vh;
 	}
 }

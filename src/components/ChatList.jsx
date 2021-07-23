@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
 	ChatContext,
 	ContentContext,
@@ -6,19 +6,20 @@ import {
 } from "../context/ChatsContext";
 import UserIcon from "../assets/logo/usericon.png";
 import { ModalContext } from "../context/ContactsContext";
-import { db } from "../services/firebase";
+import { auth } from "../services/firebase";
 
-function ChatList({ id, email, photoURL, msg, timestamp }) {
+function ChatList({ uid, email, photoURL, msg, timestamp }) {
+	const [user, setUser] = useState(auth().currentUser);
 	const [chat, setChat] = useContext(ChatContext);
 	const [screen, setScreen] = useContext(ScreenContext);
 	const [content, setContent] = useContext(ContentContext);
 	const [modalOpen, setModalOpen] = useContext(ModalContext);
 
 	const handleClick = () => {
-		if (chat !== id) {
+		if (chat !== email) {
 			setContent("");
 		}
-		setChat(id);
+		setChat(email);
 		setScreen("chat");
 		setModalOpen(false);
 	};
@@ -28,12 +29,13 @@ function ChatList({ id, email, photoURL, msg, timestamp }) {
 	let minutes = timeSent.getMinutes();
 	let hours = timeSent.getHours();
 
-	let active = chat === id ? "onChat" : "";
+	let active = chat === email ? "onChat" : "";
 
 	return (
 		<div onClick={handleClick} className={`${active} grid`}>
 			<div className="chat-img">
 				<img src={photoURL || UserIcon} alt={`${email} img`} />
+				{uid !== user.uid ? <div className="notification"></div> : ""}
 			</div>
 			<div className="chat-email flex">
 				<div className="">
@@ -42,7 +44,7 @@ function ChatList({ id, email, photoURL, msg, timestamp }) {
 				</div>
 
 				{timestamp ? (
-					<p id="timestamp">{`${hours}:${
+					<p id="timestamp">{`${hours < 10 ? `0${hours}` : hours}:${
 						minutes < 10 ? `0${minutes}` : minutes
 					}`}</p>
 				) : (

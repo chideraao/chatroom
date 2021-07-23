@@ -208,6 +208,13 @@ function Contacts() {
 		return str.split("@")[0];
 	};
 
+	const timestamp = groupMsg[0] !== undefined ? groupMsg[0].timestamp : null;
+
+	let timeSent = new Date(timestamp);
+
+	let minutes = timeSent.getMinutes();
+	let hours = timeSent.getHours();
+
 	return (
 		<div className="contacts">
 			<div className="contact-header flex">
@@ -251,6 +258,15 @@ function Contacts() {
 				>
 					<div className="chat-img">
 						<img src={GroupIcon} alt="group avatar" />
+						{groupMsg[0] !== undefined ? (
+							groupMsg[0].uid !== user.uid ? (
+								<div className="notification"></div>
+							) : (
+								""
+							)
+						) : (
+							""
+						)}
 					</div>
 					<div className="group-title">
 						<div className="">
@@ -265,7 +281,14 @@ function Contacts() {
 						</div>
 						<div className="">
 							<PushPin />
-							<p id="timestamp">17h</p>
+
+							{groupMsg[0] ? (
+								<p id="timestamp">{`${hours < 10 ? `0${hours}` : hours}:${
+									minutes < 10 ? `0${minutes}` : minutes
+								}`}</p>
+							) : (
+								""
+							)}
 						</div>
 					</div>
 				</div>
@@ -274,10 +297,10 @@ function Contacts() {
 						return (
 							<div className="single-chat" key={idx}>
 								<ChatList
-									id={chat.email}
+									uid={chat.uid}
 									email={chat.email}
 									msg={chat.content}
-									photoURL={chat.photoURL}
+									photoURL={chat.providerURL}
 									timestamp={chat.timestamp}
 								/>
 							</div>

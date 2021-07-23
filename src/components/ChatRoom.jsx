@@ -122,7 +122,7 @@ function ChatRoom() {
 				if (dummyDiv.current) {
 					dummyDiv.current.scrollIntoView({ behaviour: "smooth" });
 				}
-			}, 1500);
+			}, 1700);
 		});
 
 		return () => {

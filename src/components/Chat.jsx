@@ -54,6 +54,7 @@ function Chat() {
 					{
 						content: content.trim(),
 						email: chat,
+						uid: user.uid,
 						timestamp: Date.now(),
 					},
 					{ merge: true }
@@ -90,6 +91,7 @@ function Chat() {
 					{
 						content: content.trim(),
 						email: user.email,
+						uid: user.uid,
 						providerURL,
 						timestamp: Date.now(),
 					},
@@ -172,7 +174,7 @@ function Chat() {
 				if (dummy.current) {
 					dummy.current.scrollIntoView({ behaviour: "smooth" });
 				}
-			}, 1200);
+			}, 1700);
 		});
 
 		return () => {
