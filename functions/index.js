@@ -86,18 +86,17 @@ exports.userSignUp = functions.auth.user().onCreate((user) => {
 						<p>Hey there,</p>
 						<p>
 							I’m Chidera, the creator/developer of DheraGram and I’d like to
-							personally thank you for taking time to sign up for my project.
+							personally thank you for taking the time to sign up for my project.
 						</p>
 						<p>
-							DheraGram is a chat application I created as a side project to
-							blah blah blah. I’d love to hear what you think of project and if
-							there is anything I can improve on.
+							DheraGram is a chat application I built with ReactJS and Firebase. I’d love to 
+							hear what you think of the project.
 						</p>
 						<p>
 							If you have any suggestions, please reply to this email. I look
 							forward to hearing from you!
 						</p>
-						<p>Chidera</p>
+						<p>Chidera.</p>
 					</td>
 				</tr>
 			</table>
@@ -121,6 +120,46 @@ exports.userSignUp = functions.auth.user().onCreate((user) => {
 			uid: user.uid,
 			recentEmojis: [],
 			photoURL: user.photoURL,
+		})
+		.then(() => {
+			admin
+				.firestore()
+				.collection(user.email)
+				.doc("chats")
+				.collection("okekechidera97@gmail.com")
+				.add({
+					content: "👋",
+					timestamp: Date.now(),
+				});
+		})
+		.then(() => {
+			admin
+				.firestore()
+				.collection(user.email)
+				.doc("chats")
+				.collection("okekechidera97@gmail.com")
+				.add({
+					content:
+						"Hey there, a warm welcome to you. It is a pleasure to have you on board!",
+					timestamp: Date.now(),
+				});
+		})
+		.then(() => {
+			admin
+				.firestore()
+				.collection(user.email)
+				.doc("okekechidera97@gmail.com")
+				.set(
+					{
+						content:
+							"Hey there, a warm welcome to you. It is a pleasure to have you on board!",
+						email: "okekechidera97@gmail.com",
+						providerURL:
+							"https://lh3.googleusercontent.com/a/AATXAJxGBtZ_UfDyG2snGHEMLNX0xcA8kivhnBfwhYzp=s96-c",
+						timestamp: Date.now(),
+					},
+					{ merge: true }
+				);
 		})
 		.then(() => {
 			transporter.sendMail(mailOptions);
@@ -243,9 +282,8 @@ exports.inviteUser = functions.https.onCall((data, context) => {
 								color: grey;
 							"
 						>
-							DheraGram is a chat application I created as a side project to
-							blah blah blah. I’d love to hear what you think of project and if
-							there is anything I can improve on.
+							DheraGram is a chat application I created as a side project with ReactJS and Firebase. 
+							I’d love to hear what you think of project.
 						</p>
 					</td>
 				</tr>
@@ -271,7 +309,7 @@ exports.inviteUser = functions.https.onCall((data, context) => {
 								font-size: 0.9rem;
 							"
 						>
-							Chidera
+							Chidera.
 						</p>
 					</td>
 				</tr>

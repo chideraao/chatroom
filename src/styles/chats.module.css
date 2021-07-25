@@ -190,7 +190,7 @@ p.received.emoji::before {
 	}
 
 	.body {
-		height: 94.5vh;
+		height: 95vh;
 	}
 
 	p.sent.emoji,
@@ -214,12 +214,12 @@ p.received.emoji::before {
 
 /*phones and under*/
 @media (max-width: 560px) {
-	.message p.sent {
-		max-width: 75%;
-	}
-
 	.body {
 		height: 94.5vh;
+	}
+
+	.message p.sent {
+		max-width: 75%;
 	}
 
 	p.sent.emoji,

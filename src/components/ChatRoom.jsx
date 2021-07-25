@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-vars */
+
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { EmojiContext } from "../context/ChatsContext";
-import { auth, db, store } from "../services/firebase";
+import { auth, db } from "../services/firebase";
 import Emoji from "./Emoji";
 import styles from "../styles/chatroom.module.css";
 import { ReactComponent as Emoticon } from "../assets/logo/insert_emoticon_black_24dp.svg";
