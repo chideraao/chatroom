@@ -85,12 +85,12 @@ exports.userSignUp = functions.auth.user().onCreate((user) => {
 					<td>
 						<p>Hey there,</p>
 						<p>
-							I’m Chidera, the creator/developer of DheraGram and I’d like to
+							I’m Chidera, the creator/developer of DheraGram and I’d like to 
 							personally thank you for taking the time to sign up for my project.
 						</p>
 						<p>
-							DheraGram is a functional chat application built with ReactJS and Firebase. Consists of 
-							a general group chat feature for all users, as well as a private chat option. I’d love
+							DheraGram is a functional chat application built with ReactJS and Firebase. It consists of 
+							a general group chat feature for all users, as well as a private chat option. I’d love 
 							to hear what you think of the project.
 						</p>
 						<p>
@@ -283,7 +283,7 @@ exports.inviteUser = functions.https.onCall((data, context) => {
 								color: grey;
 							"
 						>
-							DheraGram is a chat application created as a side project with ReactJS and Firebase. Consists of 
+							DheraGram is a chat application created as a side project with ReactJS and Firebase. It consists of 
 							a general group chat feature for all users, as well as a private chat option.
 							I’d love to hear what you think of project.
 						</p>

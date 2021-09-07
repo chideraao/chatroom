@@ -1,6 +1,6 @@
 ## DheraGram
 
-This project is a functional chat application built with ReactJS and Google's Firebase. Consists of a general group chat feature for all users, as well as a private chat option. The group chat makes use of Firebase's Realtime Database for storing and syncing data between users, while the private chat makes use of Firebase's Cloud Firestore.
+This project is a functional chat application built with ReactJS and Google's Firebase. It consists of a general group chat feature for all users, as well as a private chat option. The group chat makes use of Firebase's Realtime Database for storing and syncing data between users, while the private chat makes use of Firebase's Cloud Firestore.
 
 The live project is available [here](https://dhera-gram.web.app/) .
 
