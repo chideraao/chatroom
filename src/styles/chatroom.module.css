@@ -47,6 +47,7 @@
 }
 
 .message > span:first-child {
+  margin-top: 0.5rem;
   color: #86888a;
   font-size: 0.9rem;
   text-align: center;

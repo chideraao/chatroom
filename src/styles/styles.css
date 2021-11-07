@@ -1,25 +1,25 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,700;1,300;1,500;1,700&display=swap");
 
 :root {
-	--primary-color: #212124;
-	--text-color: #e4e6eb;
-	--secondary-color: #3a3b3c;
+  --primary-color: #212124;
+  --text-color: #e4e6eb;
+  --secondary-color: #3a3b3c;
 }
 
 * {
-	box-sizing: border-box;
-	padding: 0;
-	margin: 0;
-	overflow: hidden;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
 }
 
 * body {
-	font-family: "Roboto", sans-serif;
-	background-color: var(--primary-color);
-	color: var(--text-color);
-	line-height: 1.6;
-	font-size: 1rem;
-	position: relative;
+  font-family: "Roboto", sans-serif;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  font-size: 1rem;
+  position: relative;
 }
 
 /* .container {
@@ -30,823 +30,823 @@
 } */
 
 .null-screen {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	color: #b0b3b8;
-	text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #b0b3b8;
+  text-align: center;
 }
 
 .null-screen .logo img {
-	height: 10rem;
+  height: 10rem;
 }
 
 input {
-	line-height: 0.8;
-	width: 65vw;
-	font-size: 1.5rem;
-	border-bottom-left-radius: 10px;
-	border-top-left-radius: 10px;
-	color: white;
-	outline: none;
-	border: none;
-	padding: 0 10px;
+  line-height: 0.8;
+  width: 65vw;
+  font-size: 1.5rem;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+  color: white;
+  outline: none;
+  border: none;
+  padding: 0 10px;
 }
 
 input.emoji {
-	height: 2.75rem;
-	padding: 1.5rem 0.5rem;
-	font-size: 3rem;
+  height: 2.75rem;
+  padding: 1.5rem 0.5rem;
+  font-size: 2.6rem;
 }
 
 button {
-	background-color: #282c34;
-	border: none;
-	color: white;
-	padding: 15px 32px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	cursor: pointer;
-	font-size: 1.25rem;
+  background-color: #282c34;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  font-size: 1.25rem;
 }
 
 .grid {
-	display: grid;
-	grid-template-columns: 25% 75%;
+  display: grid;
+  grid-template-columns: 25% 75%;
 }
 
 .flex {
-	display: flex;
-	flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .searchbox {
-	display: block;
-	width: 100%;
-	padding: 15px;
-	border: none;
-	outline: none;
-	background: none;
-	background-color: #3a3b3c;
-	border-radius: 8px;
-	color: #fff;
-	font-size: 20px;
-	font-weight: 300;
+  display: block;
+  width: 100%;
+  padding: 15px;
+  border: none;
+  outline: none;
+  background: none;
+  background-color: #3a3b3c;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 300;
 
-	transition: 0.4s ease-out;
+  transition: 0.4s ease-out;
 }
 
 .searchbox:focus {
-	box-shadow: 0px 0px 8px 3px #4484c4;
+  box-shadow: 0px 0px 8px 3px #4484c4;
 }
 
 .emoji-container {
-	position: absolute;
-	bottom: -0.3rem;
-	left: 4.3rem;
+  position: absolute;
+  bottom: -0.3rem;
+  left: 4.3rem;
 }
 
 .emoji-container .card-container {
-	position: relative;
+  position: relative;
 }
 
 .emoji-container .card-container:before {
-	content: " ";
-	position: absolute;
-	width: 0;
-	height: 0;
-	left: -40px;
-	right: auto;
-	top: 30px;
-	bottom: auto;
-	border: 20px solid;
-	border-color: #fff #fff transparent transparent;
+  content: " ";
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: -40px;
+  right: auto;
+  top: 30px;
+  bottom: auto;
+  border: 20px solid;
+  border-color: #fff #fff transparent transparent;
 }
 
 .emoji-container .card-container:after {
-	content: " ";
-	position: absolute;
-	width: 0;
-	height: 0;
-	left: -5px;
-	right: auto;
-	bottom: 19px;
-	top: auto;
-	border: 12px solid;
-	border-color: #212124 #212124 transparent transparent;
+  content: " ";
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: -5px;
+  right: auto;
+  bottom: 19px;
+  top: auto;
+  border: 12px solid;
+  border-color: #212124 #212124 transparent transparent;
 }
 
 .card {
-	overflow: auto;
-	background-color: rgba(33, 33, 36, 1);
-	border-radius: 5px;
-	color: #fff;
-	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-	padding: 0 1rem;
-	padding-right: 0.1rem;
-	padding-bottom: 0;
-	margin: 10px;
+  overflow: auto;
+  background-color: rgba(33, 33, 36, 1);
+  border-radius: 5px;
+  color: #fff;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  padding: 0 1rem;
+  padding-right: 0.1rem;
+  padding-bottom: 0;
+  margin: 10px;
 }
 
 .emoji-card {
-	width: 23rem;
-	height: 21rem;
-	background-color: #212124;
+  width: 23rem;
+  height: 21rem;
+  background-color: #212124;
 }
 
 .card .searchbox {
-	width: 95%;
-	height: 2rem;
-	font-size: 1rem;
-	margin-bottom: 1rem;
-	margin-top: 1.1rem;
+  width: 95%;
+  height: 2rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  margin-top: 1.1rem;
 }
 
 .card .scroll-text {
-	position: absolute;
-	top: 0.58rem;
-	padding: 1rem;
-	padding-bottom: 0.5rem;
-	padding-left: 0;
-	margin-top: 0;
-	background-color: #212124;
-	width: 88%;
-	font-size: 0.7rem;
-	letter-spacing: 2px;
-	color: #adb2b6;
+  position: absolute;
+  top: 0.58rem;
+  padding: 1rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0;
+  margin-top: 0;
+  background-color: #212124;
+  width: 88%;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  color: #adb2b6;
 }
 
 .emojis .FLAGS {
-	padding-bottom: 1.2rem;
+  padding-bottom: 1.2rem;
 }
 
 .emoticons {
-	height: 2rem;
-	position: absolute;
-	width: 90%;
-	top: 19.68rem;
-	background-color: #212124;
+  height: 2rem;
+  position: absolute;
+  width: 90%;
+  top: 19.68rem;
+  background-color: #212124;
 }
 
 .card .emojis {
-	margin-top: 1rem;
+  margin-top: 1rem;
 }
 
 .card .emojis > div > p {
-	font-size: 0.8rem;
-	color: #adb2b6;
-	letter-spacing: 2px;
+  font-size: 0.8rem;
+  color: #adb2b6;
+  letter-spacing: 2px;
 }
 
 .emoticons a {
-	padding: 0.2rem;
-	padding-bottom: 0;
+  padding: 0.2rem;
+  padding-bottom: 0;
 }
 
 .emoticons a.current svg {
-	fill: #4484c4;
+  fill: #4484c4;
 }
 
 .card .flex p {
-	font-size: 1.5rem;
-	cursor: pointer;
-	padding: 0.3rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.3rem;
 }
 
 .flex p {
-	padding: 0.2rem;
+  padding: 0.2rem;
 }
 
 .contacts {
-	background-color: #212124;
-	border-right: 1px solid #282c34;
-	margin: 1rem;
-	min-width: none;
-	margin-left: 0.5rem;
-	margin-right: 0;
-	padding-right: 0.3rem;
-	height: 98vh;
-	overflow-y: scroll;
-	position: relative;
+  background-color: #212124;
+  border-right: 1px solid #282c34;
+  margin: 1rem;
+  min-width: none;
+  margin-left: 0.5rem;
+  margin-right: 0;
+  padding-right: 0.3rem;
+  height: 98vh;
+  overflow-y: scroll;
+  position: relative;
 }
 
 .contact-header {
-	justify-content: space-between;
-	margin-top: 1rem;
+  justify-content: space-between;
+  margin-top: 1rem;
 }
 
 .contact-header img {
-	margin-top: 0.4rem;
+  margin-top: 0.4rem;
 }
 
 .contact-header .svg-container {
-	height: 2.5rem;
-	width: 2.5rem;
-	border-radius: 50%;
-	background-color: var(--secondary-color);
-	align-items: center;
-	justify-content: center;
-	margin: 0.5rem;
-	cursor: pointer;
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 50%;
+  background-color: var(--secondary-color);
+  align-items: center;
+  justify-content: center;
+  margin: 0.5rem;
+  cursor: pointer;
 }
 
 .contact-header .svg-container:hover {
-	background-color: #4f5255;
+  background-color: #4f5255;
 }
 
 .contacts .profile-card {
-	position: fixed;
-	z-index: 1;
-	top: 4.5rem;
-	left: 20vw;
-	color: #adb2b6;
-	width: fit-content;
-	background-color: rgb(41, 41, 44);
-	height: auto;
-	padding: 0 0.5rem;
-	cursor: text;
+  position: fixed;
+  z-index: 1;
+  top: 4.5rem;
+  left: 20vw;
+  color: #adb2b6;
+  width: fit-content;
+  background-color: rgb(41, 41, 44);
+  height: auto;
+  padding: 0 0.5rem;
+  cursor: text;
 }
 
 .contacts .profile-card img {
-	height: 2.5rem;
-	width: 2.5rem;
-	margin: 0.5rem;
-	margin-left: 0;
+  height: 2.5rem;
+  width: 2.5rem;
+  margin: 0.5rem;
+  margin-left: 0;
 }
 
 .contacts .profile-card p {
-	font-size: 1rem !important;
+  font-size: 1rem !important;
 }
 
 .contacts .profile-card .profile-head {
-	border-bottom: 1px solid #4b4e50;
-	padding: 1rem;
-	width: fit-content;
-	align-items: center;
-	flex-wrap: nowrap;
-	padding-bottom: 0.2rem;
+  border-bottom: 1px solid #4b4e50;
+  padding: 1rem;
+  width: fit-content;
+  align-items: center;
+  flex-wrap: nowrap;
+  padding-bottom: 0.2rem;
 }
 
 .contacts .profile-card .signout {
-	padding: 1rem;
-	align-items: center;
-	justify-content: space-between;
-	cursor: pointer;
+  padding: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
 }
 
 .contacts .profile-card .signout svg {
-	margin: 0 1rem;
+  margin: 0 1rem;
 }
 
 .new-card {
-	position: absolute;
-	top: 27%;
-	left: 40%;
-	width: 30rem;
-	background-color: rgb(41, 41, 44);
-	text-align: center;
-	color: #adb2b6;
-	height: auto;
-	padding: 0.5rem 0.5rem;
-	padding-left: 1.5rem;
-	padding-bottom: 1.5rem;
-	margin-bottom: 0;
-	cursor: text;
-	z-index: 1;
+  position: absolute;
+  top: 27%;
+  left: 40%;
+  width: 30rem;
+  background-color: rgb(41, 41, 44);
+  text-align: center;
+  color: #adb2b6;
+  height: auto;
+  padding: 0.5rem 0.5rem;
+  padding-left: 1.5rem;
+  padding-bottom: 1.5rem;
+  margin-bottom: 0;
+  cursor: text;
+  z-index: 1;
 }
 
 .new-card form {
-	padding-left: 0.5rem;
+  padding-left: 0.5rem;
 }
 
 .new-card .error-container {
-	width: 100%;
+  width: 100%;
 }
 
 .new-card form #search-error {
-	font-size: 0.9rem;
-	display: flex;
-	flex-direction: column;
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .new-card form #search-error {
-	text-align: start;
+  text-align: start;
 }
 
 .new-card .modal-btn {
-	margin-top: 1rem;
-	margin-right: 0.6rem;
-	display: flex;
-	align-self: flex-end;
+  margin-top: 1rem;
+  margin-right: 0.6rem;
+  display: flex;
+  align-self: flex-end;
 }
 
 .new-card form #search-error #mail-btn {
-	font-size: 0.9rem;
-	padding: 0.5rem 1rem;
-	background-color: #4484c4;
-	border-radius: 0.4rem;
-	margin: 0.5rem;
-	margin-bottom: 0;
-	align-self: center;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  background-color: #4484c4;
+  border-radius: 0.4rem;
+  margin: 0.5rem;
+  margin-bottom: 0;
+  align-self: center;
 }
 
 .new-card form #search-error #mail-btn:hover {
-	background-color: #1982fc;
+  background-color: #1982fc;
 }
 
 .new-card form #search-error #cancel-btn {
-	font-size: 0.9rem;
-	padding: 0.5rem 1rem;
-	background-color: transparent;
-	color: #1982fc;
-	border-radius: 0.4rem;
-	margin: 0.5rem;
-	margin-bottom: 0;
-	align-self: center;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  color: #1982fc;
+  border-radius: 0.4rem;
+  margin: 0.5rem;
+  margin-bottom: 0;
+  align-self: center;
 }
 
 .new-card form #search-error #cancel-btn:hover {
-	background-color: #282c34;
+  background-color: #282c34;
 }
 
 .contacts form {
-	padding-left: 0.2rem;
+  padding-left: 0.2rem;
 }
 
 .contacts form #search-error {
-	font-size: 0.9rem;
-	display: flex;
-	text-align: center;
-	flex-direction: column;
+  font-size: 0.9rem;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
 }
 
 .contacts form #search-error button {
-	font-size: 0.9rem;
-	padding: 0.5rem 1rem;
-	background-color: #4484c4;
-	border-radius: 0.4rem;
-	margin: 0.5rem;
-	margin-bottom: 0;
-	align-self: center;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  background-color: #4484c4;
+  border-radius: 0.4rem;
+  margin: 0.5rem;
+  margin-bottom: 0;
+  align-self: center;
 }
 
 .contacts form #search-error button:hover {
-	background-color: #1982fc;
+  background-color: #1982fc;
 }
 
 .contacts .searchbox {
-	height: 2rem;
-	width: 95%;
-	font-size: 1rem;
-	margin: 1rem;
-	margin-left: 0;
+  height: 2rem;
+  width: 95%;
+  font-size: 1rem;
+  margin: 1rem;
+  margin-left: 0;
 }
 
 .contacts img,
 .users-list img {
-	background-color: #b0b3b8;
-	height: 3rem;
-	width: 3rem;
-	border-radius: 50%;
+  background-color: #b0b3b8;
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
 }
 
 .contacts .group-chat,
 .users-list,
 .contacts .single-chat {
-	margin-bottom: 0.1rem;
-	border-bottom: 1px solid #282c34;
+  margin-bottom: 0.1rem;
+  border-bottom: 1px solid #282c34;
 }
 
 .users-list .flex {
-	flex-wrap: nowrap;
+  flex-wrap: nowrap;
 }
 
 .contacts .chat-img,
 .users-list .chat-img {
-	margin: 0.5rem;
-	margin-top: 0.6rem;
-	position: relative;
+  margin: 0.5rem;
+  margin-top: 0.6rem;
+  position: relative;
 }
 
 .group-chat:hover,
 .users-list:hover,
 .single-chat:hover {
-	background-color: var(--secondary-color);
-	border-radius: 7px;
+  background-color: var(--secondary-color);
+  border-radius: 7px;
 }
 
 .contacts .group-chat .group-title,
 .users-list .chat-email,
 .contacts .single-chat .chat-email {
-	display: flex;
-	align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .contacts .group-chat .group-title > *:first-child,
 .contacts .single-chat .chat-email > *:first-child {
-	max-width: 87%;
+  max-width: 87%;
 }
 
 .contacts .group-chat .group-title p,
 .users-list .chat-email p,
 .contacts .single-chat .chat-email p {
-	font-size: 1rem;
-	font-weight: 300;
-	text-overflow: ellipsis;
-	overflow: hidden;
-	white-space: nowrap;
+  font-size: 1rem;
+  font-weight: 300;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .contacts .group-chat,
 .contacts .single-chat .grid {
-	display: grid;
-	grid-template-columns: 1fr 4fr;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
 }
 
 .contacts .group-chat .group-title {
-	justify-content: space-between;
+  justify-content: space-between;
 }
 
 .contacts .group-chat .group-title svg {
-	transform: rotate(55deg);
-	margin-right: 0.5rem;
+  transform: rotate(55deg);
+  margin-right: 0.5rem;
 }
 
 .contacts .single-chat .chat-email {
-	align-items: flex-start;
-	justify-content: space-between;
-	flex-wrap: nowrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: nowrap;
 }
 
 .contacts .single-chat .chat-email *:first-child {
-	padding-bottom: 0;
-	align-self: center;
+  padding-bottom: 0;
+  align-self: center;
 }
 
 .contacts .single-chat .chat-email *:nth-child(2) {
-	padding-top: 0;
+  padding-top: 0;
 }
 
 .contacts .single-chat .chat-email #timestamp {
-	margin-top: 1.5rem;
+  margin-top: 1.5rem;
 }
 
 .contacts p#timestamp {
-	font-size: 0.8rem;
-	text-overflow: unset;
-	padding-right: 0.5rem;
+  font-size: 0.8rem;
+  text-overflow: unset;
+  padding-right: 0.5rem;
 }
 
 .contacts .group-chat.onChat,
 .contacts .single-chat .onChat {
-	background-color: #282c34;
-	border-radius: 7px;
+  background-color: #282c34;
+  border-radius: 7px;
 }
 
 .contacts .group-chat.onChat p,
 .contacts .single-chat .onChat p {
-	font-weight: 500 !important;
+  font-weight: 500 !important;
 }
 
 .input-container {
-	background-color: rgb(41, 41, 44);
-	position: relative;
-	overflow: visible;
-	align-items: flex-start;
-	justify-content: space-evenly;
-	flex-wrap: nowrap;
-	height: 4rem;
-	padding-top: 0.5rem;
-	border-top: 1px solid #4b4e50;
+  background-color: rgb(41, 41, 44);
+  position: relative;
+  overflow: visible;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  flex-wrap: nowrap;
+  height: 4rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid #4b4e50;
 }
 
 .input-container form.flex {
-	flex-wrap: nowrap;
-	align-items: flex-start;
-	margin-top: 0.2rem;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  margin-top: 0.2rem;
 }
 
 .input-container form.flex button {
-	background-color: transparent;
-	border: none;
-	padding: 1rem;
-	padding-top: 0.3rem;
-	margin-left: 0.5rem;
+  background-color: transparent;
+  border: none;
+  padding: 1rem;
+  padding-top: 0.3rem;
+  margin-left: 0.5rem;
 }
 
 .input-container > svg {
-	margin: 1rem;
-	margin-top: 0.4rem;
-	margin-right: 0;
+  margin: 1rem;
+  margin-top: 0.4rem;
+  margin-right: 0;
 }
 
 .input-container .emoticons svg {
-	margin: 1rem 0.25rem;
-	margin-top: 0.1rem;
+  margin: 1rem 0.25rem;
+  margin-top: 0.1rem;
 }
 
 .message-list {
-	cursor: pointer;
-	margin: 0.5rem 0;
+  cursor: pointer;
+  margin: 0.5rem 0;
 }
 
 .contacts .notification {
-	height: 0.65rem;
-	width: 0.65rem;
-	background-color: #ee5757;
-	border-radius: 50%;
-	position: absolute;
-	left: 2.1rem;
-	top: 0.3rem;
+  height: 0.65rem;
+  width: 0.65rem;
+  background-color: #ee5757;
+  border-radius: 50%;
+  position: absolute;
+  left: 2.1rem;
+  top: 0.3rem;
 }
 
 /*-----------------------------------------------------------------MEDIA QUERIES------------------------------------------------------------------*/
 /**contingency*/
 @media (max-width: 1200px) {
-	.contacts .group-chat,
-	.contacts .single-chat .grid {
-		grid-template-columns: 1fr 3fr;
-	}
+  .contacts .group-chat,
+  .contacts .single-chat .grid {
+    grid-template-columns: 1fr 3fr;
+  }
 
-	.emoji-container {
-		bottom: -0.3rem;
-		left: 3.5rem;
-	}
+  .emoji-container {
+    bottom: -0.3rem;
+    left: 3.5rem;
+  }
 
-	.group-chat #timestamp {
-		display: none;
-	}
+  .group-chat #timestamp {
+    display: none;
+  }
 
-	.contacts .single-chat .chat-email > *:first-child {
-		max-width: 81%;
-	}
+  .contacts .single-chat .chat-email > *:first-child {
+    max-width: 81%;
+  }
 }
 
 /*Ipad Pro*/
 @media (max-width: 1100px) {
-	.emoji-container {
-		left: 3.3rem;
-	}
+  .emoji-container {
+    left: 3.3rem;
+  }
 
-	.contacts .profile-card {
-		top: 4.7rem;
-	}
+  .contacts .profile-card {
+    top: 4.7rem;
+  }
 
-	.new-card {
-		top: 35%;
-		left: 36.5%;
-		width: 50vw;
-	}
+  .new-card {
+    top: 35%;
+    left: 36.5%;
+    width: 50vw;
+  }
 
-	.contacts .group-chat,
-	.contacts .single-chat .grid {
-		grid-template-columns: 1fr 2.6fr;
-	}
+  .contacts .group-chat,
+  .contacts .single-chat .grid {
+    grid-template-columns: 1fr 2.6fr;
+  }
 
-	.contacts .group-chat img,
-	.contacts .single-chat .grid img {
-		margin-right: 0.5rem;
-	}
+  .contacts .group-chat img,
+  .contacts .single-chat .grid img {
+    margin-right: 0.5rem;
+  }
 }
 
 /*Tablets and under*/
 @media (max-width: 960px) {
-	.home.grid {
-		grid-template-columns: 13% 87%;
-	}
+  .home.grid {
+    grid-template-columns: 13% 87%;
+  }
 
-	.emoji-container {
-		left: 3rem;
-	}
+  .emoji-container {
+    left: 3rem;
+  }
 
-	.contacts .profile-card {
-		position: fixed;
-		top: 9rem;
-		left: 4.5rem;
-	}
+  .contacts .profile-card {
+    position: fixed;
+    top: 9rem;
+    left: 4.5rem;
+  }
 
-	.card-container {
-		position: relative;
-	}
+  .card-container {
+    position: relative;
+  }
 
-	.new-card {
-		top: 30%;
-		left: 23%;
-		width: 65vw;
-	}
+  .new-card {
+    top: 30%;
+    left: 23%;
+    width: 65vw;
+  }
 
-	input.emoji {
-		height: 2.5rem;
-		font-size: 2.5rem;
-	}
+  input.emoji {
+    height: 2.5rem;
+    font-size: 2.5rem;
+  }
 
-	.input-container form.flex button {
-		padding-left: 0rem;
-		margin-left: 0rem;
-		padding-right: 0.5rem;
-	}
+  .input-container form.flex button {
+    padding-left: 0rem;
+    margin-left: 0rem;
+    padding-right: 0.5rem;
+  }
 
-	.card .scroll-text {
-		top: 0.5rem;
-	}
+  .card .scroll-text {
+    top: 0.5rem;
+  }
 
-	.contacts .contact-header {
-		border-bottom: 1px solid #282c34;
-		margin-bottom: 1.5rem;
-		text-align: center;
-	}
+  .contacts .contact-header {
+    border-bottom: 1px solid #282c34;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
 
-	.contacts .contact-header.flex,
-	.contacts .contact-header > .flex {
-		display: block;
-	}
+  .contacts .contact-header.flex,
+  .contacts .contact-header > .flex {
+    display: block;
+  }
 
-	.contacts .contact-header *:first-child {
-		margin-bottom: 0.5rem;
-	}
+  .contacts .contact-header *:first-child {
+    margin-bottom: 0.5rem;
+  }
 
-	.contact-header .svg-container {
-		margin: auto;
-		margin-bottom: 1rem;
-		align-items: flex-end;
-	}
+  .contact-header .svg-container {
+    margin: auto;
+    margin-bottom: 1rem;
+    align-items: flex-end;
+  }
 
-	.contacts form {
-		display: none;
-	}
+  .contacts form {
+    display: none;
+  }
 
-	.contacts .group-chat,
-	.contacts .single-chat > .grid {
-		display: flex;
-		justify-content: center;
-	}
+  .contacts .group-chat,
+  .contacts .single-chat > .grid {
+    display: flex;
+    justify-content: center;
+  }
 
-	.contacts .group-chat .group-title,
-	.contacts .single-chat .chat-email {
-		display: none;
-	}
+  .contacts .group-chat .group-title,
+  .contacts .single-chat .chat-email {
+    display: none;
+  }
 }
 
 /*phones and under*/
 @media (max-width: 560px) {
-	.home.grid {
-		grid-template-columns: 15% 85%;
-	}
+  .home.grid {
+    grid-template-columns: 15% 85%;
+  }
 
-	.contacts img,
-	.users-list img {
-		height: 2rem;
-		width: 2rem;
-	}
+  .contacts img,
+  .users-list img {
+    height: 2rem;
+    width: 2rem;
+  }
 
-	.contacts .message-list {
-		margin-right: 0;
-	}
+  .contacts .message-list {
+    margin-right: 0;
+  }
 
-	.contacts .chat-img {
-		margin: 0;
-		margin-top: 0.5rem;
-		padding: 0.2rem;
-	}
+  .contacts .chat-img {
+    margin: 0;
+    margin-top: 0.5rem;
+    padding: 0.2rem;
+  }
 
-	.contacts .notification {
-		position: absolute;
-		height: 0.37rem;
-		width: 0.37rem;
-		left: 1.5rem;
-		top: 0.35rem;
-	}
+  .contacts .notification {
+    position: absolute;
+    height: 0.37rem;
+    width: 0.37rem;
+    left: 1.5rem;
+    top: 0.35rem;
+  }
 
-	.contacts .profile-card {
-		position: fixed;
-		top: 7rem;
-		left: 2.9rem;
-		max-width: 90%;
-	}
+  .contacts .profile-card {
+    position: fixed;
+    top: 7rem;
+    left: 2.9rem;
+    max-width: 90%;
+  }
 
-	.contacts .profile-card p {
-		text-overflow: ellipsis;
-	}
+  .contacts .profile-card p {
+    text-overflow: ellipsis;
+  }
 
-	input.emoji {
-		height: 2.75rem;
-		font-size: 2rem;
-	}
+  input.emoji {
+    height: 2.75rem;
+    font-size: 2rem;
+  }
 
-	.contacts .profile-card .profile-head {
-		padding: 0.5rem;
-	}
+  .contacts .profile-card .profile-head {
+    padding: 0.5rem;
+  }
 
-	.contacts .profile-card .profile-head img {
-		height: 2rem;
-		width: 2rem;
-	}
+  .contacts .profile-card .profile-head img {
+    height: 2rem;
+    width: 2rem;
+  }
 
-	.contacts .profile-card .signout {
-		padding: 0.5rem;
-	}
+  .contacts .profile-card .signout {
+    padding: 0.5rem;
+  }
 
-	.contacts .group-chat img,
-	.contacts .single-chat .grid img {
-		margin-right: 0;
-	}
+  .contacts .group-chat img,
+  .contacts .single-chat .grid img {
+    margin-right: 0;
+  }
 
-	.new-card {
-		top: 32%;
-		left: 19%;
-		width: 72vw;
-		padding-left: 0.6rem;
-	}
+  .new-card {
+    top: 32%;
+    left: 19%;
+    width: 72vw;
+    padding-left: 0.6rem;
+  }
 
-	.emoji-container {
-		bottom: 3rem;
-		left: 0rem;
-	}
+  .emoji-container {
+    bottom: 3rem;
+    left: 0rem;
+  }
 
-	.emoji-container .card-container:before {
-		content: " ";
-		position: absolute;
-		width: 0;
-		height: 0;
-		left: -40px;
-		right: auto;
-		top: 30px;
-		bottom: auto;
-		border: 20px solid;
-		border-color: #fff #fff transparent transparent;
-	}
+  .emoji-container .card-container:before {
+    content: " ";
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: -40px;
+    right: auto;
+    top: 30px;
+    bottom: auto;
+    border: 20px solid;
+    border-color: #fff #fff transparent transparent;
+  }
 
-	.emoji-container .card-container:after {
-		content: " ";
-		position: absolute;
-		width: 0;
-		height: 0;
-		left: 4px;
-		right: auto;
-		top: auto;
-		bottom: -18px;
-		border: 22px solid;
-		border-color: transparent transparent transparent transparent;
-		z-index: 1;
-	}
+  .emoji-container .card-container:after {
+    content: " ";
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: 4px;
+    right: auto;
+    top: auto;
+    bottom: -18px;
+    border: 22px solid;
+    border-color: transparent transparent transparent transparent;
+    z-index: 1;
+  }
 
-	.emoji-container .emoji-card {
-		width: 18rem;
-		height: 15rem;
-		background-color: #212124;
-	}
+  .emoji-container .emoji-card {
+    width: 18rem;
+    height: 15rem;
+    background-color: #212124;
+  }
 
-	.emoji-container .card .flex p {
-		font-size: 0.8rem;
-		padding: 0.4rem;
-	}
+  .emoji-container .card .flex p {
+    font-size: 0.8rem;
+    padding: 0.4rem;
+  }
 
-	.card .scroll-text {
-		font-size: 0.65rem;
-	}
+  .card .scroll-text {
+    font-size: 0.65rem;
+  }
 
-	.card .emojis > div > p {
-		font-size: 0.6rem;
-		color: #adb2b6;
-		letter-spacing: 2px;
-	}
+  .card .emojis > div > p {
+    font-size: 0.6rem;
+    color: #adb2b6;
+    letter-spacing: 2px;
+  }
 
-	.emoji-container .emoji-card .emoticons {
-		top: 13.7rem;
-		width: 85%;
-	}
+  .emoji-container .emoji-card .emoticons {
+    top: 13.7rem;
+    width: 85%;
+  }
 
-	.emoji-container .emoji-card .emoticons a {
-		padding: 0.15rem;
-	}
+  .emoji-container .emoji-card .emoticons a {
+    padding: 0.15rem;
+  }
 
-	.emoji-container .emoji-card .emoticons svg {
-		height: 1rem;
-		margin: 0;
-	}
+  .emoji-container .emoji-card .emoticons svg {
+    height: 1rem;
+    margin: 0;
+  }
 
-	.input-container form.flex button {
-		padding-left: 0rem;
-		margin-left: 0rem;
-		padding-right: 0.5rem;
-	}
+  .input-container form.flex button {
+    padding-left: 0rem;
+    margin-left: 0rem;
+    padding-right: 0.5rem;
+  }
 }
 
 @media (max-width: 400px) {
-	.contacts img,
-	.users-list img {
-		height: 1.7rem;
-		width: 1.7rem;
-	}
+  .contacts img,
+  .users-list img {
+    height: 1.7rem;
+    width: 1.7rem;
+  }
 
-	.contact-header .svg-container {
-		height: 2rem;
-		width: 2rem;
-	}
+  .contact-header .svg-container {
+    height: 2rem;
+    width: 2rem;
+  }
 
-	.contacts .contact-header svg {
-		margin-bottom: 0.2rem !important;
-	}
+  .contacts .contact-header svg {
+    margin-bottom: 0.2rem !important;
+  }
 }

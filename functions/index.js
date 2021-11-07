@@ -7,28 +7,28 @@ admin.initializeApp();
 
 /** defining and destructuring environments config for firebase functions */
 let { useremail, refreshtoken, clientid, clientsecret } =
-	functions.config().gmail;
+  functions.config().gmail;
 
 let transporter = nodemailer.createTransport({
-	host: "smtp.gmail.com",
-	port: 465,
-	secure: true,
-	auth: {
-		type: "OAuth2",
-		user: useremail,
-		clientId: clientid,
-		clientSecret: clientsecret,
-		refreshToken: refreshtoken,
-	},
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
+  auth: {
+    type: "OAuth2",
+    user: useremail,
+    clientId: clientid,
+    clientSecret: clientsecret,
+    refreshToken: refreshtoken,
+  },
 });
 
 exports.userSignUp = functions.auth.user().onCreate((user) => {
-	//Defining mailOptions
-	const mailOptions = {
-		from: "okekechidera97@gmail.com",
-		to: user.email,
-		subject: "Thanks for Signing up",
-		html: `
+  //Defining mailOptions
+  const mailOptions = {
+    from: "okekechidera97@gmail.com",
+    to: user.email,
+    subject: "Thanks for Signing up",
+    html: `
 		<div
 		style="
 			background-color: rgb(233, 230, 230);
@@ -81,111 +81,112 @@ exports.userSignUp = functions.auth.user().onCreate((user) => {
 			</table>
 
 			<table role="presentation" class="">
-				<tr>
-					<td>
-						<p>Hey there,</p>
-						<p>
-							I’m Chidera, the creator/developer of DheraGram and I’d like to 
-							personally thank you for taking the time to sign up for my project.
-						</p>
-						<p>
-							DheraGram is a functional chat application built with ReactJS and Firebase. It consists of 
-							a general group chat feature for all users, as well as a private chat option. I’d love 
-							to hear what you think of the project.
-						</p>
-						<p>
-							If you have any suggestions, please reply to this email. I look
-							forward to hearing from you!
-						</p>
-						<p>Chidera.</p>
-					</td>
-				</tr>
-			</table>
+			<tr>
+			  <td>
+				<p>Hey there,</p>
+				<p>
+				  I’m Chidera, the creator/developer of DheraGram and I’d like to
+				  personally thank you for taking the time to sign up for my
+				  project.
+				</p>
+				<p>
+				  DheraGram is a functional chat application built with ReactJS and
+				  Firebase. It consists of a general group chat feature for all
+				  users, as well as a private chat option. I’d love to hear what you think of the project.
+				</p>
+				<p>
+				  If you have any suggestions, please reply to this email. I look
+				  forward to hearing from you!
+				</p>
+				<p>Chidera.</p>
+			  </td>
+			</tr>
+		  </table>
 		</div>
 	</div>`,
-		attachments: [
-			{
-				filename: "logo_true.jpeg",
-				path: path.join(__dirname, "./images/logo_true.jpeg"),
-				cid: "logo@dhera.com",
-			},
-		],
-	};
+    attachments: [
+      {
+        filename: "logo_true.jpeg",
+        path: path.join(__dirname, "./images/logo_true.jpeg"),
+        cid: "logo@dhera.com",
+      },
+    ],
+  };
 
-	return admin
-		.firestore()
-		.collection("users")
-		.doc(user.uid)
-		.set({
-			email: user.email,
-			uid: user.uid,
-			recentEmojis: [],
-			photoURL: user.photoURL,
-		})
-		.then(() => {
-			admin
-				.firestore()
-				.collection(user.email)
-				.doc("chats")
-				.collection("okekechidera97@gmail.com")
-				.add({
-					content: "👋",
-					timestamp: Date.now(),
-				});
-		})
-		.then(() => {
-			admin
-				.firestore()
-				.collection(user.email)
-				.doc("chats")
-				.collection("okekechidera97@gmail.com")
-				.add({
-					content:
-						"Hey there, a warm welcome to you. It is a pleasure to have you on board!",
-					timestamp: Date.now(),
-				});
-		})
-		.then(() => {
-			admin
-				.firestore()
-				.collection(user.email)
-				.doc("okekechidera97@gmail.com")
-				.set(
-					{
-						content:
-							"Hey there, a warm welcome to you. It is a pleasure to have you on board!",
-						email: "okekechidera97@gmail.com",
-						providerURL:
-							"https://lh3.googleusercontent.com/a/AATXAJxGBtZ_UfDyG2snGHEMLNX0xcA8kivhnBfwhYzp=s96-c",
-						timestamp: Date.now(),
-					},
-					{ merge: true }
-				);
-		})
-		.then(() => {
-			transporter.sendMail(mailOptions);
-		})
-		.catch((err) => {
-			console.log(err);
-		});
+  return admin
+    .firestore()
+    .collection("users")
+    .doc(user.uid)
+    .set({
+      email: user.email,
+      uid: user.uid,
+      recentEmojis: [],
+      photoURL: user.photoURL,
+    })
+    .then(() => {
+      admin
+        .firestore()
+        .collection(user.email)
+        .doc("chats")
+        .collection("okekechidera97@gmail.com")
+        .add({
+          content: "👋",
+          timestamp: Date.now(),
+        });
+    })
+    .then(() => {
+      admin
+        .firestore()
+        .collection(user.email)
+        .doc("chats")
+        .collection("okekechidera97@gmail.com")
+        .add({
+          content:
+            "Hey there, a warm welcome to you. It is a pleasure to have you on board!",
+          timestamp: Date.now(),
+        });
+    })
+    .then(() => {
+      admin
+        .firestore()
+        .collection(user.email)
+        .doc("okekechidera97@gmail.com")
+        .set(
+          {
+            content:
+              "Hey there, a warm welcome to you. It is a pleasure to have you on board!",
+            email: "okekechidera97@gmail.com",
+            providerURL:
+              "https://lh3.googleusercontent.com/a/AATXAJxGBtZ_UfDyG2snGHEMLNX0xcA8kivhnBfwhYzp=s96-c",
+            timestamp: Date.now(),
+          },
+          { merge: true }
+        );
+    })
+    .then(() => {
+      transporter.sendMail(mailOptions);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
 exports.userDelete = functions.auth.user().onDelete((user) => {
-	const doc = admin.firestore().collection("users").doc(user.uid);
-	return doc.delete();
+  const doc = admin.firestore().collection("users").doc(user.uid);
+  return doc.delete();
 });
 
 exports.inviteUser = functions.https.onCall((data, context) => {
-	let email = data.email;
-	let photoURL = data.photoURL;
-	let displayName = data.displayName;
+  let email = data.email;
+  let photoURL = data.photoURL;
+  let displayName = data.displayName;
 
-	//Defining mailOptions
-	const mailOptions = {
-		from: "okekechidera97@gmail.com",
-		to: email,
-		subject: `Email invitation from ${context.auth.token.email}`,
-		html: `<div
+  //Defining mailOptions
+  const mailOptions = {
+    from: "okekechidera97@gmail.com",
+    to: email,
+    subject: `Email invitation from ${context.auth.token.email}`,
+    html: `<div
 		style="
 			background-color: rgb(233, 230, 230);
 			display: flex;
@@ -238,8 +239,8 @@ exports.inviteUser = functions.https.onCall((data, context) => {
 				<tr>
 					<td>
 						<h2 style="margin: 8px; opacity: 0.8">${
-							displayName ? displayName : context.auth.token.email
-						}</h2>
+              displayName ? displayName : context.auth.token.email
+            }</h2>
 					</td>
 				</tr>
 			</table>
@@ -318,19 +319,19 @@ exports.inviteUser = functions.https.onCall((data, context) => {
 			</table>
 		</div>
 	</div>`,
-		attachments: [
-			{
-				filename: "logo_true.jpeg",
-				path: path.join(__dirname, "./images/logo_true.jpeg"),
-				cid: "logo@dhera.com",
-			},
-			{
-				filename: "usericon.png",
-				path: path.join(__dirname, "./images/usericon.png"),
-				cid: "usericon.com",
-			},
-		],
-	};
+    attachments: [
+      {
+        filename: "logo_true.jpeg",
+        path: path.join(__dirname, "./images/logo_true.jpeg"),
+        cid: "logo@dhera.com",
+      },
+      {
+        filename: "usericon.png",
+        path: path.join(__dirname, "./images/usericon.png"),
+        cid: "usericon.com",
+      },
+    ],
+  };
 
-	return transporter.sendMail(mailOptions);
+  return transporter.sendMail(mailOptions);
 });
