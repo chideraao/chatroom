@@ -45,10 +45,10 @@ function Emoji() {
 
     links.forEach((link) => {
       let section = document.querySelector(link.hash);
-      let sectionID = section.classList.value;
+      let sectionID = section?.classList.value;
       if (
-        section.offsetTop <= fromTop &&
-        section.offsetTop + section.offsetHeight > fromTop
+        section?.offsetTop <= fromTop &&
+        section?.offsetTop + section?.offsetHeight > fromTop
       ) {
         setScrollText(sectionID);
         link.classList.add("current");
@@ -164,7 +164,7 @@ function Emoji() {
             emoji.aliases.toLowerCase().includes(searchInput.toLowerCase())
           );
         })
-        .slice(0, 45);
+        .slice(0, 70);
 
   return (
     <div className="emoji-container">

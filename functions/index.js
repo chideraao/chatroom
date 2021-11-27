@@ -85,7 +85,7 @@ exports.userSignUp = functions.auth.user().onCreate((user) => {
 			  <td>
 				<p>Hey there,</p>
 				<p>
-				  I’m Chidera, the creator/developer of DheraGram and I’d like to
+				  I’m Dera, the creator/developer of DheraGram and I’d like to
 				  personally thank you for taking the time to sign up for my
 				  project.
 				</p>
@@ -98,7 +98,7 @@ exports.userSignUp = functions.auth.user().onCreate((user) => {
 				  If you have any suggestions, please reply to this email. I look
 				  forward to hearing from you!
 				</p>
-				<p>Chidera.</p>
+				<p>Dera.</p>
 			  </td>
 			</tr>
 		  </table>
@@ -312,7 +312,7 @@ exports.inviteUser = functions.https.onCall((data, context) => {
 								font-size: 0.9rem;
 							"
 						>
-							Chidera.
+							Dera.
 						</p>
 					</td>
 				</tr>

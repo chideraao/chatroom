@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import {
-	BrowserRouter as Router,
-	Redirect,
-	Route,
-	Switch,
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch,
 } from "react-router-dom";
 import "./styles/styles.css";
 import Home from "./pages/Home.jsx";
@@ -16,83 +16,83 @@ import { ContactsProvider } from "./context/ContactsContext";
 
 /**Higher order component for Private pages */
 function PrivateRoute({ component: Component, authenticated, ...rest }) {
-	return (
-		<Route
-			{...rest}
-			render={(props) =>
-				authenticated === true ? (
-					<Component {...props} />
-				) : (
-					<Redirect
-						to={{ pathname: "/login", state: { from: props.location } }}
-					/>
-				)
-			}
-		/>
-	);
+  return (
+    <Route
+      {...rest}
+      render={(props) =>
+        authenticated === true ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{ pathname: "/login", state: { from: props.location } }}
+          />
+        )
+      }
+    />
+  );
 }
 
 /**Higher order component for public pages */
 function PublicRoute({ component: Component, authenticated, ...rest }) {
-	return (
-		<Route
-			{...rest}
-			render={(props) =>
-				authenticated === false ? (
-					<Component {...props} />
-				) : (
-					<Redirect to="/home" />
-				)
-			}
-		/>
-	);
+  return (
+    <Route
+      {...rest}
+      render={(props) =>
+        authenticated === false ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to="/home" />
+        )
+      }
+    />
+  );
 }
 
 /**main app.js **/
 function App() {
-	const [authenticated, setAuthenticated] = useState(false);
+  const [authenticated, setAuthenticated] = useState(false);
 
-	useEffect(() => {
-		auth().onAuthStateChanged((user) => {
-			if (user) {
-				setAuthenticated(true);
-			} else {
-				setAuthenticated(false);
-			}
-		});
-		return () => {};
-	}, []);
+  useEffect(() => {
+    auth().onAuthStateChanged((user) => {
+      if (user) {
+        setAuthenticated(true);
+      } else {
+        setAuthenticated(false);
+      }
+    });
+    return () => {};
+  }, []);
 
-	return (
-		<div className="App">
-			<Router>
-				<ChatsProvider>
-					<ContactsProvider>
-						<ChatRoomProvider>
-							<Switch>
-								<PrivateRoute
-									path="/home"
-									component={Home}
-									authenticated={authenticated}
-								/>
-								<PublicRoute
-									path="/login"
-									component={Login}
-									authenticated={authenticated}
-								/>
-								<PublicRoute
-									path="/signup"
-									component={Signup}
-									authenticated={authenticated}
-								/>
-								<Redirect from="*" to="/signup" />
-							</Switch>
-						</ChatRoomProvider>
-					</ContactsProvider>
-				</ChatsProvider>
-			</Router>
-		</div>
-	);
+  return (
+    <div className="App">
+      <Router>
+        <ChatsProvider>
+          <ContactsProvider>
+            <ChatRoomProvider>
+              <Switch>
+                <PrivateRoute
+                  path="/home"
+                  component={Home}
+                  authenticated={authenticated}
+                />
+                <PublicRoute
+                  path="/login"
+                  component={Login}
+                  authenticated={authenticated}
+                />
+                <PublicRoute
+                  path="/signup"
+                  component={Signup}
+                  authenticated={authenticated}
+                />
+                <Redirect from="*" to="/signup" />
+              </Switch>
+            </ChatRoomProvider>
+          </ContactsProvider>
+        </ChatsProvider>
+      </Router>
+    </div>
+  );
 }
 
 export default App;
