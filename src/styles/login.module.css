@@ -1,206 +1,207 @@
 .formBody {
-	height: 100vh;
-	width: 100vw;
-	background-color: #282831;
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
-	flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background-color: #282831;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
 }
 
 .formBody .flex {
-	display: flex;
-	align-items: baseline;
+  display: flex;
+  align-items: baseline;
 }
 
 .formBody .card {
-	background-color: #212124;
-	border-radius: 5px;
-	color: #fff;
-	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-	padding: 1rem 1.5rem;
-	margin: 10px;
-	width: 25rem;
-	height: auto;
+  position: relative;
+  background-color: #212124;
+  border-radius: 5px;
+  color: #fff;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  padding: 1rem 1.5rem;
+  margin: 10px;
+  width: 25rem;
+  height: auto;
 }
 
 .formBody .card h1 {
-	text-align: center;
-	font-size: 1.5rem;
-	color: var(--text-color);
+  text-align: center;
+  font-size: 1.5rem;
+  color: var(--text-color);
 }
 
 .emailInput,
 .passwordInput {
-	width: 100%;
-	position: relative;
-	height: 4rem;
-	margin-bottom: 0.1rem;
+  width: 100%;
+  position: relative;
+  height: 4rem;
+  margin-bottom: 0.1rem;
 }
 
 .emailInput input,
 .passwordInput input {
-	font-size: 1rem;
-	width: 100%;
-	height: 100%;
-	background-color: #212124;
-	color: #595f6e;
-	padding-top: 1.2rem;
-	padding-left: 2rem;
-	border: none;
-	outline: none;
+  font-size: 1rem;
+  width: 100%;
+  height: 100%;
+  background-color: #212124;
+  color: #595f6e;
+  padding-top: 1.2rem;
+  padding-left: 2rem;
+  border: none;
+  outline: none;
 }
 
 .emailInput label,
 .passwordInput label {
-	position: absolute;
-	bottom: 0px;
-	left: 0;
-	height: 100%;
-	width: 100%;
-	pointer-events: none;
-	border-bottom: 1px solid #595f6e;
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+  border-bottom: 1px solid #595f6e;
 }
 
 .emailInput label::after,
 .passwordInput label::after {
-	content: "";
-	position: absolute;
-	height: 100%;
-	left: 0;
-	bottom: -2.1px;
-	width: 100%;
-	border-bottom: 3px solid #5fa8d3;
-	transform: translateX(-100%);
-	transition: all 0.3s ease;
+  content: "";
+  position: absolute;
+  height: 100%;
+  left: 0;
+  bottom: -2.1px;
+  width: 100%;
+  border-bottom: 3px solid #5fa8d3;
+  transform: translateX(-100%);
+  transition: all 0.3s ease;
 }
 
 .contentName {
-	position: absolute;
-	bottom: 3px;
-	left: 2rem;
-	color: #595f6e;
-	transition: all 0.3s ease;
+  position: absolute;
+  bottom: 3px;
+  left: 2rem;
+  color: #595f6e;
+  transition: all 0.3s ease;
 }
 
 .emailInput input:focus + .labelName .contentName,
 .emailInput input:valid + .labelName .contentName,
 .passwordInput input:focus + .labelName .contentName,
 .passwordInput input:valid + .labelName .contentName {
-	transform: translateY(-150%);
-	font-size: 0.8rem;
-	color: #5fa8d3;
+  transform: translateY(-150%);
+  font-size: 0.8rem;
+  color: #5fa8d3;
 }
 
 .emailInput input:focus + .labelName::after,
 .emailInput input:valid + .labelName::after,
 .passwordInput input:focus + .labelName::after,
 .passwordInput input:valid + .labelName::after {
-	transform: translateX(0%);
+  transform: translateX(0%);
 }
 
 .emailInput label svg,
 .passwordInput label svg {
-	position: absolute;
-	bottom: 3px;
-	height: 1.3rem;
-	left: 2px;
+  position: absolute;
+  bottom: 3px;
+  height: 1.3rem;
+  left: 2px;
 }
 
 .emailInput input:focus + .labelName svg,
 .emailInput input:valid + .labelName svg,
 .passwordInput input:focus + .labelName svg,
 .passwordInput input:valid + .labelName svg {
-	fill: #5fa8d3;
+  fill: #5fa8d3;
 }
 
 .bttn {
-	padding-top: 3rem;
-	margin-bottom: 1rem;
+  padding-top: 3rem;
+  margin-bottom: 1rem;
 }
 
 .rule {
-	width: 45%;
-	border-bottom: 1px solid #595f6e;
+  width: 45%;
+  border-bottom: 1px solid #595f6e;
 }
 
 .formBody p {
-	margin: 0.5rem;
-	color: var(--text-color);
+  margin: 0.5rem;
+  color: var(--text-color);
 }
 
 .formBody .bttn button {
-	width: 100%;
-	border-radius: 30px;
-	background-color: #5fa8d3;
+  width: 100%;
+  border-radius: 30px;
+  background-color: #5fa8d3;
 }
 
 .formBody .svgContainer {
-	display: flex;
-	justify-content: center;
-	margin-top: 1rem;
-	margin-bottom: 10rem;
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  margin-bottom: 10rem;
 }
 
 .formBody .svgContainer button:hover svg path {
-	fill: #5fa8d3;
+  fill: #5fa8d3;
 }
 
 .formBody .svgContainer button {
-	padding: 0;
-	background-color: transparent;
-	height: 1.5rem;
-	width: 1.3rem;
-	margin: 1rem;
-	margin-top: 0;
+  padding: 0;
+  background-color: transparent;
+  height: 1.5rem;
+  width: 1.3rem;
+  margin: 1rem;
+  margin-top: 0;
 }
 
 .formBody a {
-	color: #5fa8d3;
+  color: #5fa8d3;
 }
 
 .formBody .loginError {
-	font-size: 0.9rem;
+  font-size: 0.9rem;
 }
 
 .formBody .bttn button:hover {
-	background-image: linear-gradient(#5fa8d3, rgb(204, 179, 179));
+  background-image: linear-gradient(#5fa8d3, rgb(204, 179, 179));
 }
 
 /*-----------------------------------------------------------------MEDIA QUERIES------------------------------------------------------------------*/
 /*Ipad Pro*/
 @media (max-width: 1100px) {
-	.formBody .card {
-		width: 27rem;
-	}
+  .formBody .card {
+    width: 27rem;
+  }
 }
 /*Tablets and under*/
 @media (max-width: 960px) {
-	.formBody .card {
-		width: 25rem;
-	}
+  .formBody .card {
+    width: 25rem;
+  }
 }
 
 /*phones and under*/
 @media (max-width: 560px) {
-	.formBody .card {
-		width: 90vw;
-		height: 85vh;
-	}
+  .formBody .card {
+    width: 90vw;
+    height: 85vh;
+  }
 
-	.formBody .svgContainer {
-		margin-bottom: 11rem;
-	}
+  .formBody .svgContainer {
+    margin-bottom: 0;
+  }
+
+  .formBody .option {
+    position: absolute;
+    bottom: 0.7rem;
+  }
 }
 
 @media (max-width: 1100px) and (max-height: 770px) {
-	.formBody .svgContainer {
-		margin-bottom: 7rem;
-	}
-}
-
-@media (max-width: 1100px) and (max-height: 705px) {
-	.formBody .svgContainer {
-		margin-bottom: 3.8rem;
-	}
+  .formBody .option {
+    position: absolute;
+    bottom: 0.7rem;
+  }
 }
