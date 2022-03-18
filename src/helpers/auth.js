@@ -20,7 +20,7 @@ export function signInWithGithub() {
   return auth().signInWithPopup(provider);
 }
 
-export function credResponse(response) {
+export function oneTapSignIn(response) {
   if (response) {
     const cred = auth.GoogleAuthProvider.credential(response.credential);
 

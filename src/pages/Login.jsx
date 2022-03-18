@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
-  credResponse,
+  oneTapSignIn,
   signIn,
   signInWithGithub,
   signInWithGoogle,
@@ -14,8 +14,8 @@ import styles from "../styles/login.module.css";
 
 const google = window.google;
 
-const onOneTapSignIn = (credential) => {
-  credResponse(credential);
+const handleCredentialResponse = (credential) => {
+  oneTapSignIn(credential);
 };
 
 function Login() {
@@ -25,7 +25,7 @@ function Login() {
   useEffect(() => {
     google?.accounts.id.initialize({
       client_id: process.env.REACT_APP_CLIENT_ID,
-      callback: onOneTapSignIn,
+      callback: handleCredentialResponse,
     });
     google?.accounts.id.prompt((notification) => {
       console.log(notification);

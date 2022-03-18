@@ -4,7 +4,7 @@ import {
   signInWithGoogle,
   signInWithGithub,
   signUp,
-  credResponse,
+  oneTapSignIn,
 } from "../helpers/auth";
 import { ReactComponent as Password } from "../assets/logo/lock_black_24dp.svg";
 import { ReactComponent as Person } from "../assets/logo/person_outline_black_24dp.svg";
@@ -14,8 +14,8 @@ import styles from "../styles/login.module.css";
 
 const google = window.google;
 
-const onOneTapSignIn = (credential) => {
-  credResponse(credential);
+const handleCredentialResponse = (credential) => {
+  oneTapSignIn(credential);
 };
 
 function Signup() {
@@ -25,7 +25,7 @@ function Signup() {
   useEffect(() => {
     google?.accounts.id.initialize({
       client_id: process.env.REACT_APP_CLIENT_ID,
-      callback: onOneTapSignIn,
+      callback: handleCredentialResponse,
       context: "use",
     });
     google?.accounts.id.prompt((notification) => {
