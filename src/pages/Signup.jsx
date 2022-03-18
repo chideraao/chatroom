@@ -1,15 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { signInWithGoogle, signInWithGithub, signUp } from "../helpers/auth";
+import {
+  signInWithGoogle,
+  signInWithGithub,
+  signUp,
+  credResponse,
+} from "../helpers/auth";
 import { ReactComponent as Password } from "../assets/logo/lock_black_24dp.svg";
 import { ReactComponent as Person } from "../assets/logo/person_outline_black_24dp.svg";
 import { ReactComponent as Google } from "../assets/logo/google_brands.svg";
 import { ReactComponent as Github } from "../assets/logo/github_brands.svg";
 import styles from "../styles/login.module.css";
 
+const google = window.google;
+
+const onOneTapSignIn = (credential) => {
+  credResponse(credential);
+};
+
 function Signup() {
   const [user, setUser] = useState({ email: "", password: "" });
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    google?.accounts.id.initialize({
+      client_id: process.env.REACT_APP_CLIENT_ID,
+      callback: onOneTapSignIn,
+      context: "use",
+    });
+    google?.accounts.id.prompt((notification) => {
+      console.log(notification);
+    });
+    return () => {
+      google?.accounts.id.cancel();
+    };
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -52,7 +77,7 @@ function Signup() {
           onSubmit={handleSubmit}
         >
           <h1>Sign Up</h1>
-          <p>Fill in the form below to sign up.</p>
+          <p>Fill the form below to sign up.</p>
           <div className={styles.emailInput}>
             <input
               name="email"
