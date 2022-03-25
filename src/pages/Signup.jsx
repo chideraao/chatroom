@@ -14,8 +14,8 @@ import styles from "../styles/login.module.css";
 
 const google = window.google;
 
-const handleCredentialResponse = (credential) => {
-  oneTapSignIn(credential);
+const handleCredentialResponse = (response) => {
+  oneTapSignIn(response);
 };
 
 function Signup() {

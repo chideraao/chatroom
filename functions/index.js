@@ -177,9 +177,7 @@ exports.userDelete = functions.auth.user().onDelete((user) => {
 });
 
 exports.inviteUser = functions.https.onCall((data, context) => {
-  let email = data.email;
-  let photoURL = data.photoURL;
-  let displayName = data.displayName;
+  let {email, photoURL, displayName} = data;
 
   //Defining mailOptions
   const mailOptions = {
