@@ -124,7 +124,7 @@ exports.userSignUp = functions.auth.user().onCreate((user) => {
       photoURL: user.photoURL,
     })
     .then(() => {
-      admin
+      return admin
         .firestore()
         .collection(user.email)
         .doc("chats")
@@ -135,14 +135,14 @@ exports.userSignUp = functions.auth.user().onCreate((user) => {
         });
     })
     .then(() => {
-      admin
+      return admin
         .firestore()
         .collection(user.email)
         .doc("chats")
         .collection("okekechidera97@gmail.com")
         .add({
           content:
-            "Hey there, a warm welcome to you. It is a pleasure to have you on board!",
+            "Hey there, a warm welcome to you. We're stocked have you on board! 🥳 <br/><br/> Feel free to take a look around the app to see how DheraGram works.",
           timestamp: Date.now(),
         });
     })
@@ -154,7 +154,7 @@ exports.userSignUp = functions.auth.user().onCreate((user) => {
         .set(
           {
             content:
-              "Hey there, a warm welcome to you. It is a pleasure to have you on board!",
+              "Hey there, a warm welcome to you. We're stocked have you on board! 🥳 <br/> Feel free to take a look around the app to see how DheraGram works.",
             email: "okekechidera97@gmail.com",
             providerURL:
               "https://lh3.googleusercontent.com/a/AATXAJxGBtZ_UfDyG2snGHEMLNX0xcA8kivhnBfwhYzp=s96-c",
@@ -177,7 +177,7 @@ exports.userDelete = functions.auth.user().onDelete((user) => {
 });
 
 exports.inviteUser = functions.https.onCall((data, context) => {
-  let {email, photoURL, displayName} = data;
+  let { email, photoURL, displayName } = data;
 
   //Defining mailOptions
   const mailOptions = {
@@ -282,8 +282,8 @@ exports.inviteUser = functions.https.onCall((data, context) => {
 								color: grey;
 							"
 						>
-							DheraGram is a chat application created as a side project with ReactJS and Firebase. It consists of 
-							a general group chat feature for all users, as well as a private chat option.
+							DheraGram is a real-time chat application created as a side project with ReactJS and Firebase. Feel free
+							to explore with its numerous features.
 							I’d love to hear what you think of project.
 						</p>
 					</td>

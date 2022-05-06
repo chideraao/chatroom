@@ -35,6 +35,7 @@ function ChatRoom() {
     setWriteError(null);
     setContent("");
 
+    // update the database with the content
     if (content !== "") {
       try {
         await db.ref("chats").push({
@@ -74,7 +75,7 @@ function ChatRoom() {
     chatInput.focus();
     setReadError(null);
 
-    /**function to check uid of the next message in collection and add a style accordingly */
+    // to check uid of the next message in collection and add a style accordingly
     function nextCheck(arr) {
       for (var i = 0; i < arr.length - 1; i++) {
         let current = arr[i];

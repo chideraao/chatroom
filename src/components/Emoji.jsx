@@ -62,6 +62,7 @@ function Emoji() {
     emojiSearch.focus();
     iconRef.current.addEventListener("scroll", handleScroll);
 
+    // get the user's recent emojis
     try {
       store
         .collection("users")
@@ -93,6 +94,7 @@ function Emoji() {
     };
   }, [handleScroll, user, setEmojiOpen]);
 
+  // filter emojis by category
   let smileys = emojis.filter((emoji) => {
     return (
       emoji.category.includes("Smileys & Emotion") ||
@@ -139,6 +141,7 @@ function Emoji() {
       setContent((prevState) => prevState + e.target.innerText);
     }
 
+    // update the text input
     store
       .collection("users")
       .doc(user.uid)

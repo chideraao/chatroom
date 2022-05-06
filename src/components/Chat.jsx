@@ -34,6 +34,7 @@ function Chat() {
     setWriteError(null);
     setContent("");
 
+    // update the sender's document in the db
     if (content !== "") {
       try {
         await store
@@ -51,6 +52,7 @@ function Chat() {
         setWriteError(err.message);
       }
 
+      // update the sender's chat list
       try {
         await store.collection(`${user.email}`).doc(chat).set(
           {
@@ -72,6 +74,7 @@ function Chat() {
       });
     }
 
+    // update the receiver's document in the db
     if (chat !== user.email && content !== "") {
       try {
         await store
@@ -88,6 +91,7 @@ function Chat() {
         setWriteError(err.message);
       }
 
+      // update the receiver's chat list
       try {
         await store.collection(chat).doc(`${user.email}`).set(
           {
@@ -123,7 +127,7 @@ function Chat() {
     chatInput.focus();
     setReadError(null);
 
-    /**function to check uid of the next message in collection and add a style accordingly */
+    // check uid of the next message in collection and add a style accordingly
     function nextCheck(arr) {
       for (var i = 0; i < arr.length - 1; i++) {
         let current = arr[i];
@@ -200,12 +204,11 @@ function Chat() {
               text.uid === user.uid ? styles.sent : styles.received;
             return (
               <p
+                dangerouslySetInnerHTML={{ __html: text.content }}
                 title={new Date(text.timestamp).toLocaleString()}
                 key={text.timestamp}
                 className={`${messageClass} ${text.style}`}
-              >
-                {text.content}
-              </p>
+              ></p>
             );
           })}
         </div>

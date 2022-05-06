@@ -42,6 +42,7 @@ function Contacts() {
   const searchRef = useRef();
 
   useEffect(() => {
+    // get a snapshot of the user's chats
     async function getSnapshot() {
       try {
         store
