@@ -6,6 +6,22 @@
   --secondary-color: #3a3b3c;
 }
 
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #212124;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3a3b3c;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3a3b3c;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -21,13 +37,6 @@
   font-size: 1rem;
   position: relative;
 }
-
-/* .container {
-	max-width: 1250px;
-	margin: 0 auto;
-	overflow: auto;
-	padding: 0 40px;
-} */
 
 .null-screen {
   display: flex;
