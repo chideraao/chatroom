@@ -19,7 +19,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "firebase:deploy": "firebase deploy --only functions",
+    "firebase:migrate-artifacts": "gcloud artifacts docker upgrade migrate --projects=dhera-gram",
+    "firebase:artifacts-policy": "firebase functions:artifacts:setpolicy"
   },
   "eslintConfig": {
     "extends": [
@@ -40,6 +43,7 @@
     ]
   },
   "devDependencies": {
-    "eslint-config-prettier": "^8.3.0"
+    "eslint-config-prettier": "^8.3.0",
+    "firebase-tools": "^14.4.0"
   }
 }

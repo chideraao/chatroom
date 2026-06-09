@@ -17,7 +17,7 @@ function NullScreen() {
             rel="noreferrer"
             style={{ color: "#b0b3b8", textDecoration: "underline" }}
           >
-            Chidera Okeke
+            Dera Okeke
           </a>{" "}
         </p>
       </div>
