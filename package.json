@@ -22,7 +22,8 @@
     "eject": "react-scripts eject",
     "firebase:deploy": "firebase deploy --only functions",
     "firebase:migrate-artifacts": "gcloud artifacts docker upgrade migrate --projects=dhera-gram",
-    "firebase:artifacts-policy": "firebase functions:artifacts:setpolicy"
+    "firebase:artifacts-policy": "firebase functions:artifacts:setpolicy",
+    "firebase:secrets:migrate-gmail": "bash scripts/migrate-gmail-secrets.sh"
   },
   "eslintConfig": {
     "extends": [

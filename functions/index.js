@@ -2,33 +2,53 @@ const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const nodemailer = require("nodemailer");
 const path = require("path");
+const {defineSecret} = require("firebase-functions/params");
 
 admin.initializeApp();
 
-/** defining and destructuring environments config for firebase functions */
-let { useremail, refreshtoken, clientid, clientsecret } =
-  functions.config().gmail;
+const gmailUserEmail = defineSecret("GMAIL_USER_EMAIL");
+const gmailClientId = defineSecret("GMAIL_CLIENT_ID");
+const gmailClientSecret = defineSecret("GMAIL_CLIENT_SECRET");
+const gmailRefreshToken = defineSecret("GMAIL_REFRESH_TOKEN");
 
-let transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
-  auth: {
-    type: "OAuth2",
-    user: useremail,
-    clientId: clientid,
-    clientSecret: clientsecret,
-    refreshToken: refreshtoken,
-  },
-});
+const gmailSecrets = [
+  gmailUserEmail,
+  gmailClientId,
+  gmailClientSecret,
+  gmailRefreshToken,
+];
 
-exports.userSignUp = functions.auth.user().onCreate((user) => {
-  //Defining mailOptions
-  const mailOptions = {
-    from: "okekechidera97@gmail.com",
-    to: user.email,
-    subject: "Thanks for Signing up",
-    html: `
+/**
+ * Creates a Nodemailer transporter using Gmail OAuth credentials
+ * from Cloud Secret Manager.
+ * @return {import("nodemailer").Transporter}
+ */
+function createTransporter() {
+  return nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      type: "OAuth2",
+      user: gmailUserEmail.value(),
+      clientId: gmailClientId.value(),
+      clientSecret: gmailClientSecret.value(),
+      refreshToken: gmailRefreshToken.value(),
+    },
+  });
+}
+
+exports.userSignUp = functions
+    .runWith({secrets: gmailSecrets})
+    .auth.user()
+    .onCreate((user) => {
+      const transporter = createTransporter();
+
+      const mailOptions = {
+        from: "okekechidera97@gmail.com",
+        to: user.email,
+        subject: "Thanks for Signing up",
+        html: `
 		<div
 		style="
 			background-color: rgb(233, 230, 230);
@@ -104,87 +124,84 @@ exports.userSignUp = functions.auth.user().onCreate((user) => {
 		  </table>
 		</div>
 	</div>`,
-    attachments: [
-      {
-        filename: "logo_true.jpeg",
-        path: path.join(__dirname, "./images/logo_true.jpeg"),
-        cid: "logo@dhera.com",
-      },
-    ],
-  };
-
-  return admin
-    .firestore()
-    .collection("users")
-    .doc(user.uid)
-    .set({
-      email: user.email,
-      uid: user.uid,
-      recentEmojis: [],
-      photoURL: user.photoURL,
-    })
-    .then(() => {
-      return admin
-        .firestore()
-        .collection(user.email)
-        .doc("chats")
-        .collection("okekechidera97@gmail.com")
-        .add({
-          content: "👋",
-          timestamp: Date.now(),
-        });
-    })
-    .then(() => {
-      return admin
-        .firestore()
-        .collection(user.email)
-        .doc("chats")
-        .collection("okekechidera97@gmail.com")
-        .add({
-          content:
-            "Hey there, a warm welcome to you. We're stocked have you on board! 🥳 <br/><br/> Feel free to take a look around the app to see how DheraGram works.",
-          timestamp: Date.now(),
-        });
-    })
-    .then(() => {
-      admin
-        .firestore()
-        .collection(user.email)
-        .doc("okekechidera97@gmail.com")
-        .set(
+        attachments: [
           {
-            content:
-              "Hey there, a warm welcome to you. We're stocked have you on board! 🥳 <br/> Feel free to take a look around the app to see how DheraGram works.",
-            email: "okekechidera97@gmail.com",
-            providerURL:
-              "https://lh3.googleusercontent.com/a/AATXAJxGBtZ_UfDyG2snGHEMLNX0xcA8kivhnBfwhYzp=s96-c",
-            timestamp: Date.now(),
+            filename: "logo_true.jpeg",
+            path: path.join(__dirname, "./images/logo_true.jpeg"),
+            cid: "logo@dhera.com",
           },
-          { merge: true }
-        );
-    })
-    .then(() => {
-      transporter.sendMail(mailOptions);
-    })
-    .catch((err) => {
-      console.log(err);
+        ],
+      };
+
+      return admin
+          .firestore()
+          .collection("users")
+          .doc(user.uid)
+          .set({
+            email: user.email,
+            uid: user.uid,
+            recentEmojis: [],
+            photoURL: user.photoURL,
+          })
+          .then(() => {
+            return admin
+                .firestore()
+                .collection(user.email)
+                .doc("chats")
+                .collection("okekechidera97@gmail.com")
+                .add({
+                  content: "👋",
+                  timestamp: Date.now(),
+                });
+          })
+          .then(() => {
+            return admin
+                .firestore()
+                .collection(user.email)
+                .doc("chats")
+                .collection("okekechidera97@gmail.com")
+                .add({
+                  content:
+                "Hey there, a warm welcome to you. We're stocked have you on board! 🥳 <br/><br/> Feel free to take a look around the app to see how DheraGram works.",
+                  timestamp: Date.now(),
+                });
+          })
+          .then(() => {
+            return admin
+                .firestore()
+                .collection(user.email)
+                .doc("okekechidera97@gmail.com")
+                .set(
+                    {
+                      content:
+                    "Hey there, a warm welcome to you. We're stocked have you on board! 🥳 <br/> Feel free to take a look around the app to see how DheraGram works.",
+                      email: "okekechidera97@gmail.com",
+                      providerURL:
+                    "https://lh3.googleusercontent.com/a/AATXAJxGBtZ_UfDyG2snGHEMLNX0xcA8kivhnBfwhYzp=s96-c",
+                      timestamp: Date.now(),
+                    },
+                    {merge: true}
+                );
+          })
+          .then(() => transporter.sendMail(mailOptions));
     });
-});
 
 exports.userDelete = functions.auth.user().onDelete((user) => {
   const doc = admin.firestore().collection("users").doc(user.uid);
   return doc.delete();
 });
 
-exports.inviteUser = functions.https.onCall((data, context) => {
-  let { email, photoURL, displayName } = data;
+exports.inviteUser = functions
+    .runWith({secrets: gmailSecrets})
+    .https.onCall((data, context) => {
+      const transporter = createTransporter();
+      const {email, photoURL, displayName} = data;
 
-  //Defining mailOptions
-  const mailOptions = {
-    from: "okekechidera97@gmail.com",
-    to: email,
-    subject: `Email invitation from ${context.auth.token.email}`,
-    html: `<div
+      const mailOptions = {
+        from: "okekechidera97@gmail.com",
+        to: email,
+        subject: `Email invitation from ${context.auth.token.email}`,
+        html: `<div
 		style="
 			background-color: rgb(233, 230, 230);
 			display: flex;
@@ -237,8 +254,8 @@ exports.inviteUser = functions.https.onCall((data, context) => {
 				<tr>
 					<td>
 						<h2 style="margin: 8px; opacity: 0.8">${
-              displayName ? displayName : context.auth.token.email
-            }</h2>
+  displayName ? displayName : context.auth.token.email
+}</h2>
 					</td>
 				</tr>
 			</table>
@@ -317,19 +334,19 @@ exports.inviteUser = functions.https.onCall((data, context) => {
 			</table>
 		</div>
 	</div>`,
-    attachments: [
-      {
-        filename: "logo_true.jpeg",
-        path: path.join(__dirname, "./images/logo_true.jpeg"),
-        cid: "logo@dhera.com",
-      },
-      {
-        filename: "usericon.png",
-        path: path.join(__dirname, "./images/usericon.png"),
-        cid: "usericon.com",
-      },
-    ],
-  };
+        attachments: [
+          {
+            filename: "logo_true.jpeg",
+            path: path.join(__dirname, "./images/logo_true.jpeg"),
+            cid: "logo@dhera.com",
+          },
+          {
+            filename: "usericon.png",
+            path: path.join(__dirname, "./images/usericon.png"),
+            cid: "usericon.com",
+          },
+        ],
+      };
 
-  return transporter.sendMail(mailOptions);
-});
+      return transporter.sendMail(mailOptions);
+    });
